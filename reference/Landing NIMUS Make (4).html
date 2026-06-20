@@ -1,0 +1,3768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NIMUS Make · Objetos que conectan tu marca con tus clientes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Archivo:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap');
+
+/* ── NIMUS proprietary fonts ──────────────────────────
+   Cloud Loop  — display / titulares (curvy sans)
+   Arch Tech   — UI / cuerpo (technical sans)
+   Both are loaded from /assets/fonts. Caveat is loaded
+   as the handwritten annotation fallback. */
+@font-face {
+  font-family: 'Cloud Loop';
+  src: url('assets/fonts/CloudLoop.woff2') format('woff2'),
+       url('assets/fonts/CloudLoop.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cloud Loop';
+  src: url('assets/fonts/CloudLoop.woff2') format('woff2'),
+       url('assets/fonts/CloudLoop.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arch Tech';
+  src: url('assets/fonts/ArchTech.woff2') format('woff2'),
+       url('assets/fonts/ArchTech.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arch Tech';
+  src: url('assets/fonts/ArchTech.woff2') format('woff2'),
+       url('assets/fonts/ArchTech.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Light theme — primary */
+  --bg: #f5f3ee;
+  --paper: #ffffff;
+  --paper-2: #faf8f3;
+  --ink: #1a1814;
+  --ink-soft: #4a4842;
+  --ink-mute: #8a877f;
+  --line: rgba(26, 24, 20, .12);
+  --line-soft: rgba(26, 24, 20, .06);
+
+  /* Dark — for inverted sections */
+  --night: #0d0d0b;
+  --night-2: #161613;
+  --night-3: #1f1f1c;
+  --night-line: rgba(245, 243, 238, .1);
+
+  /* Accents */
+  --amber: #e89e25;
+  --amber-rgb: 232, 158, 37;
+  --coral: #e05a35;
+  --teal: #1fa882;
+  --purple: #7c5cbf;
+  --accent: var(--amber);
+  --accent-rgb: var(--amber-rgb);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Arch Tech', 'Archivo', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01';
+}
+
+::selection { background: var(--accent); color: var(--night); }
+
+img { display: block; max-width: 100%; }
+
+/* Typography primitives */
+.display {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  line-height: .94;
+}
+.display em { font-style: italic; }
+.kicker {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.mono {
+  font-family: 'Space Mono', monospace;
+}
+
+/* ────────── NAV ────────── */
+.topnav {
+  position: sticky; top: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 40px;
+  background: rgba(245, 243, 238, .85);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line-soft);
+}
+.brand-logo {
+  height: 44px;
+  width: auto;
+  display: block;
+  transition: transform .2s;
+}
+.brand-logo:hover { transform: scale(1.03); }
+.nav-links {
+  display: flex; gap: 6px; align-items: center;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+}
+.nav-links a:hover { color: var(--ink); background: rgba(26,24,20,.04); }
+.nav-cta {
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 18px;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: transform .15s, background .15s;
+}
+.nav-cta:hover { background: var(--accent); color: var(--night); transform: translateY(-1px); }
+
+@media (max-width: 860px) {
+  .topnav { padding: 12px 20px; }
+  .brand-logo { height: 36px; }
+  .nav-links { display: none; }
+}
+
+/* ────────── HERO ────────── */
+.hero {
+  position: relative;
+  padding: 120px 40px 100px;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: 80px;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-orb {
+  position: absolute;
+  width: 720px; height: 720px; border-radius: 50%;
+  top: -240px; right: -260px; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), .14) 0%, transparent 65%);
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink-soft);
+  background: rgba(26,24,20,.04);
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin-bottom: 32px;
+}
+.hero-tag .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), .15);
+}
+.hero h1 {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: clamp(56px, 7.4vw, 104px);
+  line-height: .92;
+  letter-spacing: -.02em;
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.hero-sub {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 540px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.hero-ctas {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.btn {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 14px; font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: transform .15s, background .15s, color .15s, border-color .15s;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn-primary:hover { background: var(--accent); color: var(--night); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.btn-ghost:hover { border-color: var(--ink); background: var(--paper); }
+.btn .arr { display: inline-block; transition: transform .15s; }
+.btn:hover .arr { transform: translateX(4px); }
+
+.hero-pills {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  margin-top: 48px; padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.hero-pill {
+  display: flex; flex-direction: column; gap: 4px;
+  font-size: 13px; color: var(--ink-mute);
+}
+.hero-pill strong {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 26px; font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+}
+.hero-pill strong em { color: var(--accent); font-style: italic; }
+.hero-pill span {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* HERO VISUAL ────────────────────────── */
+.hero-visual {
+  position: relative; z-index: 1;
+  width: 100%;
+  aspect-ratio: 1 / 1.05;
+  display: flex; align-items: center; justify-content: center;
+}
+.stage {
+  position: relative;
+  width: 100%; max-width: 520px;
+  aspect-ratio: 1;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+}
+.stage-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(26,24,20,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,24,20,.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.stage-label {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.stage-meta {
+  position: absolute; bottom: 18px; left: 22px; right: 22px;
+  display: flex; justify-content: space-between;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: var(--ink-mute); letter-spacing: .06em;
+}
+
+/* Tap Bar (CSS) — realistic */
+.tapbar {
+  position: absolute; left: 38%; top: 58%;
+  transform: translate(-50%, -50%) rotateX(8deg) rotateY(-4deg);
+  transform-style: preserve-3d;
+  width: 260px; padding: 18px 14px 22px;
+  background:
+    linear-gradient(180deg, #2c2c27 0%, #1c1c19 60%, #131311 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow:
+    0 50px 80px -22px rgba(13, 11, 8, .55),
+    0 12px 24px -8px rgba(13, 11, 8, .35),
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 -1px 0 rgba(0,0,0,.4);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.tapbar::after {
+  /* base shadow */
+  content: '';
+  position: absolute; left: 8%; right: 8%; bottom: -16px; height: 22px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.45), transparent 70%);
+  filter: blur(5px);
+  z-index: -1;
+  pointer-events: none;
+}
+.tap-chip {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 7px;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255,255,255,.06), transparent 55%),
+    linear-gradient(180deg, #1f1f1c 0%, #161613 100%);
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.04),
+    inset 0 -1px 0 rgba(0,0,0,.35),
+    0 2px 0 rgba(0,0,0,.25);
+  display: grid; place-items: center;
+  color: rgba(255,255,255,.5);
+  transition: background .35s ease, color .35s ease, box-shadow .35s ease;
+}
+.tap-chip svg {
+  width: 56%; height: 56%;
+  display: block;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.4));
+}
+.tap-chip .chip-label {
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 6.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(255,255,255,.32);
+  pointer-events: none;
+}
+.tap-chip[data-active="true"] {
+  background:
+    radial-gradient(circle at 35% 25%, rgba(var(--accent-rgb),.45), transparent 55%),
+    linear-gradient(180deg, rgba(var(--accent-rgb),.32) 0%, rgba(var(--accent-rgb),.18) 100%);
+  border-color: rgba(var(--accent-rgb), .55);
+  color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.1),
+    inset 0 -1px 0 rgba(0,0,0,.3),
+    0 0 0 4px rgba(var(--accent-rgb), .14);
+}
+.tap-chip[data-active="true"] .chip-label {
+  color: rgba(var(--accent-rgb), .9);
+}
+.tap-chip .ring {
+  position: absolute; inset: -1px; border-radius: 7px;
+  border: 1px solid var(--accent);
+  opacity: 0; transform: scale(1); pointer-events: none;
+}
+.tap-chip[data-active="true"] .ring {
+  animation: ring 1.8s ease-out infinite;
+}
+@keyframes ring {
+  0% { opacity: .7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.2); }
+}
+.tap-tag {
+  position: absolute; top: -10px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  padding: 3px 12px; border-radius: 999px;
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: .22em;
+  color: var(--ink-mute); text-transform: uppercase;
+  border: 1px solid var(--line-soft);
+  z-index: 2;
+}
+
+/* NFC wave indicator on the chip */
+.nfc-wave {
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 8px; height: 8px;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.tap-chip[data-active="true"] .nfc-wave { opacity: 1; }
+.nfc-wave::before, .nfc-wave::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1.2px solid var(--accent);
+  border-color: transparent var(--accent) var(--accent) transparent;
+  transform: rotate(-45deg);
+}
+.nfc-wave::before { inset: 1px; opacity: .55; }
+
+/* Phone — realistic preview */
+.phone {
+  position: absolute; right: 4%; top: 12%;
+  width: 140px; height: 268px;
+  background: linear-gradient(135deg, #1a1a17 0%, #0a0a08 100%);
+  border: 2px solid #2a2a25;
+  border-radius: 24px;
+  box-shadow:
+    0 40px 70px -18px rgba(13, 11, 8, .45),
+    0 8px 18px -6px rgba(13, 11, 8, .25),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  overflow: hidden;
+  transform: rotate(-9deg);
+  animation: phone-bob 6s ease-in-out infinite;
+}
+@keyframes phone-bob {
+  0%, 100% { transform: rotate(-9deg) translateY(0); }
+  50% { transform: rotate(-7deg) translateY(-10px); }
+}
+.phone::before {
+  /* notch */
+  content: ''; position: absolute; top: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 50px; height: 14px;
+  background: #0a0a08; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.05);
+  z-index: 3;
+}
+.phone-screen {
+  position: absolute; inset: 5px;
+  background: linear-gradient(180deg, #1a1a17 0%, #0a0a08 50%);
+  border-radius: 18px;
+  padding: 26px 8px 10px;
+  display: flex; flex-direction: column; gap: 8px;
+  overflow: hidden;
+}
+.phone-screen .ps-status {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; font-weight: 700;
+  color: rgba(255,255,255,.85);
+  padding: 0 4px;
+  margin-bottom: 2px;
+}
+.phone-screen .ps-status .icons {
+  display: flex; gap: 4px; align-items: center;
+}
+.phone-screen .ic-signal {
+  display: inline-flex; align-items: flex-end; gap: 1px; height: 8px;
+}
+.phone-screen .ic-signal i {
+  width: 1.5px; background: rgba(255,255,255,.85); border-radius: .5px; display: block;
+}
+.phone-screen .ic-signal i:nth-child(1) { height: 30%; }
+.phone-screen .ic-signal i:nth-child(2) { height: 55%; }
+.phone-screen .ic-signal i:nth-child(3) { height: 80%; }
+.phone-screen .ic-signal i:nth-child(4) { height: 100%; }
+.phone-screen .ic-batt {
+  width: 14px; height: 7px;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 2px;
+  position: relative;
+  padding: 1px;
+  display: flex;
+}
+.phone-screen .ic-batt::after {
+  content: ''; display: block;
+  width: 70%; height: 100%;
+  background: rgba(255,255,255,.85);
+  border-radius: 1px;
+}
+.phone-screen .ic-batt::before {
+  content: ''; position: absolute;
+  right: -3px; top: 50%; transform: translateY(-50%);
+  width: 2px; height: 3px;
+  background: rgba(255,255,255,.7);
+  border-radius: 0 1px 1px 0;
+}
+.ps-app {
+  flex: 1;
+  position: relative;
+  border-radius: 12px;
+  background: var(--app-bg, linear-gradient(160deg, #2a2a25 0%, #1a1a17 100%));
+  padding: 11px 11px 12px;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  transition: background .35s ease;
+}
+.ps-app .ps-head {
+  display: flex; align-items: center; gap: 8px;
+}
+.ps-app .ps-avatar {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--app-accent, var(--accent));
+  display: grid; place-items: center;
+  font-family: 'Cloud Loop', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--night);
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.2);
+}
+.ps-app .ps-meta {
+  flex: 1; display: flex; flex-direction: column; gap: 1px;
+  min-width: 0;
+  line-height: 1.15;
+}
+.ps-app .ps-name {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 9.5px; font-weight: 700;
+  color: #fff;
+  letter-spacing: .01em;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ps-app .ps-handle {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .02em;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ps-app .ps-action {
+  background: var(--app-accent, var(--accent));
+  color: var(--night);
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 8.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: .02em;
+  flex-shrink: 0;
+  box-shadow: 0 1px 0 rgba(0,0,0,.2);
+}
+.ps-app .ps-body {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.ps-app .ps-tag {
+  display: inline-flex; align-self: flex-start;
+  font-family: 'Arch Tech', sans-serif;
+  font-size: 7px; font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(var(--app-accent-rgb, 232,158,37), .22);
+  color: var(--app-accent, var(--accent));
+  border: 1px solid rgba(var(--app-accent-rgb, 232,158,37), .35);
+}
+.ps-app .ps-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  min-height: 0;
+}
+.ps-app .ps-tile {
+  background: rgba(255,255,255,.05);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.ps-app .ps-tile::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(var(--app-accent-rgb, 232,158,37), .35), transparent 65%);
+}
+.ps-app .ps-tile:nth-child(2)::before,
+.ps-app .ps-tile:nth-child(4)::before,
+.ps-app .ps-tile:nth-child(6)::before {
+  background: linear-gradient(225deg, rgba(255,255,255,.14), transparent 60%);
+}
+.phone-bottom {
+  position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  width: 36%; height: 3px;
+  background: rgba(255,255,255,.45);
+  border-radius: 999px;
+}
+
+.annot {
+  position: absolute;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: var(--ink-mute);
+  letter-spacing: .04em;
+  display: flex; align-items: center; gap: 8px;
+}
+.annot::before {
+  content: ''; display: block; width: 26px; height: 1px; background: var(--ink-mute);
+}
+.annot.a1 { bottom: 22%; left: 6%; }
+.annot.a2 { top: 12%; left: 8%; }
+
+@media (max-width: 1000px) {
+  .hero { grid-template-columns: 1fr; padding: 70px 24px 70px; gap: 50px; }
+  .hero-visual { max-width: 460px; margin: 0 auto; aspect-ratio: 1; }
+}
+
+/* ────────── MARQUEE STRIP ────────── */
+.strip {
+  background: var(--night);
+  color: var(--bg);
+  overflow: hidden;
+  padding: 22px 0;
+  display: flex;
+}
+.strip-track {
+  display: flex; gap: 56px; flex-shrink: 0;
+  animation: marquee 40s linear infinite;
+  white-space: nowrap; padding-right: 56px;
+}
+.strip-item {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 18px; font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--bg);
+  display: flex; align-items: center; gap: 24px;
+}
+.strip-item::after {
+  content: '◆';
+  color: var(--accent);
+  font-size: 10px;
+  margin-left: 24px;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ────────── SISTEMAS DIGITALES ────────── */
+.systems-section {
+  background: var(--paper-2);
+  padding: 100px 40px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.systems-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.sys-card {
+  background: var(--paper);
+  padding: 28px 26px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: background .2s, transform .2s;
+  cursor: pointer;
+  position: relative;
+}
+.sys-card:hover { background: var(--paper-2); }
+.sys-card .sys-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.sys-card .sys-icon svg {
+  width: 22px; height: 22px;
+}
+.sys-card .sys-name {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.05;
+  letter-spacing: -.01em;
+}
+.sys-card .sys-name em {
+  font-style: italic;
+  color: var(--accent);
+}
+.sys-card .sys-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  flex: 1;
+}
+.sys-card .sys-tag {
+  font-family: 'Arch Tech', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.sys-card .sys-tag::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal);
+}
+.sys-card .sys-tag.soon::before { background: var(--amber); }
+@media (max-width: 980px) {
+  .systems-section { padding: 70px 20px; }
+  .systems-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .systems-grid { grid-template-columns: 1fr; }
+}
+
+/* ────────── REVEAL ON SCROLL ────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity .9s cubic-bezier(.2, .7, .2, 1),
+      transform .9s cubic-bezier(.2, .7, .2, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.from-left  { transform: translateX(-40px); }
+  .reveal.from-right { transform: translateX(40px); }
+  .reveal.scale-in   { transform: scale(.94); }
+  .reveal.in-view {
+    opacity: 1;
+    transform: none;
+  }
+  /* Stagger children inside a reveal-stagger container */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity .7s cubic-bezier(.2, .7, .2, 1),
+      transform .7s cubic-bezier(.2, .7, .2, 1);
+  }
+  .reveal-stagger.in-view > * { opacity: 1; transform: none; }
+  .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0ms; }
+  .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 80ms; }
+  .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 160ms; }
+  .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 240ms; }
+  .reveal-stagger.in-view > *:nth-child(5) { transition-delay: 320ms; }
+  .reveal-stagger.in-view > *:nth-child(6) { transition-delay: 400ms; }
+}
+
+/* Counter number flip-up */
+.counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Nav shadow on scroll */
+.topnav.is-scrolled {
+  box-shadow: 0 1px 0 rgba(13,13,11,.06), 0 10px 30px -10px rgba(13,13,11,.1);
+}
+
+/* Hero orb parallax helper */
+.hero-orb, .cta-orb {
+  transition: transform .12s linear;
+}
+
+/* Marquee speed-up on hover */
+.strip:hover .strip-track { animation-duration: 18s; }
+.strip-track { transition: none; }
+
+/* Card hover micro-lift (refine) */
+.lcard, .pack, .ncell, .flow-step, .faq, .feature-cta, .cta-contact {
+  will-change: transform;
+}
+
+/* Smooth-scroll bump margin so anchored sections aren't hidden by sticky nav */
+section[id], div[id] { scroll-margin-top: 80px; }
+
+/* ────────── MOBILE NAV DRAWER ────────── */
+.nav-burger {
+  display: none;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  cursor: pointer;
+  position: relative;
+  z-index: 90;
+}
+.nav-burger::before, .nav-burger::after, .nav-burger span {
+  content: '';
+  position: absolute;
+  left: 11px; right: 11px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform .25s ease, opacity .2s;
+}
+.nav-burger::before { top: 14px; }
+.nav-burger span { top: 19px; }
+.nav-burger::after { top: 24px; }
+.nav-burger[aria-expanded="true"]::before { transform: translateY(5px) rotate(45deg); }
+.nav-burger[aria-expanded="true"] span { opacity: 0; }
+.nav-burger[aria-expanded="true"]::after { transform: translateY(-5px) rotate(-45deg); }
+
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 70;
+  padding: 96px 32px 40px;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+  display: flex; flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.mobile-drawer[data-open="true"] { transform: translateX(0); }
+.mobile-drawer a {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 38px;
+  line-height: 1.1;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+  transition: color .2s, padding-left .2s;
+}
+.mobile-drawer a:hover, .mobile-drawer a:focus { color: var(--accent); padding-left: 8px; }
+.mobile-drawer a .mn-idx {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+  letter-spacing: .12em;
+  display: block;
+  margin-bottom: 4px;
+}
+.mobile-drawer .mn-foot {
+  margin-top: auto;
+  padding-top: 24px;
+  font-family: 'Arch Tech', sans-serif;
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 860px) {
+  .nav-burger { display: block; }
+  .nav-actions { gap: 6px; }
+  .nav-actions .btn-ghost { display: none; }
+}
+
+/* ────────── FLOATING CTA (mobile) ────────── */
+.float-cta {
+  position: fixed;
+  bottom: 18px; left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  z-index: 65;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: 'Arch Tech', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .04em;
+  padding: 14px 22px;
+  border-radius: 999px;
+  box-shadow: 0 14px 30px -8px rgba(13,13,11,.35);
+  text-decoration: none;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+}
+.float-cta[data-visible="true"] { transform: translateX(-50%) translateY(0); }
+.float-cta .arr { display: inline-block; }
+@media (max-width: 860px) {
+  .float-cta { display: inline-flex; }
+}
+
+/* ────────── SECTION PROGRESS DOTS (desktop) ────────── */
+.scroll-dots {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  z-index: 55;
+  display: flex; flex-direction: column;
+  gap: 14px;
+  padding: 14px 10px;
+  background: rgba(255,255,255,.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.scroll-dots .dot {
+  position: relative;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(26,24,20,.18);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  transition: background .2s, transform .2s;
+}
+.scroll-dots .dot::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 22px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Arch Tech', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease, transform .15s ease;
+}
+.scroll-dots .dot:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-4px);
+}
+.scroll-dots .dot[data-active="true"] {
+  background: var(--accent);
+  transform: scale(1.4);
+}
+@media (max-width: 1100px) { .scroll-dots { display: none; } }
+
+/* ────────── SCROLL-TO-TOP ────────── */
+.to-top {
+  position: fixed;
+  bottom: 18px; right: 18px;
+  z-index: 60;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: grid; place-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity .25s, transform .25s, background .15s;
+  box-shadow: 0 10px 24px -6px rgba(13,13,11,.3);
+}
+.to-top[data-visible="true"] { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: var(--accent); color: var(--night); }
+@media (max-width: 860px) {
+  .to-top { bottom: 78px; right: 14px; width: 40px; height: 40px; }
+}
+
+/* ────────── TOAST ────────── */
+.toast {
+  position: fixed;
+  bottom: 30px; left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  z-index: 95;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-family: 'Arch Tech', sans-serif;
+  font-size: 13px;
+  letter-spacing: .02em;
+  box-shadow: 0 14px 30px -8px rgba(13,13,11,.4);
+  display: flex; align-items: center; gap: 10px;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
+}
+.toast[data-visible="true"] { transform: translateX(-50%) translateY(0); }
+.toast .toast-icon {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--night);
+  display: grid; place-items: center;
+  font-weight: 800;
+  font-size: 11px;
+}
+
+/* Make contact items obviously clickable & give them a copy hint */
+.cta-contact {
+  cursor: pointer;
+}
+.cta-contact .copy-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: rgba(245,243,238,.4);
+  text-transform: uppercase;
+  margin-right: 4px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.cta-contact:hover .copy-hint { opacity: 1; }
+
+/* ────────── QUICK QUOTE FORM ────────── */
+.quick-quote {
+  background: rgba(245,243,238,.04);
+  border: 1px solid var(--night-line);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.quick-quote h3 {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--bg);
+  line-height: 1.1;
+}
+.quick-quote h3 em { color: var(--accent); font-style: italic; }
+.qq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.qq-field {
+  position: relative;
+}
+.qq-field.full { grid-column: 1 / -1; }
+.qq-field input, .qq-field select, .qq-field textarea {
+  width: 100%;
+  background: rgba(13,13,11,.4);
+  border: 1px solid var(--night-line);
+  border-radius: 10px;
+  color: var(--bg);
+  font-family: 'Arch Tech', sans-serif;
+  font-size: 13px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .15s, background .15s;
+}
+.qq-field input:focus, .qq-field select:focus, .qq-field textarea:focus {
+  border-color: var(--accent);
+  background: rgba(13,13,11,.6);
+}
+.qq-field input::placeholder, .qq-field textarea::placeholder {
+  color: rgba(245,243,238,.35);
+}
+.qq-field textarea { resize: vertical; min-height: 70px; }
+.qq-field select { appearance: none; padding-right: 32px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.4' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+.quick-quote button {
+  margin-top: 4px;
+  background: var(--accent);
+  color: var(--night);
+  border: none;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-family: 'Arch Tech', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: filter .15s, transform .15s;
+  display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+}
+.quick-quote button:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.quick-quote .qq-tiny {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(245,243,238,.4);
+  letter-spacing: .04em;
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* Improve focus accessibility globally */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Variant pill keyboard hint */
+.tap-variants .variant-pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ────────── CLIENT WORK STRIP ────────── */
+.work-strip {
+  background: var(--paper-2);
+  padding: 80px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.work-head {
+  max-width: 1280px; margin: 0 auto 36px;
+  padding: 0 40px;
+  display: flex; justify-content: space-between; align-items: end;
+  gap: 40px;
+}
+.work-head .sk {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.work-head .sk::before {
+  content: ''; width: 22px; height: 1px; background: var(--accent);
+}
+.work-head h2 {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 42px);
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+.work-head h2 em { font-style: italic; color: var(--accent); }
+.work-head .work-note {
+  font-size: 13px;
+  color: var(--ink-mute);
+  max-width: 280px;
+  text-align: right;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: .04em;
+}
+
+.work-track-wrap {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+.work-track {
+  display: flex; gap: 18px;
+  width: max-content;
+  animation: work-slide 48s linear infinite;
+}
+.work-strip:hover .work-track { animation-play-state: paused; }
+@keyframes work-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.work-card {
+  flex-shrink: 0;
+  width: 220px;
+  display: flex; flex-direction: column;
+  gap: 10px;
+}
+.work-photo {
+  position: relative;
+  width: 220px; height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e8e4d8, #d2cdbe);
+  display: grid; place-items: center;
+}
+.work-photo image-slot {
+  width: 100%; height: 100%;
+  --is-placeholder-bg: transparent;
+  --is-placeholder-color: rgba(13,13,11,.45);
+  --is-border: 1px dashed rgba(13,13,11,.18);
+}
+.work-name[contenteditable], .work-meta[contenteditable] {
+  cursor: text;
+  outline: none;
+  border-radius: 4px;
+  padding: 1px 3px;
+  margin-left: -3px;
+  transition: background .15s;
+}
+.work-name[contenteditable]:hover, .work-meta[contenteditable]:hover {
+  background: rgba(var(--accent-rgb), .08);
+}
+.work-name[contenteditable]:focus, .work-meta[contenteditable]:focus {
+  background: rgba(var(--accent-rgb), .12);
+  outline: 1px solid rgba(var(--accent-rgb), .4);
+}
+/* Cloned cards aren't interactive */
+.work-track .work-card[data-clone] {
+  pointer-events: none;
+}
+.work-track .work-card[data-clone] [contenteditable] {
+  pointer-events: none;
+  user-select: none;
+}
+.work-photo::after {
+  content: attr(data-tag);
+  position: absolute;
+  top: 12px; left: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(13,13,11,.55);
+  background: rgba(255,255,255,.7);
+  padding: 4px 8px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.work-name {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 18px;
+  letter-spacing: -.01em;
+  line-height: 1;
+}
+.work-name em { font-style: italic; color: var(--ink-mute); }
+.work-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-mute);
+  letter-spacing: .06em;
+}
+@media (max-width: 860px) {
+  .work-head { flex-direction: column; align-items: start; padding: 0 20px; }
+  .work-head .work-note { text-align: left; }
+  .work-card, .work-photo { width: 180px; }
+  .work-photo { height: 180px; }
+}
+
+/* ────────── SECTION ────────── */
+.section {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 130px 40px;
+}
+.section-narrow { max-width: 1080px; }
+.section.dark {
+  max-width: none;
+  background: var(--night);
+  color: var(--bg);
+}
+.section.dark .ink-mute { color: rgba(245,243,238,.55); }
+.section.dark .lede { color: rgba(245,243,238,.65); }
+
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 80px;
+  margin-bottom: 64px;
+  align-items: end;
+}
+.section-head .sk {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-head .sk::before {
+  content: ''; width: 22px; height: 1px; background: var(--accent);
+}
+.section-head h2 {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: clamp(38px, 5.2vw, 68px);
+  line-height: .98;
+  letter-spacing: -.015em;
+  text-wrap: balance;
+}
+.section-head h2 em { font-style: italic; color: var(--accent); }
+.section-head .lede {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 460px;
+}
+@media (max-width: 860px) {
+  .section { padding: 80px 24px; }
+  .section-head { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ────────── FEATURED PRODUCT (TAP BAR) ────────── */
+.feature {
+  background: var(--night);
+  color: var(--bg);
+  padding: 130px 40px;
+}
+.feature-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 80px;
+  align-items: center;
+}
+.feature-tag {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.feature h2 {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: clamp(42px, 5.6vw, 76px);
+  line-height: .96;
+  letter-spacing: -.015em;
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.feature h2 em { font-style: italic; color: var(--accent); }
+.feature-sub {
+  font-size: 16px;
+  color: rgba(245,243,238,.6);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+.feature-list {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-bottom: 36px;
+}
+.feature-list-item {
+  display: flex; gap: 14px;
+  font-size: 14px;
+  color: rgba(245,243,238,.85);
+  line-height: 1.6;
+}
+.feature-list-item .num {
+  flex-shrink: 0;
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 11px; font-weight: 800;
+  letter-spacing: .12em;
+  color: var(--accent);
+  margin-top: 4px;
+  min-width: 40px;
+}
+.feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--bg);
+  background: rgba(245,243,238,.08);
+  border: 1px solid var(--night-line);
+  padding: 14px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background .15s, border-color .15s;
+}
+.feature-cta:hover {
+  background: var(--accent);
+  color: var(--night);
+  border-color: var(--accent);
+}
+
+/* Feature visual */
+.feature-visual {
+  position: relative;
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 50% 35%, var(--night-3), var(--night) 70%);
+  border-radius: 24px;
+  border: 1px solid var(--night-line);
+  overflow: hidden;
+}
+
+/* Product variant carousel */
+.tap-variants {
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.tap-variants .stage-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 75%);
+  pointer-events: none;
+}
+.tap-variants .variant-img {
+  position: absolute;
+  top: 12%; bottom: 24%; left: 50%;
+  transform: translateX(-50%) scale(.96);
+  height: 64%;
+  width: auto;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity .5s ease, transform .5s ease;
+  filter: drop-shadow(0 50px 60px rgba(0,0,0,.5));
+  pointer-events: none;
+}
+.tap-variants .variant-img.active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.tap-variants .variant-pills {
+  position: absolute;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 6px;
+  padding: 6px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid var(--night-line);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  z-index: 3;
+}
+.tap-variants .variant-pill {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,.55);
+  background: transparent;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.tap-variants .variant-pill:hover { color: var(--bg); }
+.tap-variants .variant-pill[data-active="true"] {
+  background: var(--accent);
+  color: var(--night);
+}
+.tap-variants .variant-label {
+  position: absolute;
+  top: 22px; left: 22px;
+  z-index: 3;
+}
+.tap-variants .variant-label .v-name {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--bg);
+}
+.tap-variants .variant-label .v-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(245,243,238,.5);
+  margin-top: 6px;
+  letter-spacing: .08em;
+}
+.tap-variants .variant-price {
+  position: absolute;
+  top: 22px; right: 22px;
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 28px;
+  color: var(--accent);
+  line-height: 1;
+  z-index: 3;
+}
+.tap-variants .variant-price small {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(245,243,238,.4);
+  display: block;
+  margin-top: 4px;
+  letter-spacing: .1em;
+  text-align: right;
+}
+.feature-visual .stage-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+}
+
+/* Big tap bar (variant) */
+.tapbar-big {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%; height: 110px;
+  background: linear-gradient(180deg, #2a2a25 0%, #1c1c19 100%);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 60px 100px -30px rgba(0,0,0,.5),
+    inset 0 1px 0 rgba(255,255,255,.05);
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px; padding: 18px 16px;
+}
+.tapbar-big .tap-chip { font-size: 14px; }
+
+.feature-visual-labels {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.flbl {
+  position: absolute;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: rgba(245,243,238,.4);
+  letter-spacing: .04em;
+  display: flex; align-items: center; gap: 8px;
+}
+.flbl::before {
+  content: ''; display: block; width: 30px; height: 1px;
+  background: rgba(245,243,238,.25);
+}
+.flbl.tl { top: 20%; left: 6%; }
+.flbl.tr { top: 30%; right: 6%; }
+.flbl.tr::before { display: none; }
+.flbl.tr::after { content: ''; display: block; width: 30px; height: 1px; background: rgba(245,243,238,.25); }
+.flbl.br { bottom: 18%; right: 8%; }
+.flbl.br::before { display: none; }
+.flbl.br::after { content: ''; display: block; width: 30px; height: 1px; background: rgba(245,243,238,.25); }
+.flbl.bl { bottom: 28%; left: 8%; }
+
+.feature-visual image-slot {
+  --is-border: 1px dashed rgba(245,243,238,.18);
+  --is-placeholder-bg: transparent;
+  --is-placeholder-color: rgba(245,243,238,.5);
+  filter: drop-shadow(0 30px 50px rgba(0,0,0,.4));
+}
+
+@media (max-width: 1000px) {
+  .feature { padding: 80px 24px; }
+  .feature-inner { grid-template-columns: 1fr; gap: 50px; }
+}
+
+/* ────────── LINEUP ────────── */
+.lineup {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+.lcard {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 32px;
+  min-height: 380px;
+  display: flex; flex-direction: column;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .2s;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+.lcard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(26,24,20,.18);
+  box-shadow: 0 30px 50px -20px rgba(26,24,20,.1);
+}
+.lcard.span-3 { grid-column: span 3; min-height: 540px; }
+.lcard.span-2 { grid-column: span 2; min-height: 540px; }
+.lcard.span-4 { grid-column: span 4; min-height: 560px; }
+.lcard.span-6 { grid-column: span 6; min-height: 540px; }
+
+.lcard .l-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: var(--ink-mute);
+  letter-spacing: .12em;
+}
+.lcard .l-name {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1;
+  margin: 0 0 14px;
+  letter-spacing: -.01em;
+}
+.lcard .l-name em { font-style: italic; color: var(--card-accent, var(--accent)); }
+.lcard .l-tag {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  flex: 1;
+  max-width: 460px;
+}
+.lcard .l-foot {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 16px;
+}
+.lcard .l-from {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.lcard .l-price {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 28px;
+  color: var(--card-accent, var(--accent));
+  line-height: 1;
+}
+.lcard .l-price small {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+  margin-left: 4px;
+  font-weight: 400;
+}
+.lcard .l-arrow {
+  position: absolute; bottom: 30px; right: 28px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: grid; place-items: center;
+  color: var(--ink-mute);
+  background: var(--paper);
+  z-index: 2;
+  transition: all .2s;
+}
+.lcard:hover .l-arrow {
+  background: var(--card-accent, var(--accent));
+  color: var(--paper);
+  border-color: var(--card-accent, var(--accent));
+  transform: rotate(-45deg);
+}
+
+/* Card decorative motif */
+.lcard-motif {
+  position: absolute;
+  bottom: -30px; right: -30px;
+  width: 200px; height: 200px;
+  pointer-events: none;
+  opacity: .55;
+}
+
+/* Featured card variant */
+.lcard.featured {
+  background: linear-gradient(160deg, var(--night-2), var(--night));
+  color: var(--bg);
+  border-color: var(--night);
+}
+.lcard.featured .l-num { color: rgba(245,243,238,.5); }
+.lcard.featured .l-tag { color: rgba(245,243,238,.7); }
+.lcard.featured .l-from { color: rgba(245,243,238,.5); }
+.lcard.featured .l-foot { border-color: var(--night-line); }
+.lcard.featured .l-arrow {
+  border-color: var(--night-line); color: rgba(245,243,238,.7);
+}
+
+@media (max-width: 1000px) {
+  .lineup { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .lcard.span-3, .lcard.span-2, .lcard.span-4, .lcard.span-6 { grid-column: span 1; }
+}
+@media (max-width: 600px) {
+  .lineup { grid-template-columns: 1fr; }
+  .lcard.span-3, .lcard.span-2, .lcard.span-4, .lcard.span-6 { grid-column: span 1; }
+  .lcard .l-name { font-size: 32px; }
+}
+
+/* ────────── PROCESS (dark) ────────── */
+.process {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--night-line);
+  border: 1px solid var(--night-line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.pstep {
+  background: var(--night);
+  padding: 36px 32px;
+  position: relative;
+}
+.pstep .ps-num {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: .2em;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.pstep .ps-num::before {
+  content: ''; width: 18px; height: 1px; background: var(--accent);
+}
+.pstep .ps-title {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.pstep .ps-title em { color: var(--accent); font-style: italic; }
+.pstep .ps-body {
+  font-size: 13.5px;
+  color: rgba(245,243,238,.55);
+  line-height: 1.7;
+}
+@media (max-width: 980px) { .process { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .process { grid-template-columns: 1fr; } }
+
+/* ────────── PACKS ────────── */
+.packs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.pack {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 36px 32px 32px;
+  display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.pack:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 30px 50px -20px rgba(26,24,20,.1);
+  border-color: rgba(26,24,20,.18);
+}
+.pack[data-featured="true"] {
+  background: var(--night);
+  color: var(--bg);
+  border-color: var(--night);
+}
+.pack[data-featured="true"]::before {
+  content: 'MÁS ELEGIDO';
+  position: absolute;
+  top: -14px; left: 28px;
+  background: var(--accent); color: var(--night);
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 800; letter-spacing: .18em;
+  padding: 5px 12px; border-radius: 999px;
+}
+.pack-name {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 12px; font-weight: 800;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--pack-color);
+  margin-bottom: 16px;
+}
+.pack-price {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.pack-price small {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px; font-weight: 400;
+  color: var(--ink-mute);
+  margin-left: 6px;
+  letter-spacing: .08em;
+}
+.pack[data-featured="true"] .pack-price small { color: rgba(245,243,238,.5); }
+.pack-desc {
+  font-size: 14px; color: var(--ink-soft);
+  line-height: 1.6; margin-bottom: 24px;
+  padding-bottom: 24px; border-bottom: 1px solid var(--line-soft);
+}
+.pack[data-featured="true"] .pack-desc {
+  color: rgba(245,243,238,.7);
+  border-color: var(--night-line);
+}
+.pack-items {
+  display: flex; flex-direction: column; gap: 10px;
+  flex: 1; margin-bottom: 28px;
+}
+.pack-item {
+  display: flex; gap: 12px;
+  font-size: 14px; color: var(--ink);
+  line-height: 1.5;
+}
+.pack[data-featured="true"] .pack-item { color: rgba(245,243,238,.9); }
+.pack-item::before {
+  content: '+';
+  color: var(--pack-color);
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 800; flex-shrink: 0;
+}
+.pack .btn { justify-content: center; width: 100%; }
+.pack[data-featured="true"] .btn-ghost {
+  background: rgba(245,243,238,.08);
+  color: var(--bg);
+  border-color: var(--night-line);
+}
+.pack[data-featured="true"] .btn-ghost:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--night);
+}
+@media (max-width: 980px) { .packs { grid-template-columns: 1fr; } }
+
+/* ────────── NUMBERS ────────── */
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.ncell {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 40px 32px;
+  background: var(--paper-2);
+  transition: background .2s;
+}
+.ncell:hover { background: var(--paper); }
+.ncell .nc-label {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 16px;
+}
+.ncell .nc-val {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-size: clamp(40px, 5vw, 62px);
+  line-height: 1;
+  color: var(--ink);
+}
+.ncell .nc-val em { font-style: italic; color: var(--accent); }
+.ncell .nc-note {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-top: 14px;
+}
+@media (max-width: 860px) { .numbers { grid-template-columns: 1fr 1fr; } }
+
+/* ────────── FAQ ────────── */
+.faqs { border-top: 1px solid var(--line); }
+.faq {
+  border-bottom: 1px solid var(--line);
+  padding: 26px 0;
+  cursor: pointer;
+}
+.faq summary {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 24px;
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.25;
+  list-style: none;
+  outline: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary em { font-style: italic; color: var(--ink-mute); }
+.faq[open] summary em { color: var(--accent); }
+.faq-toggle {
+  flex-shrink: 0; width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: grid; place-items: center;
+  color: var(--ink-mute);
+  font-family: 'Arch Tech', 'Archivo', sans-serif; font-weight: 700;
+  transition: all .2s;
+}
+.faq[open] .faq-toggle {
+  background: var(--ink); color: var(--bg); border-color: var(--ink);
+  transform: rotate(45deg);
+}
+.faq-body {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  margin-top: 16px;
+  max-width: 760px;
+}
+
+/* ────────── CTA BAND ────────── */
+.cta-band {
+  position: relative;
+  background: var(--night);
+  color: var(--bg);
+  overflow: hidden;
+  padding: 110px 40px;
+}
+.cta-orb {
+  position: absolute; width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), .16), transparent 60%);
+  top: -300px; right: -250px; pointer-events: none;
+}
+.cta-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 80px; align-items: center;
+  position: relative; z-index: 1;
+}
+.cta-band h2 {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-size: clamp(40px, 5.4vw, 72px);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: -.015em;
+  text-wrap: balance;
+}
+.cta-band h2 em { color: var(--accent); font-style: italic; }
+.cta-band p {
+  font-size: 16px;
+  color: rgba(245,243,238,.65);
+  margin-top: 22px;
+  line-height: 1.7;
+  max-width: 520px;
+}
+.cta-right {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.cta-contact {
+  background: rgba(245,243,238,.04);
+  border: 1px solid var(--night-line);
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; text-decoration: none; color: var(--bg);
+  transition: background .2s, border-color .2s;
+}
+.cta-contact:hover {
+  background: rgba(var(--accent-rgb), .08);
+  border-color: var(--accent);
+}
+.cta-contact .cl {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,.55);
+}
+.cta-contact .cv {
+  font-family: 'Cloud Loop', 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 22px; line-height: 1; margin-top: 6px;
+}
+.cta-contact .arrow {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--night-line);
+  display: grid; place-items: center;
+  color: rgba(245,243,238,.7);
+  transition: all .2s;
+}
+.cta-contact:hover .arrow {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--night);
+}
+@media (max-width: 980px) {
+  .cta-band { padding: 80px 24px; }
+  .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ────────── HANDWRITTEN ANNOTATIONS ────────── */
+.handwritten {
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: .01em;
+}
+.handwritten::after {
+  content: '';
+  display: block;
+  margin-top: 4px;
+  width: 18px; height: 22px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'><path d='M12 2 C 14 8, 8 16, 12 28 M 6 22 L 12 30 L 18 22' stroke='%231a1814' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat; background-size: contain;
+}
+.handwritten.right::after {
+  width: 22px; height: 18px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 24'><path d='M2 12 C 8 14, 16 8, 28 12 M 22 6 L 30 12 L 22 18' stroke='%231a1814' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.handwritten.left::after {
+  width: 22px; height: 18px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 24'><path d='M30 12 C 24 14, 16 8, 4 12 M 10 6 L 2 12 L 10 18' stroke='%231a1814' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+/* ────────── LCARD PHOTO ZONE ────────── */
+.lcard {
+  padding: 0;
+}
+.lcard-photo {
+  position: relative;
+  height: 280px;
+  background: var(--photo-bg, linear-gradient(135deg, #e8e4d8 0%, #d8d2c2 100%));
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.lcard-photo .photo-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(26,24,20,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,24,20,.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: .6;
+}
+.lcard-photo .photo-tag {
+  position: absolute; top: 14px; left: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, .55);
+}
+.lcard-photo .photo-shadow {
+  position: absolute;
+  left: 12%; right: 12%; bottom: 14px;
+  height: 16px;
+  background: radial-gradient(ellipse at center, rgba(26,24,20,.25), transparent 65%);
+  filter: blur(6px);
+}
+.lcard-photo image-slot {
+  width: 85%;
+  height: 84%;
+  --is-placeholder-bg: rgba(255,255,255,.25);
+  --is-placeholder-color: rgba(26,24,20,.55);
+  --is-border: 1px dashed rgba(26,24,20,.25);
+  --is-radius: 16px;
+  filter: drop-shadow(0 18px 28px rgba(26, 24, 20, .12));
+  position: relative;
+  z-index: 1;
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+.lcard.featured .lcard-photo image-slot {
+  --is-border: 1px dashed rgba(245,243,238,.2);
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, .35));
+}
+.lcard-body {
+  padding: 28px 32px 32px;
+  display: flex; flex-direction: column;
+  flex: 1;
+}
+.lcard.featured .lcard-photo {
+  background: linear-gradient(135deg, var(--night-3), var(--night) 100%);
+}
+.lcard.featured .lcard-photo .photo-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+}
+.lcard.featured .lcard-photo .photo-tag { color: rgba(245,243,238,.45); }
+
+/* Product mockups (CSS-built — placeholders for real photography) */
+.mock {
+  position: relative;
+  filter: drop-shadow(0 20px 24px rgba(26,24,20,.18));
+  z-index: 1;
+}
+/* Tap Bar mock — back wall + tiles */
+.mock-tapbar {
+  width: 70%;
+  max-width: 240px;
+  display: grid;
+  grid-template-areas: 'wall' 'base';
+  perspective: 600px;
+}
+.mock-tapbar .wall {
+  grid-area: wall;
+  background: linear-gradient(180deg, #faf8f3, #efebe0);
+  border-radius: 10px 10px 0 0;
+  padding: 18px 16px 22px;
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  line-height: .95;
+  box-shadow: inset 0 0 0 1px rgba(26,24,20,.06);
+}
+.mock-tapbar .base {
+  grid-area: base;
+  background: linear-gradient(180deg, #efebe0, #e2dccc);
+  border-radius: 0 0 10px 10px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+  box-shadow: inset 0 0 0 1px rgba(26,24,20,.06);
+}
+.mock-tapbar .tiles {
+  display: grid; gap: 6px;
+}
+.mock-tapbar.t2 .tiles { grid-template-columns: 1fr 1fr; }
+.mock-tapbar.t3 .tiles { grid-template-columns: 1fr 1fr 1fr; }
+.mock-tapbar.t4 .tiles { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.mock-tapbar .tile {
+  aspect-ratio: 1;
+  background: var(--ink);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  color: var(--bg);
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 16px; font-weight: 700;
+}
+.mock-tapbar .footnote {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, .5);
+  text-align: center;
+}
+/* Smart Link mock — keychain */
+.mock-link {
+  width: 110px; height: 130px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.mock-link .ring {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 3px solid #6b6966;
+  margin-bottom: -6px; z-index: 2;
+}
+.mock-link .body {
+  width: 100%; aspect-ratio: 1;
+  background: linear-gradient(135deg, #faf8f3, #e2dccc);
+  border-radius: 18px;
+  display: grid; place-items: center;
+  box-shadow: inset 0 0 0 1px rgba(26,24,20,.08);
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 32px; font-weight: 700;
+  color: var(--ink);
+}
+.mock-link.round .body { border-radius: 50%; }
+.mock-link.hex .body { clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%); border-radius: 0; }
+
+/* Smart Toy mock */
+.mock-toy {
+  width: 130px; height: 150px;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center;
+}
+.mock-toy .ring {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 3px solid #6b6966;
+  margin-bottom: -8px; z-index: 2;
+}
+.mock-toy .shape {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #faf8f3, #e2dccc);
+  border-radius: 60% 60% 50% 50% / 50% 50% 60% 60%;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(26,24,20,.08);
+}
+.mock-toy .eye {
+  position: absolute;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--ink);
+  top: 35%;
+}
+.mock-toy .eye.l { left: 28%; }
+.mock-toy .eye.r { right: 28%; }
+.mock-toy .smile {
+  position: absolute;
+  width: 30px; height: 12px;
+  border: 2px solid var(--ink);
+  border-top: none;
+  border-radius: 0 0 30px 30px;
+  bottom: 30%; left: 50%; transform: translateX(-50%);
+}
+
+/* Exhibidor mock */
+.mock-exhib {
+  width: 75%; max-width: 240px;
+  background: linear-gradient(180deg, #faf8f3, #e2dccc);
+  border-radius: 10px;
+  padding: 14px 12px 12px;
+  box-shadow: inset 0 0 0 1px rgba(26,24,20,.08);
+}
+.mock-exhib .ex-top {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--ink); text-align: center;
+  letter-spacing: .04em;
+  padding: 4px 0 10px;
+  border-bottom: 1px solid rgba(26,24,20,.1);
+  margin-bottom: 10px;
+}
+.mock-exhib .ex-slots {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+}
+.mock-exhib .ex-slot {
+  aspect-ratio: 1;
+  background: rgba(26,24,20,.08);
+  border-radius: 4px;
+}
+.mock-exhib .ex-slot.filled {
+  background: var(--ink);
+}
+
+/* Personalizada — abstract assembly */
+.mock-custom {
+  width: 60%; max-width: 220px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.mock-custom .blob {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #faf8f3, #e8e4d8);
+  border-radius: 50% 30% 60% 40% / 40% 60% 30% 70%;
+  box-shadow: inset 0 0 0 1px rgba(26,24,20,.1);
+  display: grid; place-items: center;
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--bg);
+}
+.mock-custom .blob.dark {
+  background: linear-gradient(135deg, var(--ink), var(--night));
+  color: var(--bg);
+}
+.mock-custom .blob.b2 {
+  border-radius: 30% 70% 40% 60% / 60% 40% 70% 30%;
+  background: linear-gradient(135deg, var(--accent), #b97115);
+  color: var(--night);
+}
+.mock-custom .blob.b3 {
+  border-radius: 70% 30% 50% 50% / 50% 50% 30% 70%;
+  background: linear-gradient(135deg, var(--ink), var(--night));
+  color: var(--bg);
+}
+.mock-custom .blob.b4 {
+  border-radius: 40% 60% 70% 30% / 30% 70% 60% 40%;
+  background: linear-gradient(135deg, #faf8f3, #e8e4d8);
+  color: var(--ink);
+}
+
+/* Sticker annotation badges */
+.sticker {
+  position: absolute;
+  padding: 6px 12px;
+  background: var(--paper);
+  border-radius: 999px;
+  box-shadow: 0 6px 14px -2px rgba(26,24,20,.15);
+  font-family: 'Caveat', cursive;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  white-space: nowrap;
+  z-index: 3;
+}
+.sticker.amber { background: var(--accent); color: var(--night); }
+.sticker.dark { background: var(--ink); color: var(--bg); }
+
+/* ────────── EDITORIAL BLUEPRINT BAND ────────── */
+.editorial {
+  position: relative;
+  background: var(--paper-2);
+  padding: 140px 40px;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.editorial-bg {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: .55;
+  background-image:
+    linear-gradient(rgba(26,24,20,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,24,20,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(180deg, transparent, black 25%, black 75%, transparent);
+}
+.editorial-marks {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.editorial-mark {
+  position: absolute;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(26, 24, 20, .35);
+  display: flex; align-items: center; gap: 12px;
+}
+.editorial-mark::before {
+  content: ''; display: block; width: 28px; height: 1px;
+  background: rgba(26, 24, 20, .35);
+}
+.editorial-mark.tl { top: 60px; left: 60px; }
+.editorial-mark.tr { top: 60px; right: 60px; }
+.editorial-mark.tr::before { display: none; }
+.editorial-mark.tr::after { content: ''; display: block; width: 28px; height: 1px; background: rgba(26,24,20,.35); }
+.editorial-mark.bl { bottom: 60px; left: 60px; }
+.editorial-mark.br { bottom: 60px; right: 60px; }
+.editorial-mark.br::before { display: none; }
+.editorial-mark.br::after { content: ''; display: block; width: 28px; height: 1px; background: rgba(26,24,20,.35); }
+
+.editorial-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 80px;
+  align-items: start;
+}
+.editorial h2 {
+  font-family: 'Cloud Loop', 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(46px, 6vw, 84px);
+  line-height: .95;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.editorial h2 em {
+  font-style: italic;
+  color: var(--ink-mute);
+}
+.editorial-side p {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+.editorial-side p strong { color: var(--ink); font-weight: 600; }
+.editorial-side .label {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+@media (max-width: 980px) {
+  .editorial { padding: 80px 24px; }
+  .editorial-inner { grid-template-columns: 1fr; gap: 30px; }
+  .editorial-mark { display: none; }
+}
+
+/* ────────── FOOTER ────────── */
+footer {
+  background: var(--night);
+  color: var(--bg);
+  padding: 70px 40px 30px;
+}
+.footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex; flex-direction: column; gap: 50px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: 60px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid var(--night-line);
+}
+.footer-brand-block .fb-logo {
+  height: 64px;
+  filter: brightness(0) invert(1);
+  margin-bottom: 22px;
+}
+.footer-brand-block p {
+  font-size: 13.5px;
+  color: rgba(245,243,238,.5);
+  line-height: 1.75;
+  max-width: 360px;
+}
+.fcol h4 {
+  font-family: 'Arch Tech', 'Archivo', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(245,243,238,.5);
+  margin-bottom: 18px;
+}
+.fcol ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.fcol a {
+  font-size: 14px;
+  color: rgba(245,243,238,.85);
+  text-decoration: none;
+  transition: color .15s;
+}
+.fcol a:hover { color: var(--accent); }
+.footer-bot {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: rgba(245,243,238,.4); letter-spacing: .06em;
+}
+@media (max-width: 860px) {
+  footer { padding: 50px 24px 24px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 30px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <a href="#top" aria-label="NIMUS">
+    <img src="assets/nimus-logo.png" alt="NIMUS" class="brand-logo" style="width: 80px; height: 80px; object-fit: fill" />
+  </a>
+  <div class="nav-links">
+    <a href="#productos">Productos</a>
+    <a href="#tapbar">Tap Bar</a>
+    <a href="#paquetes">Paquetes</a>
+    <a href="#preguntas">FAQ</a>
+  </div>
+  <div class="nav-actions">
+    <a class="nav-cta" href="#cta">Cotizar →</a>
+    <button class="nav-burger" type="button" aria-label="Abrir menú" aria-controls="mobile-drawer" aria-expanded="false">
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <a href="#productos"><span class="mn-idx">01</span>Productos</a>
+  <a href="#tapbar"><span class="mn-idx">02</span>Tap Bar</a>
+  <a href="#paquetes"><span class="mn-idx">03</span>Paquetes</a>
+  <a href="#preguntas"><span class="mn-idx">04</span>FAQ</a>
+  <a href="#cta"><span class="mn-idx">05</span>Cotizar</a>
+  <div class="mn-foot">NIMUS Make · v2.1</div>
+</div>
+
+<!-- FLOATING CTA · MOBILE -->
+<a class="float-cta" href="#cta" data-visible="false">
+  Cotizar tu pedido <span class="arr">→</span>
+</a>
+
+<!-- SCROLL DOTS · DESKTOP -->
+<nav class="scroll-dots" aria-label="Navegación rápida por secciones">
+  <button class="dot" data-target="#top" data-label="Inicio"></button>
+  <button class="dot" data-target="#tapbar" data-label="Tap Bar"></button>
+  <button class="dot" data-target="#productos" data-label="Productos"></button>
+  <button class="dot" data-target="#paquetes" data-label="Paquetes"></button>
+  <button class="dot" data-target="#preguntas" data-label="FAQ"></button>
+  <button class="dot" data-target="#cta" data-label="Cotizar"></button>
+</nav>
+
+<!-- SCROLL TO TOP -->
+<button class="to-top" type="button" aria-label="Volver arriba" data-visible="false">↑</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="toast-icon">✓</span>
+  <span class="toast-text">Copiado al portapapeles</span>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-orb"></div>
+  <div class="hero-content reveal from-left">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      Línea NIMUS Make · Manufactura 3D
+    </div>
+    <h1>Objetos que <em>trabajan</em> por tu marca.</h1>
+    <p class="hero-sub">
+      Diseñamos e imprimimos piezas en 3D con chips NFC integrados que conectan
+      tu negocio con tus clientes en un solo toque. Menús digitales, llaveros,
+      mascotas y exhibidores — hechos a la medida de tu identidad.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#paquetes">
+        Ver paquetes <span class="arr">→</span>
+      </a>
+      <a class="btn btn-ghost" href="#productos">
+        Explorar productos
+      </a>
+    </div>
+    <div class="hero-pills reveal-stagger">
+      <div class="hero-pill">
+        <strong><em>0</em></strong>
+        <span>Apps para el cliente</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal from-right">
+    <div class="stage">
+      <div class="tapbar" id="tapbar-hero">
+        <!-- tap tag removed for cleaner stage -->
+
+        <!-- Chip 1 · Instagram -->
+        <div class="tap-chip" data-i="0" data-active="true" data-color="#e1306c">
+          <span class="ring"></span>
+          <span class="nfc-wave"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r=".6" fill="currentColor" />
+          </svg>
+          <span class="chip-label">Instagram</span>
+        </div>
+
+        <!-- Chip 2 · Google Reviews -->
+        <div class="tap-chip" data-i="1" data-color="#fbbc04">
+          <span class="ring"></span>
+          <span class="nfc-wave"></span>
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2 L14.5 8.5 L21.5 9.2 L16.2 13.8 L17.8 20.7 L12 17.1 L6.2 20.7 L7.8 13.8 L2.5 9.2 L9.5 8.5 Z"/>
+          </svg>
+          <span class="chip-label">Reseñas</span>
+        </div>
+
+        <!-- Chip 3 · WhatsApp -->
+        <div class="tap-chip" data-i="2" data-color="#25d366">
+          <span class="ring"></span>
+          <span class="nfc-wave"></span>
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.5C6.8 2.5 2.6 6.7 2.6 11.9c0 1.8.5 3.5 1.4 5L2.5 21.5l4.7-1.4c1.4.8 3.1 1.3 4.8 1.3 5.2 0 9.4-4.2 9.4-9.4S17.2 2.5 12 2.5zm5.5 13.3c-.2.6-1.2 1.2-1.7 1.3-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.4-.2.2-.3.4-.5.6-.1.2-.3.4-.1.7s.6 1.1 1.4 1.7c1 .9 1.8 1.2 2.1 1.3.3.2.4.1.6-.1.2-.2.7-.8.9-1 .2-.3.4-.2.7-.1.3.1 1.7.8 2 1 .3.2.5.2.6.3 0 .2 0 .8-.2 1.4z"/>
+          </svg>
+          <span class="chip-label">WhatsApp</span>
+        </div>
+
+        <!-- Chip 4 · Menú -->
+        <div class="tap-chip" data-i="3" data-color="#e89e25">
+          <span class="ring"></span>
+          <span class="nfc-wave"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="3" width="14" height="18" rx="1.5" />
+            <line x1="8" y1="8" x2="16" y2="8" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+            <line x1="8" y1="16" x2="13" y2="16" />
+          </svg>
+          <span class="chip-label">Menú</span>
+        </div>
+
+        <!-- Chip 5 · TikTok -->
+        <div class="tap-chip" data-i="4" data-color="#69c9d0">
+          <span class="ring"></span>
+          <span class="nfc-wave"></span>
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16.6 5.8c-1-1-1.5-2.3-1.5-3.6h-3v13.5c-.1 1.4-1.2 2.5-2.6 2.5-1.5 0-2.6-1.2-2.6-2.6 0-1.6 1.5-2.8 3.1-2.3v-3.1c-3.3-.4-6.2 2.2-6.2 5.4 0 3.1 2.6 5.3 5.3 5.3 2.9 0 5.3-2.4 5.3-5.3V9.7c1.2.8 2.5 1.3 4 1.3v-3c0 0-1.8 0-2.8-2.2z"/>
+          </svg>
+          <span class="chip-label">TikTok</span>
+        </div>
+
+        <!-- Chip 6 · Web -->
+        <div class="tap-chip" data-i="5" data-color="#7c5cbf">
+          <span class="ring"></span>
+          <span class="nfc-wave"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M3 12h18" />
+            <path d="M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18" />
+          </svg>
+          <span class="chip-label">Web</span>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="ps-status">
+            <span id="phone-time-clock">9:41</span>
+            <div class="icons">
+              <span class="ic-signal"><i></i><i></i><i></i><i></i></span>
+              <span class="ic-batt"></span>
+            </div>
+          </div>
+          <div class="ps-app" id="phone-app">
+            <div class="ps-head">
+              <div class="ps-avatar" id="phone-avatar">N</div>
+              <div class="ps-meta">
+                <div class="ps-name" id="phone-name">@tu_marca</div>
+                <div class="ps-handle" id="phone-handle">Instagram</div>
+              </div>
+              <div class="ps-action" id="phone-action">Seguir</div>
+            </div>
+            <div class="ps-body">
+              <span class="ps-tag" id="phone-tag">PERFIL</span>
+              <div class="ps-grid">
+                <div class="ps-tile"></div>
+                <div class="ps-tile"></div>
+                <div class="ps-tile"></div>
+                <div class="ps-tile"></div>
+                <div class="ps-tile"></div>
+                <div class="ps-tile"></div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span class="strip-item">Tap Bar NFC</span>
+    <span class="strip-item">Smart Link</span>
+    <span class="strip-item">Smart Toys</span>
+    <span class="strip-item">Exhibidor Merch</span>
+    <span class="strip-item">Línea Personalizada</span>
+    <span class="strip-item">Impresión 3D</span>
+    <span class="strip-item">Diseño exclusivo</span>
+    <span class="strip-item">Tap Bar NFC</span>
+    <span class="strip-item">Smart Link</span>
+    <span class="strip-item">Smart Toys</span>
+    <span class="strip-item">Exhibidor Merch</span>
+    <span class="strip-item">Línea Personalizada</span>
+    <span class="strip-item">Impresión 3D</span>
+    <span class="strip-item">Diseño exclusivo</span>
+  </div>
+</div>
+
+<!-- FEATURED — TAP BAR -->
+<section class="feature" id="tapbar">
+  <div class="feature-inner">
+    <div>
+      <div class="feature-tag reveal">Producto destacado · Línea 01</div>
+      <h2>Tap Bar:<br>tu mesa,<br><em>conectada.</em></h2>
+      <p class="feature-sub">
+        Stand de mesa con 2 a 4 chips NFC integrados. El cliente acerca el teléfono
+        y el chip lo lleva directo a donde tú quieras — menú digital, Google Reviews,
+        Instagram o WhatsApp. Sin apps, sin instalaciones.
+      </p>
+      <div class="feature-list reveal-stagger">
+        <div class="feature-list-item">
+          <span class="num">01</span>
+          <span>Hasta <strong>4 destinos programables</strong> en una sola pieza, con iconografía en relieve.</span>
+        </div>
+        <div class="feature-list-item">
+          <span class="num">02</span>
+          <span>Diseño bicolor o tricolor con el logo de tu marca <strong>impreso en relieve</strong>.</span>
+        </div>
+        <div class="feature-list-item">
+          <span class="num">03</span>
+          <span>Formato wedge, clamshell o premium con <strong>inserto metálico</strong>.</span>
+        </div>
+        <div class="feature-list-item">
+          <span class="num">04</span>
+          <span><strong>Reprogramable</strong> sin costo durante la garantía.</span>
+        </div>
+      </div>
+      <a class="feature-cta" href="#paquetes">
+        Ver variantes y precios <span class="arr">→</span>
+      </a>
+    </div>
+
+    <div class="feature-visual">
+      <div class="tap-variants" id="tap-variants">
+        <div class="stage-bg"></div>
+
+        <div class="variant-label">
+          <div class="v-name" id="variant-name">Tap Bar 3</div>
+          <div class="v-sub" id="variant-sub">3 destinos · PLA matte</div>
+        </div>
+        <div class="variant-price" id="variant-price">
+          <span id="variant-price-amount">$580</span>
+          <small>MXN</small>
+        </div>
+
+        <img class="variant-img" data-i="0" src="assets/tapbar-v2.png" alt="Tap Bar 2" />
+        <img class="variant-img" data-i="1" src="assets/tapbar-qr.png" alt="Tap Bar QR" />
+        <img class="variant-img active" data-i="2" src="assets/tapbar-v3.png" alt="Tap Bar 3" />
+        <img class="variant-img" data-i="3" src="assets/tapbar-v4.png" alt="Tap Bar 4" />
+        <img class="variant-img" data-i="4" src="assets/tapbar-max.png" alt="Tap Bar Max" />
+
+        <div class="variant-pills">
+          <button class="variant-pill" data-i="0">Bar 2</button>
+          <button class="variant-pill" data-i="1">QR</button>
+          <button class="variant-pill" data-i="2" data-active="true">Bar 3</button>
+          <button class="variant-pill" data-i="3">Bar 4</button>
+          <button class="variant-pill" data-i="4">Max</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="productos">
+  <div class="section-head reveal">
+    <div>
+      <div class="sk">Catálogo · 6 líneas</div>
+      <h2>Una pieza para cada <em>punto de contacto</em> entre tu marca y tus clientes.</h2>
+    </div>
+    <div class="lede">
+      Cada línea cubre un momento específico — la mesa del restaurante, las llaves
+      del cliente, el mostrador. Todas se imprimen bajo demanda y se personalizan
+      con tu identidad visual.
+    </div>
+  </div>
+
+  <div class="lineup reveal-stagger">
+
+    <!-- Smart Link · big -->
+    <a class="lcard span-3" href="#cta" style="--card-accent: var(--teal); --photo-bg: linear-gradient(135deg, #f0ead8 0%, #ddd4ba 100%);">
+      <div class="lcard-photo">
+        <div class="photo-grid"></div>
+        <span class="photo-tag">Línea 02 · Smart Link</span>
+        <image-slot id="prod-smartlink" shape="rounded" radius="16" placeholder="Foto Smart Link · arrastra aquí"></image-slot>
+      </div>
+      <div class="lcard-body">
+        <div class="l-arrow">↗</div>
+        <h3 class="l-name">Smart <em>Link</em></h3>
+        <p class="l-tag">
+          Llavero con chip NFC en cuatro formas — round, square, hex y mini.
+          El objeto que el cliente carga a diario y, en cada toque, conecta con tu marca.
+          Reprogramable, sin costo de actualización.
+        </p>
+        <div class="l-foot">
+          <span class="l-from">Desde</span>
+          <span class="l-price">$50 <small>MXN</small></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Smart Toys -->
+    <a class="lcard span-3" href="#cta" style="--card-accent: var(--amber); --photo-bg: linear-gradient(135deg, #f7e3b8 0%, #ecc777 100%);">
+      <div class="lcard-photo">
+        <div class="photo-grid"></div>
+        <span class="photo-tag">Línea 03 · Smart Toys</span>
+        <image-slot id="prod-smarttoys" shape="rounded" radius="16" placeholder="Foto Smart Toy · arrastra aquí"></image-slot>
+      </div>
+      <div class="lcard-body">
+        <div class="l-arrow">↗</div>
+        <h3 class="l-name">Smart <em>Toys</em></h3>
+        <p class="l-tag">
+          La mascota o personaje de tu marca convertido en llavero coleccionable.
+          Versión opcional con chip NFC oculto que suma "tap" a la identidad — el
+          accesorio que el cliente quiere usar.
+        </p>
+        <div class="l-foot">
+          <span class="l-from">Desde</span>
+          <span class="l-price">$65 <small>MXN</small></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Llaveros Fidget -->
+    <a class="lcard span-3" href="#cta" style="--card-accent: var(--blue); --photo-bg: linear-gradient(135deg, #cbdbe9 0%, #93b3d3 100%);">
+      <div class="lcard-photo">
+        <div class="photo-grid"></div>
+        <span class="photo-tag">Línea 06 · Fidget</span>
+        <image-slot id="prod-fidget" shape="rounded" radius="16" placeholder="Foto Llavero Fidget · arrastra aquí"></image-slot>
+      </div>
+      <div class="lcard-body">
+        <div class="l-arrow">↗</div>
+        <h3 class="l-name">Llaveros <em>Fidget</em></h3>
+        <p class="l-tag">
+          Llaveros con piezas móviles — botones, ruedas, switches — que mantienen la
+          marca en las manos del cliente. Versión con chip NFC opcional para sumar
+          un tap a la experiencia.
+        </p>
+        <div class="l-foot">
+          <span class="l-from">Desde</span>
+          <span class="l-price">$90 <small>MXN</small></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Exhibidor -->
+    <a class="lcard span-3" href="#cta" style="--card-accent: var(--purple); --photo-bg: linear-gradient(135deg, #e6e1d6 0%, #cfc7b3 100%);">
+      <div class="lcard-photo">
+        <div class="photo-grid"></div>
+        <span class="photo-tag">Línea 04 · Exhibidor</span>
+        <image-slot id="prod-exhibidor" shape="rounded" radius="16" placeholder="Foto Exhibidor · arrastra aquí"></image-slot>
+      </div>
+      <div class="lcard-body">
+        <div class="l-arrow">↗</div>
+        <h3 class="l-name">Exhibidor <em>Merch</em></h3>
+        <p class="l-tag">
+          Display de mostrador brandado para exhibir llaveros y Smart Toys.
+          Convierte el punto de venta en parte de tu identidad de marca.
+        </p>
+        <div class="l-foot">
+          <span class="l-from">Desde</span>
+          <span class="l-price">$350 <small>MXN</small></span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Personalizada -->
+    <a class="lcard featured span-6" href="#cta" style="--card-accent: var(--accent);">
+      <div class="lcard-photo">
+        <div class="photo-grid"></div>
+        <span class="photo-tag">Línea 05 · Personalizada</span>
+        <image-slot id="prod-personalizada" shape="rounded" radius="16" placeholder="Foto pieza exclusiva · arrastra aquí"></image-slot>
+      </div>
+      <div class="lcard-body">
+        <div class="l-arrow">↗</div>
+        <h3 class="l-name">Línea <em>Personalizada</em></h3>
+        <p class="l-tag">
+          Diseño desde cero, exclusivo para tu marca. Modelado CAD, iteración, validación
+          y registro del modelo. Tres niveles según complejidad — desde la adaptación
+          de un logo hasta un concepto completo con exclusividad garantizada.
+        </p>
+        <div class="l-foot">
+          <span class="l-from">Cargo desde</span>
+          <span class="l-price">+$100 <small style="color: rgba(245,243,238,.55);">MXN</small></span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CLIENT WORK STRIP -->
+<section class="work-strip" id="trabajos">
+  <div class="work-head reveal">
+    <div>
+      <div class="sk">Trabajamos con</div>
+      <h2>Marcas que ya entregan en <em>un toque</em>.</h2>
+    </div>
+    <div class="work-note">+40 negocios activos · México y LATAM</div>
+  </div>
+  <div class="work-track-wrap">
+    <div class="work-track">
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 01">
+          <image-slot id="brand-1" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 02">
+          <image-slot id="brand-2" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 03">
+          <image-slot id="brand-3" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 04">
+          <image-slot id="brand-4" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">MERIDA, YUC</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 05">
+          <image-slot id="brand-5" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">HUSH N' SLUSH</div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">MERIDA, YUC</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 06">
+          <image-slot id="brand-6" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 07">
+          <image-slot id="brand-7" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 08">
+          <image-slot id="brand-8" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 09">
+          <image-slot id="brand-9" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+      <a class="work-card" href="#cta">
+        <div class="work-photo" data-tag="Cliente 10">
+          <image-slot id="brand-10" shape="rounded" radius="16" placeholder="Suelta foto del cliente"></image-slot>
+        </div>
+        <div class="work-name" contenteditable="true" spellcheck="false">Nombre <em>marca</em></div>
+        <div class="work-meta" contenteditable="true" spellcheck="false">Rubro · Ciudad</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL — Built for real relationships -->
+<section class="editorial">
+  <div class="editorial-bg"></div>
+  <div class="editorial-marks">
+    <span class="editorial-mark tl">Interface module · rev 2.1</span>
+    <span class="editorial-mark tr">Tap to connect</span>
+    <span class="editorial-mark bl">PLA matte · NTAG215</span>
+    <span class="editorial-mark br">Dimensions · 150mm</span>
+  </div>
+  <div class="editorial-inner reveal">
+    <div>
+      <h2>Pensado para marcas que <em>cuidan a sus clientes.</em></h2>
+    </div>
+    <div class="editorial-side">
+      <div class="label">El por qué</div>
+      <p>
+        <strong>Cada día, negocios pierden contacto con clientes que ya estuvieron ahí</strong>
+        — no por falta de esfuerzo, sino por un instante de fricción. El cliente sale
+        del local, olvida seguir la cuenta, nunca deja la reseña.
+      </p>
+      <p>
+        Una pieza física en su mesa o en su mano cierra ese hueco en un solo toque.
+        Sin app, sin suscripción, sin login. La pieza llega lista y tus enlaces siguen
+        siendo tuyos — los actualizas cuando quieras, sin que nada caduque.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS (dark band) -->
+<section class="section dark">
+  <div class="section section-narrow" style="padding: 0 0;">
+    <div class="section-head reveal">
+      <div>
+        <div class="sk">Proceso · 4 pasos</div>
+        <h2 style="color: var(--bg);">Del brief a <em>tu mostrador</em> en menos de una semana.</h2>
+      </div>
+      <div class="lede">
+        Operación corta, sin intermediarios y con producción local. Modelado, prueba
+        e impresión bajo el mismo techo.
+      </div>
+    </div>
+
+    <div class="process reveal-stagger" id="proceso">
+      <div class="pstep">
+        <div class="ps-num">Paso 01</div>
+        <h3 class="ps-title">Brief y <em>cotización</em></h3>
+        <p class="ps-body">
+          Escogemos línea, cantidad y destinos NFC. Recibes propuesta y plazos
+          en menos de 24 horas.
+        </p>
+      </div>
+      <div class="pstep">
+        <div class="ps-num">Paso 02</div>
+        <h3 class="ps-title">Diseño y <em>validación</em></h3>
+        <p class="ps-body">
+          Adaptación de logo o diseño exclusivo. 1–2 iteraciones de prueba antes
+          de producción según el nivel.
+        </p>
+      </div>
+      <div class="pstep">
+        <div class="ps-num">Paso 03</div>
+        <h3 class="ps-title">Impresión <em>3D</em></h3>
+        <p class="ps-body">Bicolor o tricolor. Programación NFC incluida. Lotes de hasta 25 piezas en 3–5 días hábiles.</p>
+      </div>
+      <div class="pstep">
+        <div class="ps-num">Paso 04</div>
+        <h3 class="ps-title">Entrega y <em>activación</em></h3>
+        <p class="ps-body">Llega listo para usar. Soporte incluido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SISTEMAS DIGITALES -->
+<section class="systems-section" id="sistemas">
+  <div class="systems-inner">
+    <div class="section-head reveal">
+      <div>
+        <div class="sk">Sistemas digitales · complementan tu Tap Bar</div>
+        <h2>Más allá del <em>objeto físico</em>.</h2>
+      </div>
+      <div class="lede">
+        Si tu negocio aún no los tiene, los implementamos contigo. Tus piezas
+        con NFC se conectan a sistemas de recompensas, reservas, propinas,
+        reseñas y métricas — montados a la medida o integrados con lo que ya usas.
+      </div>
+    </div>
+
+    <div class="systems-grid reveal-stagger">
+      <!-- Recompensas -->
+      <div class="sys-card">
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.5l2.5 5 5.5.8-4 3.9.9 5.5L12 15l-5 2.7.9-5.5-4-3.9 5.5-.8z"/>
+          </svg>
+        </div>
+        <h3 class="sys-name">Sistema de <em>recompensas</em></h3>
+        <p class="sys-desc">
+          Cada toque suma puntos. El cliente acumula visitas y canjea por bebidas, descuentos
+          o productos. Tú controlas la mecánica desde un panel simple.
+        </p>
+        <span class="sys-tag">Disponible</span>
+      </div>
+
+      <!-- Booking -->
+      <div class="sys-card">
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="16" rx="2"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <line x1="8" y1="3" x2="8" y2="7"/>
+            <line x1="16" y1="3" x2="16" y2="7"/>
+          </svg>
+        </div>
+        <h3 class="sys-name">Reservas en <em>un toque</em></h3>
+        <p class="sys-desc">
+          El chip lleva al cliente a tu calendario de reservas — mesa, cita o
+          servicio. Se conecta con Calendly, Google Calendar o sistemas a la medida.
+        </p>
+        <span class="sys-tag">Disponible</span>
+      </div>
+
+      <!-- Reseñas automáticas -->
+      <div class="sys-card">
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17.5 6.5 21l1.5-7.5L3 9l6.5-.5z"/>
+          </svg>
+        </div>
+        <h3 class="sys-name">Reseñas <em>automáticas</em></h3>
+        <p class="sys-desc">
+          El chip abre Google Reviews con la calificación pre-cargada. Una experiencia
+          de tap → 5 estrellas en 8 segundos.
+        </p>
+        <span class="sys-tag">Disponible</span>
+      </div>
+
+      <!-- Analytics -->
+      <div class="sys-card">
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="20" x2="4" y2="14"/>
+            <line x1="10" y1="20" x2="10" y2="10"/>
+            <line x1="16" y1="20" x2="16" y2="6"/>
+            <line x1="22" y1="20" x2="22" y2="13"/>
+          </svg>
+        </div>
+        <h3 class="sys-name">Métricas <em>en vivo</em></h3>
+        <p class="sys-desc">
+          Cuántos toques por chip, día, hora y destino. Saber qué funciona y dónde
+          ajustar — toda la información sin formularios ni encuestas.
+        </p>
+        <span class="sys-tag soon">Próximamente</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKS -->
+<section class="section" id="paquetes">
+  <div class="section-head reveal">
+    <div>
+      <div class="sk">Paquetes comerciales</div>
+      <h2>Soluciones <em>completas</em><br>para cada tipo de negocio.</h2>
+    </div>
+    <div class="lede">
+      Tres tickets pensados para llegar listos a operar — desde cafetería hasta
+      restaurante o experiencia premium. Productos, programación y servicio
+      en un solo precio.
+    </div>
+  </div>
+
+  <div class="packs reveal-stagger">
+    <div class="pack" style="--pack-color: var(--teal);">
+      <div class="pack-name">Pack Entrada</div>
+      <div class="pack-price">$1,800 <small>MXN</small></div>
+      <p class="pack-desc">
+        Para el negocio que quiere dar el primer paso digital sin gran inversión.
+      </p>
+      <div class="pack-items">
+        <div class="pack-item">10 Smart Links Round personalizados</div>
+        <div class="pack-item">Programación de destinos NFC</div>
+        <div class="pack-item">Diseño básico incluido</div>
+        <div class="pack-item">Entrega y activación</div>
+      </div>
+      <a class="btn btn-ghost" href="#cta">Empezar aquí</a>
+    </div>
+
+    <div class="pack" data-featured="true" style="--pack-color: var(--accent);">
+      <div class="pack-name">Pack Staff Experience</div>
+      <div class="pack-price">$4,500 <small>MXN</small></div>
+      <p class="pack-desc">
+        El equipo completo para un restaurante, café o comercio que quiere diferenciarse.
+      </p>
+      <div class="pack-items">
+        <div class="pack-item">15 Smart Links personalizados (forma a elegir)</div>
+        <div class="pack-item">2 Tap Bar Plus (3 chips cada uno)</div>
+        <div class="pack-item">1 Exhibidor Básico brandado</div>
+        <div class="pack-item">Programación completa de todos los chips</div>
+        <div class="pack-item">Diseño intermedio incluido</div>
+      </div>
+      <a class="btn btn-ghost" href="#cta">Cotizar este pack</a>
+    </div>
+
+    <div class="pack" style="--pack-color: var(--coral);">
+      <div class="pack-name">Pack Menú Digital</div>
+      <div class="pack-price">$7,500 <small>MXN</small></div>
+      <p class="pack-desc">
+        Elimina el menú impreso. Break-even contra impresión tradicional en 6–9 meses.
+      </p>
+      <div class="pack-items">
+        <div class="pack-item">25 Smart Links personalizados</div>
+        <div class="pack-item">10 Tap Bar Max (4 chips · premium)</div>
+        <div class="pack-item">1 Exhibidor Torre brandado</div>
+        <div class="pack-item">10 Smart Toys (mascota del negocio)</div>
+        <div class="pack-item">Diseño exclusivo incluido</div>
+      </div>
+      <a class="btn btn-ghost" href="#cta">Cotizar este pack</a>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="section" id="numeros" style="padding-top: 0;">
+  <div class="section-head reveal">
+    <div>
+      <div class="sk">Especificaciones</div>
+      <h2>Por qué <em>funciona</em>.</h2>
+    </div>
+    <div class="lede">
+      Una sola inversión que convierte tu mesa, mostrador o llavero en una
+      herramienta que paga por sí sola en pocos meses.
+    </div>
+  </div>
+
+  <div class="numbers reveal-stagger">
+    <div class="ncell">
+      <div class="nc-label">Ticket más bajo</div>
+      <div class="nc-val">$60</div>
+      <div class="nc-note">Smart Link — accesible para lotes grandes y staff numeroso.</div>
+    </div>
+    <div class="ncell">
+      <div class="nc-label">Producción</div>
+      <div class="nc-val">3–5<em>dias</em></div>
+      <div class="nc-note">Entregas por lote de hasta 25 piezas. Sin esperar importaciones.</div>
+    </div>
+    <div class="ncell">
+      <div class="nc-label">Compatibilidad</div>
+      <div class="nc-val">100<em>%</em></div>
+      <div class="nc-note">Smartphones con NFC. Sin instalar apps, sin login del cliente.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-narrow" id="preguntas" style="padding-top: 0;">
+  <div class="section-head reveal">
+    <div>
+      <div class="sk">Preguntas frecuentes</div>
+      <h2>Lo que los <em>negocios</em> nos preguntan antes de empezar.</h2>
+    </div>
+    <div class="lede">
+      Respuestas cortas. Si falta algo, escríbenos por WhatsApp o correo.
+    </div>
+  </div>
+
+  <div class="faqs reveal-stagger">
+    <details class="faq" open>
+      <summary>
+        <span>¿Qué es exactamente un <em>chip NFC</em> y necesito una app?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-body">
+        Un chip NFC es un circuito pasivo que se activa cuando un teléfono se acerca.
+        El cliente no necesita instalar nada — la mayoría de smartphones modernos
+        detectan el chip de forma nativa y abren el destino que tú configures
+        (Instagram, menú, WhatsApp, reseñas).
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>
+        <span>¿Puedo <em>cambiar el destino</em> después de comprar?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-body">
+        Sí. Los chips NTAG215 son reprogramables. Si cambias tu Instagram, agregas
+        un menú nuevo o lanzas una promoción, podemos reprogramar todos los chips
+        sin costo extra dentro del año de garantía.
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>
+        <span>¿Cuál es el <em>mínimo de piezas</em> por pedido?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-body">
+        En catálogo estándar, el mínimo es 10 piezas por variante. En Línea
+        Personalizada o Smart Toys hay mínimos específicos (10–20 piezas). Para
+        piezas únicas o pruebas, cotizamos caso por caso.
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>
+        <span>¿Hacen <em>envíos a toda la república</em>?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-body">
+        Sí, enviamos a nivel nacional. El costo se cotiza según volumen y destino.
+        Coordinamos paquetería con seguimiento desde el día de entrega del lote.
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>
+        <span>¿Qué pasa si quiero un <em>diseño exclusivo</em>?</span>
+        <span class="faq-toggle">+</span>
+      </summary>
+      <div class="faq-body">
+        Activamos la Línea Personalizada. Hay tres niveles: adaptación de logo
+        (+$100), forma nueva (+$300) o concepto desde cero con exclusividad y
+        registro del modelo (+$800). El cargo es único por proyecto, no por pieza.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band" id="cta">
+  <div class="cta-orb"></div>
+  <div class="cta-inner reveal-stagger">
+    <div>
+      <h2>¿Listos para que tu marca <em>esté</em> en el bolsillo de tus clientes?</h2>
+      <p>
+        Cuéntanos qué necesitas — desde 10 piezas hasta un menú digital completo.
+        Respondemos en menos de 24 horas con cotización y plazos en la misma
+        conversación.
+      </p>
+    </div>
+    <div class="cta-right">
+      <a class="cta-contact" data-copy="+52 999 NIMUS" href="https://wa.me/52999000000" target="_blank" rel="noopener">
+        <div>
+          <div class="cl">WhatsApp directo</div>
+          <div class="cv">+52 999 · NIMUS</div>
+        </div>
+        <span class="copy-hint">copiar</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="cta-contact" data-copy="hola@nimus.mx" href="/cdn-cgi/l/email-protection#f1999e9d90b19f989c8482df9c89">
+        <div>
+          <div class="cl">Correo</div>
+          <div class="cv"><span class="__cf_email__" data-cfemail="771f181b1637191e1a0204591a0f">[email&#160;protected]</span></div>
+        </div>
+        <span class="copy-hint">copiar</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="cta-contact" data-copy="@nimus.make" href="https://instagram.com/nimus.make" target="_blank" rel="noopener">
+        <div>
+          <div class="cl">Instagram</div>
+          <div class="cv">@nimus.make</div>
+        </div>
+        <span class="copy-hint">copiar</span>
+        <span class="arrow">↗</span>
+      </a>
+
+      <!-- Quick quote form -->
+      <form class="quick-quote" id="quick-quote">
+        <h3>O cotiza en <em>30 segundos</em>.</h3>
+        <div class="qq-grid">
+          <div class="qq-field"><input name="nombre" type="text" placeholder="Tu nombre" required></div>
+          <div class="qq-field"><input name="negocio" type="text" placeholder="Negocio · marca" required></div>
+          <div class="qq-field full">
+            <select name="interes" required>
+              <option value="" disabled selected>¿Qué te interesa?</option>
+              <option>Pack Entrada</option>
+              <option>Pack Staff Experience</option>
+              <option>Pack Menú Digital</option>
+              <option>Tap Bar (cantidad pequeña)</option>
+              <option>Smart Link</option>
+              <option>Smart Toys</option>
+              <option>Línea Personalizada</option>
+              <option>No estoy seguro · asesorame</option>
+            </select>
+          </div>
+          <div class="qq-field full"><textarea name="detalle" placeholder="Cuéntanos: cantidad, formas, destinos NFC…" rows="2"></textarea></div>
+        </div>
+        <button type="submit">Enviar cotización <span class="arr">→</span></button>
+        <div class="qq-tiny">Respondemos en menos de 24 h</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top reveal-stagger">
+      <div class="footer-brand-block">
+        <img src="assets/nimus-logo-white.png" alt="NIMUS" class="fb-logo" />
+        <p>Piezas 3D con chips NFC que conectan tu marca con tus clientes en un toque.</p>
+      </div>
+      <div class="fcol">
+        <h4>Productos</h4>
+        <ul>
+          <li><a href="#tapbar">Tap Bar NFC</a></li>
+          <li><a href="#productos">Smart Link</a></li>
+          <li><a href="#productos">Smart Toys</a></li>
+          <li><a href="#productos">Exhibidor Merch</a></li>
+          <li><a href="#productos">Línea Personalizada</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Negocio</h4>
+        <ul>
+          <li><a href="#paquetes">Paquetes</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#preguntas">FAQ</a></li>
+          <li><a href="#cta">Cotizar</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="#cta">WhatsApp</a></li>
+          <li><a href="#cta"><span class="__cf_email__" data-cfemail="2941464548694740445c5a074451">[email&#160;protected]</span></a></li>
+          <li><a href="#cta">@nimus.make</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <span>© 2026 NIMUS Make · Todos los derechos reservados</span>
+      <span>v 2.0 · Landing pública</span>
+    </div>
+  </a>
+</footer>
+
+<!-- React + Tweaks -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script src="image-slot.js"></script>
+
+<!-- Scroll animations & micro-interactions -->
+<script>
+(function() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    // Just reveal everything immediately
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('in-view'));
+  } else {
+    // IntersectionObserver — reveal on enter
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+  }
+
+  // Nav shadow on scroll
+  const nav = document.querySelector('.topnav');
+  function onScroll() {
+    if (!nav) return;
+    nav.classList.toggle('is-scrolled', window.scrollY > 20);
+
+    // Parallax for hero / cta orbs
+    const orbHero = document.querySelector('.hero-orb');
+    if (orbHero) {
+      const y = Math.min(window.scrollY * 0.25, 200);
+      orbHero.style.transform = `translateY(${y}px)`;
+    }
+    const orbCta = document.querySelector('.cta-orb');
+    if (orbCta) {
+      const r = orbCta.getBoundingClientRect();
+      const offset = (window.innerHeight - r.top) * 0.08;
+      orbCta.style.transform = `translateY(${-offset}px)`;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Animated counters for hero pills (numbers in the "<em>5</em>", "<em>3–5</em>", "<em>0</em>")
+  if (!reduceMotion) {
+    const pillNums = document.querySelectorAll('.hero-pill strong em');
+    const countIO = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const el = e.target;
+        const target = el.textContent.trim();
+        // Only animate single-number values
+        const m = target.match(/^(\d+)$/);
+        if (m) {
+          const end = parseInt(m[1], 10);
+          let cur = 0;
+          const dur = 900;
+          const t0 = performance.now();
+          (function tick(now) {
+            const t = Math.min(1, (now - t0) / dur);
+            const ease = 1 - Math.pow(1 - t, 3);
+            cur = Math.round(end * ease);
+            el.textContent = cur;
+            if (t < 1) requestAnimationFrame(tick);
+            else el.textContent = target;
+          })(t0);
+        }
+        countIO.unobserve(el);
+      }
+    }, { threshold: 0.5 });
+    pillNums.forEach(el => countIO.observe(el));
+  }
+
+  // Smoothly close other FAQs when one opens (so only one open at a time feels more polished)
+  const faqs = document.querySelectorAll('.faq');
+  faqs.forEach(f => {
+    f.addEventListener('toggle', () => {
+      if (f.open) {
+        faqs.forEach(o => { if (o !== f) o.open = false; });
+      }
+    });
+  });
+
+  // ── Mobile drawer ──────────────────────────────
+  const burger = document.querySelector('.nav-burger');
+  const drawer = document.getElementById('mobile-drawer');
+  function setDrawer(open) {
+    if (!burger || !drawer) return;
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    drawer.setAttribute('data-open', open ? 'true' : 'false');
+    drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  if (burger && drawer) {
+    burger.addEventListener('click', () => {
+      setDrawer(burger.getAttribute('aria-expanded') !== 'true');
+    });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setDrawer(false)));
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') setDrawer(false); });
+  }
+
+  // ── Floating CTA & scroll-to-top visibility ─────
+  const floatCta = document.querySelector('.float-cta');
+  const toTop = document.querySelector('.to-top');
+  function onScroll2() {
+    const y = window.scrollY;
+    if (floatCta) floatCta.setAttribute('data-visible', y > 600 && y < (document.body.scrollHeight - window.innerHeight - 400) ? 'true' : 'false');
+    if (toTop) toTop.setAttribute('data-visible', y > window.innerHeight ? 'true' : 'false');
+  }
+  window.addEventListener('scroll', onScroll2, { passive: true });
+  onScroll2();
+
+  if (toTop) {
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  // ── Scroll dots: active state + click ───────────
+  const dots = document.querySelectorAll('.scroll-dots .dot');
+  const dotSections = [...dots].map(d => document.querySelector(d.dataset.target)).filter(Boolean);
+  dots.forEach(d => {
+    d.addEventListener('click', () => {
+      const target = document.querySelector(d.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  function updateDots() {
+    const mid = window.scrollY + window.innerHeight * 0.35;
+    let active = 0;
+    dotSections.forEach((sec, i) => {
+      if (sec && sec.offsetTop <= mid) active = i;
+    });
+    dots.forEach((d, i) => d.toggleAttribute('data-active', i === active));
+  }
+  window.addEventListener('scroll', updateDots, { passive: true });
+  updateDots();
+
+  // ── Toast helper ────────────────────────────────
+  const toast = document.getElementById('toast');
+  const toastText = toast && toast.querySelector('.toast-text');
+  let toastTimer = null;
+  function showToast(text) {
+    if (!toast) return;
+    if (toastText) toastText.textContent = text;
+    toast.setAttribute('data-visible', 'true');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.setAttribute('data-visible', 'false'), 2200);
+  }
+
+  // ── Click-to-copy on contact rows ───────────────
+  document.querySelectorAll('.cta-contact[data-copy]').forEach(a => {
+    a.addEventListener('click', async (e) => {
+      // Allow normal navigation on the link, but also copy
+      const txt = a.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(txt);
+        showToast('Copiado: ' + txt);
+      } catch {}
+    });
+  });
+
+  // ── Quick quote form ────────────────────────────
+  const qq = document.getElementById('quick-quote');
+  if (qq) {
+    qq.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(qq);
+      const msg =
+        `Hola NIMUS, soy ${data.get('nombre') || ''} de ${data.get('negocio') || ''}.\n` +
+        `Me interesa: ${data.get('interes') || ''}\n` +
+        (data.get('detalle') ? `Detalle: ${data.get('detalle')}` : '');
+      const url = 'https://wa.me/52999000000?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank');
+      showToast('Abriendo WhatsApp…');
+      qq.reset();
+    });
+  }
+
+  // ── Work-strip seamless loop ────────────────────
+  // We render ONE pass of cards in HTML (editable source-of-truth),
+  // then clone the cards at runtime to fill the second half of the
+  // marquee. Clones are marked aria-hidden + data-clone so they
+  // don't accept input. When user edits the source, the clone
+  // auto-syncs via MutationObserver.
+  const wTrack = document.querySelector('.work-track');
+  if (wTrack) {
+    const srcCards = [...wTrack.querySelectorAll('.work-card')];
+
+    function buildClones() {
+      // Remove any existing clones
+      wTrack.querySelectorAll('.work-card[data-clone]').forEach(n => n.remove());
+      // Clone all source cards (no inputs, no editable)
+      srcCards.forEach(src => {
+        const clone = src.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('data-clone', 'true');
+        clone.querySelectorAll('[contenteditable]').forEach(el => {
+          el.removeAttribute('contenteditable');
+          el.removeAttribute('spellcheck');
+        });
+        wTrack.appendChild(clone);
+      });
+    }
+    buildClones();
+
+    // Re-sync clones when source cards mutate (name/meta edits)
+    let resyncTimer = null;
+    const obs = new MutationObserver(() => {
+      clearTimeout(resyncTimer);
+      resyncTimer = setTimeout(() => {
+        srcCards.forEach((src, i) => {
+          const clone = wTrack.querySelectorAll('.work-card[data-clone]')[i];
+          if (clone) {
+            const srcName = src.querySelector('.work-name');
+            const srcMeta = src.querySelector('.work-meta');
+            const cloneName = clone.querySelector('.work-name');
+            const cloneMeta = clone.querySelector('.work-meta');
+            if (srcName && cloneName) cloneName.innerHTML = srcName.innerHTML;
+            if (srcMeta && cloneMeta) cloneMeta.innerHTML = srcMeta.innerHTML;
+          }
+        });
+      }, 120);
+    });
+    srcCards.forEach(src => {
+      src.querySelectorAll('[contenteditable]').forEach(el => {
+        obs.observe(el, { characterData: true, subtree: true, childList: true });
+      });
+    });
+  }
+})();
+</script>
+
+<!-- NFC tap demo + Tap Bar variant carousel -->
+<script>
+(function() {
+  // ── Variant carousel ────────────────────────────
+  const variantData = [
+    { name: 'Tap Bar 2',   sub: '2 destinos · base con peso',    price: '$450' },
+    { name: 'Tap Bar QR',  sub: 'NFC + QR · ideal pagos',         price: '$520' },
+    { name: 'Tap Bar 3',   sub: '3 destinos · PLA matte',          price: '$580' },
+    { name: 'Tap Bar 4',   sub: '4 destinos · diseño completo',    price: '$650' },
+    { name: 'Tap Bar Max', sub: 'Formato grande · 4 destinos',     price: '$890' },
+  ];
+  const variantImgs = document.querySelectorAll('#tap-variants .variant-img');
+  const variantPills = document.querySelectorAll('#tap-variants .variant-pill');
+  const vName = document.getElementById('variant-name');
+  const vSub = document.getElementById('variant-sub');
+  const vPrice = document.getElementById('variant-price-amount');
+
+  let current = 2;
+  let auto = null;
+
+  function selectVariant(i, fromUser) {
+    if (i === current) return;
+    current = i;
+    variantImgs.forEach(img => img.classList.toggle('active', +img.dataset.i === i));
+    variantPills.forEach(p => p.toggleAttribute('data-active', +p.dataset.i === i));
+    const d = variantData[i];
+    if (d) {
+      if (vName) vName.textContent = d.name;
+      if (vSub) vSub.textContent = d.sub;
+      if (vPrice) vPrice.textContent = d.price;
+    }
+    if (fromUser) {
+      clearInterval(auto);
+      auto = setInterval(() => selectVariant((current + 1) % variantData.length, false), 3800);
+    }
+  }
+  variantPills.forEach(p => p.addEventListener('click', () => selectVariant(+p.dataset.i, true)));
+  // Auto-rotate
+  auto = setInterval(() => selectVariant((current + 1) % variantData.length, false), 3800);
+
+  // ── Hero chip tap demo ──────────────────────────
+  const chips = document.querySelectorAll('#tapbar-hero .tap-chip');
+  const phoneApp = document.getElementById('phone-app');
+  const phoneAvatar = document.getElementById('phone-avatar');
+  const phoneName = document.getElementById('phone-name');
+  const phoneHandle = document.getElementById('phone-handle');
+  const phoneAction = document.getElementById('phone-action');
+  const phoneTag = document.getElementById('phone-tag');
+  const phoneBody = document.getElementById('phone-body');
+  const timeEl = document.getElementById('stage-time');
+
+  function hexToRgbStr(h) {
+    const v = h.replace('#','');
+    return parseInt(v.slice(0,2),16) + ', ' + parseInt(v.slice(2,4),16) + ', ' + parseInt(v.slice(4,6),16);
+  }
+
+  const destinations = [
+    { name: '@tu_marca', handle: 'Instagram', action: 'Seguir', tag: 'PERFIL · 12.4K', avatar: 'i', color: '#e1306c', gradient: 'linear-gradient(160deg, #833ab4 0%, #e1306c 50%, #fd1d1d 100%)' },
+    { name: 'Tu Negocio', handle: 'Google Reviews', action: 'Reseñar', tag: '4.8 ★★★★★', avatar: 'G', color: '#fbbc04', gradient: 'linear-gradient(160deg, #4285f4 0%, #1f1f1c 100%)' },
+    { name: '+52 999 NIMUS', handle: 'WhatsApp · en línea', action: 'Abrir', tag: 'CHAT DIRECTO', avatar: 'W', color: '#25d366', gradient: 'linear-gradient(160deg, #075e54 0%, #1a1a17 100%)' },
+    { name: 'Menú Digital', handle: 'tunegocio.menu', action: 'Ver', tag: '32 PLATILLOS', avatar: 'M', color: '#e89e25', gradient: 'linear-gradient(160deg, #2a2620 0%, #1a1714 100%)' },
+    { name: '@tu_marca', handle: 'TikTok', action: 'Seguir', tag: '8.2K SEGUIDORES', avatar: 't', color: '#69c9d0', gradient: 'linear-gradient(160deg, #1a1a17 0%, #0a0a08 100%)' },
+    { name: 'tunegocio.mx', handle: 'Sitio oficial', action: 'Abrir', tag: 'CATÁLOGO', avatar: '↗', color: '#7c5cbf', gradient: 'linear-gradient(160deg, #3d2e5e 0%, #1a1a17 100%)' },
+  ];
+
+  if (chips.length) {
+    let i = 0;
+    function tick() {
+      chips.forEach(c => c.removeAttribute('data-active'));
+      chips[i].setAttribute('data-active', 'true');
+      const d = destinations[i];
+      if (phoneApp) {
+        phoneApp.style.setProperty('--app-bg', d.gradient);
+        phoneApp.style.setProperty('--app-accent', d.color);
+        phoneApp.style.setProperty('--app-accent-rgb', hexToRgbStr(d.color));
+      }
+      if (phoneAvatar) phoneAvatar.textContent = d.avatar;
+      if (phoneName) phoneName.textContent = d.name;
+      if (phoneHandle) phoneHandle.textContent = d.handle;
+      if (phoneAction) phoneAction.textContent = d.action;
+      if (phoneTag) phoneTag.textContent = d.tag;
+      i = (i + 1) % chips.length;
+    }
+    tick();
+    setInterval(tick, 2400);
+  }
+  const t0 = Date.now();
+  setInterval(() => {
+    if (!timeEl) return;
+    const diff = Math.floor((Date.now() - t0) / 1000);
+    const m = String(Math.floor(diff / 60)).padStart(2, '0');
+    const s = String(diff % 60).padStart(2, '0');
+    timeEl.textContent = `${m}:${s}`;
+  }, 1000);
+})();
+</script>
+
+<!-- Tweaks panel -->
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#e05a35",
+  "heroHeadline": "Objetos que *trabajan* por tu marca.",
+  "theme": "light"
+}/*EDITMODE-END*/;
+
+const ACCENT_PALETTE = ['#e89e25', '#e05a35', '#1fa882', '#7c5cbf'];
+
+function hexToRgb(h) {
+  const v = h.replace('#','');
+  return [
+    parseInt(v.slice(0,2),16),
+    parseInt(v.slice(2,4),16),
+    parseInt(v.slice(4,6),16),
+  ].join(', ');
+}
+
+function NimusTweaks() {
+  const { TweaksPanel, useTweaks, TweakSection, TweakColor, TweakText, TweakRadio } = window;
+  const [t, setT] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--accent', t.accent);
+    document.documentElement.style.setProperty('--accent-rgb', hexToRgb(t.accent));
+    const h1 = document.querySelector('.hero h1');
+    if (h1 && t.heroHeadline) {
+      const v = t.heroHeadline;
+      if (v.includes('*')) {
+        h1.innerHTML = v.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+      } else {
+        h1.innerHTML = v;
+      }
+    }
+    // Theme swap (light/dark)
+    if (t.theme === 'dark') {
+      document.documentElement.style.setProperty('--bg', '#0d0d0b');
+      document.documentElement.style.setProperty('--paper', '#161613');
+      document.documentElement.style.setProperty('--paper-2', '#1c1c19');
+      document.documentElement.style.setProperty('--ink', '#f5f3ee');
+      document.documentElement.style.setProperty('--ink-soft', 'rgba(245,243,238,.7)');
+      document.documentElement.style.setProperty('--ink-mute', 'rgba(245,243,238,.5)');
+      document.documentElement.style.setProperty('--line', 'rgba(245,243,238,.1)');
+      document.documentElement.style.setProperty('--line-soft', 'rgba(245,243,238,.06)');
+      // Swap logo in nav for white version
+      const navLogo = document.querySelector('.topnav .brand-logo');
+      if (navLogo) navLogo.src = 'assets/nimus-logo-white.png';
+    } else {
+      document.documentElement.style.removeProperty('--bg');
+      document.documentElement.style.removeProperty('--paper');
+      document.documentElement.style.removeProperty('--paper-2');
+      document.documentElement.style.removeProperty('--ink');
+      document.documentElement.style.removeProperty('--ink-soft');
+      document.documentElement.style.removeProperty('--ink-mute');
+      document.documentElement.style.removeProperty('--line');
+      document.documentElement.style.removeProperty('--line-soft');
+      const navLogo = document.querySelector('.topnav .brand-logo');
+      if (navLogo) navLogo.src = 'assets/nimus-logo.png';
+    }
+  }, [t.accent, t.heroHeadline, t.theme]);
+
+  return (
+    <TweaksPanel title="Tweaks · NIMUS Landing">
+      <TweakSection title="Identidad">
+        <TweakColor
+          label="Color de acento"
+          value={t.accent}
+          options={ACCENT_PALETTE}
+          onChange={(v) => setT('accent', v)}
+        />
+        <TweakRadio
+          label="Tema"
+          value={t.theme}
+          options={[
+            { value: 'light', label: 'Claro' },
+            { value: 'dark', label: 'Oscuro' },
+          ]}
+          onChange={(v) => setT('theme', v)}
+        />
+      </TweakSection>
+      <TweakSection title="Contenido">
+        <TweakText
+          label="Titular del hero"
+          value={t.heroHeadline}
+          onChange={(v) => setT('heroHeadline', v)}
+          help="Usa *asteriscos* para italicizar palabras"
+        />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+const tweaksRoot = document.createElement('div');
+document.body.appendChild(tweaksRoot);
+ReactDOM.createRoot(tweaksRoot).render(<NimusTweaks />);
+</script>
+
+</body>
+</html>
