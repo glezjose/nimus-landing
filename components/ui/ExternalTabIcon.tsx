@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 
 type ExternalTabIconProps = {
   size?: number;
@@ -7,9 +7,9 @@ type ExternalTabIconProps = {
 
 export function ExternalTabIcon({ size = 14, className }: ExternalTabIconProps) {
   return (
-    <ArrowUpRight
-      size={size}
-      weight="bold"
+    <ArrowUpRightIcon
+      width={size}
+      height={size}
       aria-hidden
       className={className}
     />

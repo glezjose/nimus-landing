@@ -1,10 +1,14 @@
 "use client";
 
+import {
+  ArrowTopRightOnSquareIcon,
+  Bars3Icon,
+  UserIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { ArrowSquareOut, List, User, X } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { LocaleToggleChip } from "@/components/layout/LocaleToggleChip";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useScrollProgress } from "@/lib/hooks/useScrollProgress";
 import { siteConfig } from "@/lib/site";
@@ -67,7 +71,7 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
             onClick={() => setMenuOpen(false)}
             aria-label={t.nav.closeAria}
           >
-            <X size={16} weight="bold" aria-hidden="true" />
+            <XMarkIcon width={16} height={16} aria-hidden="true" />
             <span>{t.nav.close}</span>
           </button>
         </div>
@@ -104,7 +108,11 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
               className="nav-menu__social"
             >
               {t.nav.instagram}
-              <ArrowSquareOut size={14} weight="bold" aria-hidden="true" />
+              <ArrowTopRightOnSquareIcon
+                width={14}
+                height={14}
+                aria-hidden="true"
+              />
             </a>
           </div>
 
@@ -122,7 +130,7 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
               aria-label={t.nav.contactAria}
               onClick={() => setMenuOpen(false)}
             >
-              <User size={20} weight="bold" aria-hidden="true" />
+              <UserIcon width={20} height={20} aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -137,31 +145,25 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
       data-at-cta={hiddenAtCta ? "true" : "false"}
       aria-hidden={hiddenAtCta ? "true" : undefined}
     >
-      <div className="nav-menu__trigger-shell">
-        <button
-          type="button"
-          className="nav-menu__trigger"
-          aria-expanded={open}
-          aria-controls="site-nav-menu"
-          onClick={() => setMenuOpen(!open)}
-        >
-          <List size={18} weight="bold" aria-hidden="true" />
+      <button
+        type="button"
+        className="nav-menu__trigger-shell"
+        aria-expanded={open}
+        aria-controls="site-nav-menu"
+        onClick={() => setMenuOpen(!open)}
+      >
+        <span className="nav-menu__trigger-main">
+          <Bars3Icon width={18} height={18} aria-hidden="true" />
           <span>{t.nav.menu}</span>
-        </button>
-
-        <div className="nav-menu__trigger-tools">
-          <LocaleToggleChip
-            className="nav-menu__trigger-chip nav-menu__trigger-chip--locale"
-            onNavigate={() => setMenuOpen(false)}
-          />
-          <span
-            className="nav-menu__trigger-chip nav-menu__trigger-chip--scroll"
-            aria-label={`Scroll progress ${scrollProgress} percent`}
-          >
-            {scrollProgress}%
-          </span>
-        </div>
-      </div>
+        </span>
+        <span className="nav-menu__trigger-divider" aria-hidden="true" />
+        <span
+          className="nav-menu__trigger-scroll"
+          aria-label={`Scroll progress ${scrollProgress} percent`}
+        >
+          {scrollProgress}%
+        </span>
+      </button>
 
       {mounted ? createPortal(panel, document.body) : null}
     </div>

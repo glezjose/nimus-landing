@@ -1,4 +1,4 @@
-import { ArrowRight, CaretRight } from "@phosphor-icons/react";
+import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 type HoverArrowIconProps = {
   size?: number;
@@ -11,8 +11,12 @@ export function HoverArrowIcon({ size = 16, className }: HoverArrowIconProps) {
       className={["hover-arrow", className].filter(Boolean).join(" ")}
       aria-hidden
     >
-      <CaretRight className="hover-arrow__from" size={size} weight="bold" />
-      <ArrowRight className="hover-arrow__to" size={size} weight="bold" />
+      <ChevronRightIcon
+        className="hover-arrow__from"
+        width={size}
+        height={size}
+      />
+      <ArrowRightIcon className="hover-arrow__to" width={size} height={size} />
     </span>
   );
 }

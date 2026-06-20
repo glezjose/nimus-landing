@@ -1,8 +1,9 @@
 "use client";
 
+import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-import { User } from "@phosphor-icons/react";
+import { LocaleToggleChip } from "@/components/layout/LocaleToggleChip";
 import { NavMenu } from "@/components/layout/NavMenu";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 
@@ -35,15 +36,18 @@ export function TopNav({
       </Link>
 
       <div className="topnav__center">
-        <NavMenu dark={dark} hiddenAtCta={menuHiddenAtCta} />
+        <div className="topnav__nav-tools">
+          <NavMenu dark={dark} hiddenAtCta={menuHiddenAtCta} />
+          <LocaleToggleChip className="nav-locale-chip" />
+        </div>
       </div>
 
       <div className="topnav__actions">
+        <Link href="#cta" className="nav-icon-btn" aria-label={t.nav.contactAria}>
+          <UserIcon width={20} height={20} aria-hidden="true" />
+        </Link>
         <Link href="#cta" className="nav-cta">
           {t.nav.cta}
-        </Link>
-        <Link href="#cta" className="nav-icon-btn" aria-label={t.nav.contactAria}>
-          <User size={20} weight="bold" aria-hidden="true" />
         </Link>
       </div>
     </nav>
