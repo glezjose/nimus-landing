@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 import UnicornScene from "unicornstudio-react/next";
 import { useEffect, useRef, useState } from "react";
 import type { LottieRefCurrentProps } from "lottie-react";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useSiteLoader } from "@/lib/hooks/useSiteLoader";
 import spinnerAnimation from "@/public/assets/ios-loading-spinner.json";
 
@@ -33,7 +34,10 @@ function fitSceneSize(width: number, height: number) {
 }
 
 export function SiteLoader() {
-  const { phase, statusLabel, markUnicornReady, isVisible } = useSiteLoader();
+  const t = useTranslations();
+  const { phase, statusLabel, markUnicornReady, isVisible } = useSiteLoader(
+    t.loader.synced,
+  );
   const sceneRef = useRef<HTMLDivElement>(null);
   const spinnerRef = useRef<LottieRefCurrentProps | null>(null);
   const [sceneSize, setSceneSize] = useState({ width: 0, height: 0 });
@@ -124,7 +128,7 @@ export function SiteLoader() {
               sdkUrl={SCENE_SDK_URL}
               className="site-loader__unicorn"
               altText=""
-              ariaLabel="Animación de carga NIMUS"
+              ariaLabel={t.loader.aria}
             />
           ) : null}
         </div>

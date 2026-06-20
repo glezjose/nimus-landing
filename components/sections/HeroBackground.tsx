@@ -1,8 +1,11 @@
 "use client";
 
 import UnicornScene from "unicornstudio-react/next";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function HeroBackground() {
+  const t = useTranslations();
+
   return (
     <div className="hero-bg" aria-hidden="true">
       <UnicornScene
@@ -15,7 +18,7 @@ export function HeroBackground() {
         sdkUrl="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.5/dist/unicornStudio.umd.js"
         className="hero-unicorn"
         altText=""
-        ariaLabel="Animación de fondo decorativa"
+        ariaLabel={t.hero.backgroundAria}
       />
       <div className="hero-bg-overlay" />
     </div>

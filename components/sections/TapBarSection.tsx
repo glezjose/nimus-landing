@@ -4,41 +4,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { tapBarFeatures } from "@/lib/data/content";
-import { tapBarVariants } from "@/lib/data/variants";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function TapBarSection() {
+  const t = useTranslations();
+  const { tapbar } = t.sections;
   const [current, setCurrent] = useState(2);
 
   useEffect(() => {
     const auto = setInterval(() => {
-      setCurrent((i) => (i + 1) % tapBarVariants.length);
+      setCurrent((i) => (i + 1) % tapbar.variants.length);
     }, 3800);
     return () => clearInterval(auto);
-  }, []);
+  }, [tapbar.variants.length]);
 
   const selectVariant = (i: number) => setCurrent(i);
-  const variant = tapBarVariants[current];
+  const variant = tapbar.variants[current];
 
   return (
     <section className="feature" id="tapbar">
       <div className="feature-inner">
         <div>
-          <Reveal className="feature-tag">Producto destacado · Línea 01</Reveal>
+          <Reveal className="feature-tag">{tapbar.tag}</Reveal>
           <h2>
-            Tap Bar:
+            {tapbar.titleLine1}
             <br />
-            tu mesa,
+            {tapbar.titleLine2}
             <br />
-            <em>conectada.</em>
+            <em>{tapbar.titleEmphasis}</em>
           </h2>
-          <p className="feature-sub">
-            Stand de mesa con 2 a 4 chips NFC integrados. El cliente acerca el teléfono
-            y el chip lo lleva directo a donde tú quieras — menú digital, Google Reviews,
-            Instagram o WhatsApp. Sin apps, sin instalaciones.
-          </p>
+          <p className="feature-sub">{tapbar.sub}</p>
           <Reveal variant="stagger" className="feature-list">
-            {tapBarFeatures.map((item) => (
+            {tapbar.features.map((item) => (
               <div key={item.num} className="feature-list-item">
                 <span className="num">{item.num}</span>
                 <span dangerouslySetInnerHTML={{ __html: item.text }} />
@@ -46,7 +43,7 @@ export function TapBarSection() {
             ))}
           </Reveal>
           <Link className="feature-cta" href="#paquetes">
-            Ver variantes y precios <span className="arr">→</span>
+            {tapbar.cta} <span className="arr">→</span>
           </Link>
         </div>
 
@@ -63,10 +60,10 @@ export function TapBarSection() {
             </div>
             <div className="variant-price" id="variant-price">
               <span id="variant-price-amount">{variant.price}</span>
-              <small>MXN</small>
+              <small>{tapbar.currency}</small>
             </div>
 
-            {tapBarVariants.map((v) => (
+            {tapbar.variants.map((v) => (
               <Image
                 key={v.id}
                 className={`variant-img${current === v.id ? " active" : ""}`}
@@ -80,7 +77,7 @@ export function TapBarSection() {
             ))}
 
             <div className="variant-pills">
-              {tapBarVariants.map((v) => (
+              {tapbar.variants.map((v) => (
                 <button
                   key={v.slug}
                   className="variant-pill"
@@ -89,11 +86,11 @@ export function TapBarSection() {
                   data-active={current === v.id ? "true" : undefined}
                   onClick={() => selectVariant(v.id)}
                 >
-                  {v.slug === "bar-2" && "Bar 2"}
-                  {v.slug === "qr" && "QR"}
-                  {v.slug === "bar-3" && "Bar 3"}
-                  {v.slug === "bar-4" && "Bar 4"}
-                  {v.slug === "max" && "Max"}
+                  {v.slug === "bar-2" && tapbar.variantPills.bar2}
+                  {v.slug === "qr" && tapbar.variantPills.qr}
+                  {v.slug === "bar-3" && tapbar.variantPills.bar3}
+                  {v.slug === "bar-4" && tapbar.variantPills.bar4}
+                  {v.slug === "max" && tapbar.variantPills.max}
                 </button>
               ))}
             </div>

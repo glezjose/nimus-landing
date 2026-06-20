@@ -1,28 +1,30 @@
+"use client";
+
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { PhotoPlaceholder } from "@/components/ui/Icons";
-import { products } from "@/lib/data/products";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function ProductsSection() {
+  const t = useTranslations();
+  const { products } = t.sections;
+
   return (
     <section className="section" id="productos">
       <Reveal className="section-head">
         <div>
-          <div className="sk">Catálogo · 6 líneas</div>
+          <div className="sk">{products.sk}</div>
           <h2>
-            Una pieza para cada <em>punto de contacto</em> entre tu marca y tus
-            clientes.
+            {products.titleBefore}
+            <em>{products.titleEmphasis}</em>
+            {products.titleAfter}
           </h2>
         </div>
-        <div className="lede">
-          Cada línea cubre un momento específico — la mesa del restaurante, las llaves
-          del cliente, el mostrador. Todas se imprimen bajo demanda y se personalizan
-          con tu identidad visual.
-        </div>
+        <div className="lede">{products.lede}</div>
       </Reveal>
 
       <Reveal variant="stagger" className="lineup">
-        {products.map((product) => (
+        {products.items.map((product) => (
           <Link
             key={product.id}
             className={`lcard span-${product.span}${product.featured ? " featured" : ""}`}
@@ -50,7 +52,7 @@ export function ProductsSection() {
                 <span className="l-from">{product.priceLabel}</span>
                 <span className="l-price">
                   {product.price}{" "}
-                  <small>MXN</small>
+                  <small>{products.currency}</small>
                 </span>
               </div>
             </div>

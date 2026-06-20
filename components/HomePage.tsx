@@ -14,8 +14,11 @@ import { PacksSection } from "@/components/sections/PacksSection";
 import { NumbersSection } from "@/components/sections/NumbersSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CtaSection } from "@/components/sections/CtaSection";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
+import { formatMessage } from "@/lib/i18n/types";
 
 export function HomePage() {
+  const t = useTranslations();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastVisible, setToastVisible] = useState(false);
 
@@ -32,9 +35,9 @@ export function HomePage() {
 
   const handleCopy = useCallback(
     (text: string) => {
-      showToast(`Copiado: ${text}`);
+      showToast(formatMessage(t.ui.copiedWith, { text }));
     },
-    [showToast],
+    [showToast, t.ui.copiedWith],
   );
 
   return (

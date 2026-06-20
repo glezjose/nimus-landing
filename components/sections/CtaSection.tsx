@@ -2,7 +2,8 @@
 
 import { FormEvent, useCallback } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { quoteOptions } from "@/lib/data/content";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
+import { formatMessage } from "@/lib/i18n/types";
 import { siteConfig } from "@/lib/site";
 
 type CtaSectionProps = {
@@ -11,6 +12,9 @@ type CtaSectionProps = {
 };
 
 export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
+  const t = useTranslations();
+  const { cta } = t.sections;
+
   const handleCopy = useCallback(
     async (text: string) => {
       try {
@@ -26,13 +30,22 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const msg =
-      `Hola NIMUS, soy ${data.get("nombre") || ""} de ${data.get("negocio") || ""}.\n` +
-      `Me interesa: ${data.get("interes") || ""}\n` +
-      (data.get("detalle") ? `Detalle: ${data.get("detalle")}` : "");
+    const name = String(data.get("nombre") || "");
+    const business = String(data.get("negocio") || "");
+    const interest = String(data.get("interes") || "");
+    const detail = String(data.get("detalle") || "");
+
+    const msg = [
+      formatMessage(cta.whatsappGreeting, { name, business }),
+      formatMessage(cta.whatsappInterest, { interest }),
+      detail ? formatMessage(cta.whatsappDetail, { detail }) : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
     const url = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank");
-    onToast("Abriendo WhatsApp…");
+    onToast(cta.openingWhatsApp);
     e.currentTarget.reset();
   };
 
@@ -42,13 +55,11 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
       <Reveal variant="stagger" className="cta-inner">
         <div>
           <h2>
-            ¿Listos para que tu marca <em>esté</em> en el bolsillo de tus clientes?
+            {cta.titleBefore}
+            <em>{cta.titleEmphasis}</em>
+            {cta.titleAfter}
           </h2>
-          <p>
-            Cuéntanos qué necesitas — desde 10 piezas hasta un menú digital completo.
-            Respondemos en menos de 24 horas con cotización y plazos en la misma
-            conversación.
-          </p>
+          <p>{cta.intro}</p>
         </div>
         <div className="cta-right">
           <a
@@ -60,10 +71,10 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
             onClick={() => handleCopy(siteConfig.whatsappDisplay)}
           >
             <div>
-              <div className="cl">WhatsApp directo</div>
+              <div className="cl">{cta.whatsappLabel}</div>
               <div className="cv">{siteConfig.whatsappDisplay}</div>
             </div>
-            <span className="copy-hint">copiar</span>
+            <span className="copy-hint">{cta.copyHint}</span>
             <span className="arrow">↗</span>
           </a>
           <a
@@ -73,10 +84,10 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
             onClick={() => handleCopy(siteConfig.email)}
           >
             <div>
-              <div className="cl">Correo</div>
+              <div className="cl">{cta.emailLabel}</div>
               <div className="cv">{siteConfig.email}</div>
             </div>
-            <span className="copy-hint">copiar</span>
+            <span className="copy-hint">{cta.copyHint}</span>
             <span className="arrow">↗</span>
           </a>
           <a
@@ -88,30 +99,32 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
             onClick={() => handleCopy(siteConfig.instagram)}
           >
             <div>
-              <div className="cl">Instagram</div>
+              <div className="cl">{cta.instagramLabel}</div>
               <div className="cv">{siteConfig.instagram}</div>
             </div>
-            <span className="copy-hint">copiar</span>
+            <span className="copy-hint">{cta.copyHint}</span>
             <span className="arrow">↗</span>
           </a>
 
           <form className="quick-quote" id="quick-quote" onSubmit={handleSubmit}>
             <h3>
-              O cotiza en <em>30 segundos</em>.
+              {cta.formTitleBefore}
+              <em>{cta.formTitleEmphasis}</em>
+              {cta.formTitleAfter}
             </h3>
             <div className="qq-grid">
               <div className="qq-field">
-                <input name="nombre" type="text" placeholder="Tu nombre" required />
+                <input name="nombre" type="text" placeholder={cta.namePlaceholder} required />
               </div>
               <div className="qq-field">
-                <input name="negocio" type="text" placeholder="Negocio · marca" required />
+                <input name="negocio" type="text" placeholder={cta.businessPlaceholder} required />
               </div>
               <div className="qq-field full">
                 <select name="interes" required defaultValue="">
                   <option value="" disabled>
-                    ¿Qué te interesa?
+                    {cta.interestPlaceholder}
                   </option>
-                  {quoteOptions.map((option) => (
+                  {cta.quoteOptions.map((option: string) => (
                     <option key={option} value={option}>
                       {option}
                     </option>
@@ -121,15 +134,15 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
               <div className="qq-field full">
                 <textarea
                   name="detalle"
-                  placeholder="Cuéntanos: cantidad, formas, destinos NFC…"
+                  placeholder={cta.detailPlaceholder}
                   rows={2}
                 />
               </div>
             </div>
             <button type="submit">
-              Enviar cotización <span className="arr">→</span>
+              {cta.submit} <span className="arr">→</span>
             </button>
-            <div className="qq-tiny">Respondemos en menos de 24 h</div>
+            <div className="qq-tiny">{cta.formNote}</div>
           </form>
         </div>
       </Reveal>

@@ -51,7 +51,7 @@ function dismissLoader(
   };
 }
 
-export function useSiteLoader() {
+export function useSiteLoader(syncedLabel: string) {
   const [phase, setPhase] = useState<LoaderPhase>("loading");
   const [progress, setProgress] = useState(1);
   const [statusLabel, setStatusLabel] = useState("1");
@@ -69,9 +69,9 @@ export function useSiteLoader() {
     if (sessionStorage.getItem(SYNC_KEY) !== "1") return;
 
     setProgress(100);
-    setStatusLabel("Sincronizado");
+    setStatusLabel(syncedLabel);
     setPhase("loading");
-  }, []);
+  }, [syncedLabel]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -102,7 +102,7 @@ export function useSiteLoader() {
       if (cancelled) return;
       displayRef.current = 100;
       setProgress(100);
-      setStatusLabel("Sincronizado");
+      setStatusLabel(syncedLabel);
       setPhase("loading");
       sessionStorage.setItem(SYNC_KEY, "1");
 
@@ -205,7 +205,7 @@ export function useSiteLoader() {
       if (hideTimer !== undefined) window.clearTimeout(hideTimer);
       document.body.classList.remove("site-loading");
     };
-  }, []);
+  }, [syncedLabel]);
 
   return {
     phase,

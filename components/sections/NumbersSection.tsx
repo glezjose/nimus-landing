@@ -1,24 +1,28 @@
+"use client";
+
 import { Reveal } from "@/components/ui/Reveal";
-import { numbers } from "@/lib/data/content";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function NumbersSection() {
+  const t = useTranslations();
+  const { numbers } = t.sections;
+
   return (
     <section className="section" id="numeros" style={{ paddingTop: 0 }}>
       <Reveal className="section-head">
         <div>
-          <div className="sk">Especificaciones</div>
+          <div className="sk">{numbers.sk}</div>
           <h2>
-            Por qué <em>funciona</em>.
+            {numbers.titleBefore}
+            <em>{numbers.titleEmphasis}</em>
+            {numbers.titleAfter}
           </h2>
         </div>
-        <div className="lede">
-          Una sola inversión que convierte tu mesa, mostrador o llavero en una
-          herramienta que paga por sí sola en pocos meses.
-        </div>
+        <div className="lede">{numbers.lede}</div>
       </Reveal>
 
       <Reveal variant="stagger" className="numbers">
-        {numbers.map((cell) => (
+        {numbers.items.map((cell) => (
           <div key={cell.label} className="ncell">
             <div className="nc-label">{cell.label}</div>
             <div className="nc-val">

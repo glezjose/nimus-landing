@@ -1,10 +1,12 @@
-import { marqueeItems } from "@/lib/data/hero";
+"use client";
+
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 function MarqueePills({
   items,
   prefix,
 }: {
-  items: string[];
+  items: readonly string[];
   prefix: string;
 }) {
   return (
@@ -19,7 +21,8 @@ function MarqueePills({
 }
 
 export function HeroMarqueeVertical({ onDark = true }: { onDark?: boolean }) {
-  const items = [...marqueeItems, ...marqueeItems];
+  const t = useTranslations();
+  const items = [...t.hero.marquee, ...t.hero.marquee];
 
   return (
     <div
@@ -36,7 +39,8 @@ export function HeroMarqueeVertical({ onDark = true }: { onDark?: boolean }) {
 }
 
 export function HeroMarqueeHorizontal() {
-  const items = [...marqueeItems, ...marqueeItems];
+  const t = useTranslations();
+  const items = [...t.hero.marquee, ...t.hero.marquee];
 
   return (
     <div

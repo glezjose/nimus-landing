@@ -2,9 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { faqs } from "@/lib/data/faqs";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function FaqSection() {
+  const t = useTranslations();
+  const { faq } = t.sections;
   const faqsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,28 +37,28 @@ export function FaqSection() {
     <section className="section section-narrow" id="preguntas" style={{ paddingTop: 0 }}>
       <Reveal className="section-head">
         <div>
-          <div className="sk">Preguntas frecuentes</div>
+          <div className="sk">{faq.sk}</div>
           <h2>
-            Lo que los <em>negocios</em> nos preguntan antes de empezar.
+            {faq.titleBefore}
+            <em>{faq.titleEmphasis}</em>
+            {faq.titleAfter}
           </h2>
         </div>
-        <div className="lede">
-          Respuestas cortas. Si falta algo, escríbenos por WhatsApp o correo.
-        </div>
+        <div className="lede">{faq.lede}</div>
       </Reveal>
 
       <div ref={faqsRef}>
         <Reveal variant="stagger" className="faqs">
-          {faqs.map((faq, index) => (
-            <details key={faq.id} className="faq" open={index === 0}>
+          {faq.items.map((item, index) => (
+            <details key={item.id} className="faq" open={index === 0}>
               <summary>
                 <span>
-                  {faq.question}
-                  <em>{faq.questionEmphasis}</em>?
+                  {item.question}
+                  <em>{item.questionEmphasis}</em>?
                 </span>
                 <span className="faq-toggle">+</span>
               </summary>
-              <div className="faq-body">{faq.answer}</div>
+              <div className="faq-body">{item.answer}</div>
             </details>
           ))}
         </Reveal>

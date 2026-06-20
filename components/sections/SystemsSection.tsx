@@ -1,27 +1,30 @@
+"use client";
+
 import { Reveal } from "@/components/ui/Reveal";
 import { SystemIcon } from "@/components/ui/Icons";
-import { systems } from "@/lib/data/content";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function SystemsSection() {
+  const t = useTranslations();
+  const { systems } = t.sections;
+
   return (
     <section className="systems-section" id="sistemas">
       <div className="systems-inner">
         <Reveal className="section-head">
           <div>
-            <div className="sk">Sistemas digitales · complementan tu Tap Bar</div>
+            <div className="sk">{systems.sk}</div>
             <h2>
-              Más allá del <em>objeto físico</em>.
+              {systems.titleBefore}
+              <em>{systems.titleEmphasis}</em>
+              {systems.titleAfter}
             </h2>
           </div>
-          <div className="lede">
-            Si tu negocio aún no los tiene, los implementamos contigo. Tus piezas
-            con NFC se conectan a sistemas de recompensas, reservas, propinas,
-            reseñas y métricas — montados a la medida o integrados con lo que ya usas.
-          </div>
+          <div className="lede">{systems.lede}</div>
         </Reveal>
 
         <Reveal variant="stagger" className="systems-grid">
-          {systems.map((sys) => (
+          {systems.items.map((sys) => (
             <div key={sys.id} className="sys-card">
               <div className="sys-icon">
                 <SystemIcon type={sys.icon} />

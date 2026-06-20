@@ -1,25 +1,29 @@
+"use client";
+
 import { Reveal } from "@/components/ui/Reveal";
-import { processSteps } from "@/lib/data/content";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function ProcessSection() {
+  const t = useTranslations();
+  const { process } = t.sections;
+
   return (
     <section className="section dark">
       <div className="section section-narrow" style={{ padding: "0 0" }}>
         <Reveal className="section-head">
           <div>
-            <div className="sk">Proceso · 4 pasos</div>
+            <div className="sk">{process.sk}</div>
             <h2 style={{ color: "var(--bg)" }}>
-              Del brief a <em>tu mostrador</em> en menos de una semana.
+              {process.titleBefore}
+              <em>{process.titleEmphasis}</em>
+              {process.titleAfter}
             </h2>
           </div>
-          <div className="lede">
-            Operación corta, sin intermediarios y con producción local. Modelado, prueba
-            e impresión bajo el mismo techo.
-          </div>
+          <div className="lede">{process.lede}</div>
         </Reveal>
 
         <Reveal variant="stagger" className="process" id="proceso">
-          {processSteps.map((step) => (
+          {process.steps.map((step) => (
             <div key={step.num} className="pstep">
               <div className="ps-num">{step.num}</div>
               <h3 className="ps-title">

@@ -6,6 +6,7 @@ export function useScrollChrome() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [floatCtaVisible, setFloatCtaVisible] = useState(false);
   const [toTopVisible, setToTopVisible] = useState(false);
+  const [menuHiddenAtCta, setMenuHiddenAtCta] = useState(false);
 
   const onScroll = useCallback(() => {
     const y = window.scrollY;
@@ -14,6 +15,17 @@ export function useScrollChrome() {
       y > 600 && y < document.body.scrollHeight - window.innerHeight - 400,
     );
     setToTopVisible(y > window.innerHeight);
+
+    const cta = document.getElementById("cta");
+    if (cta) {
+      const rect = cta.getBoundingClientRect();
+      const navBottom = 72;
+      const enteredCta = rect.top <= navBottom;
+      const stillInCta = rect.bottom > navBottom;
+      setMenuHiddenAtCta(enteredCta && stillInCta);
+    } else {
+      setMenuHiddenAtCta(false);
+    }
 
     const orbHero = document.querySelector(".hero-orb") as HTMLElement | null;
     if (orbHero) {
@@ -46,6 +58,7 @@ export function useScrollChrome() {
     navScrolled,
     floatCtaVisible,
     toTopVisible,
+    menuHiddenAtCta,
     scrollToTop,
   };
 }

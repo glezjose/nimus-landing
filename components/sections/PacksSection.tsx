@@ -1,28 +1,30 @@
+"use client";
+
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { packs } from "@/lib/data/packs";
+import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 export function PacksSection() {
+  const t = useTranslations();
+  const { packs } = t.sections;
+
   return (
     <section className="section" id="paquetes">
       <Reveal className="section-head">
         <div>
-          <div className="sk">Paquetes comerciales</div>
+          <div className="sk">{packs.sk}</div>
           <h2>
-            Soluciones <em>completas</em>
+            {packs.titleBefore}
+            <em>{packs.titleEmphasis}</em>
             <br />
-            para cada tipo de negocio.
+            {packs.titleLine2}
           </h2>
         </div>
-        <div className="lede">
-          Tres tickets pensados para llegar listos a operar — desde cafetería hasta
-          restaurante o experiencia premium. Productos, programación y servicio
-          en un solo precio.
-        </div>
+        <div className="lede">{packs.lede}</div>
       </Reveal>
 
       <Reveal variant="stagger" className="packs">
-        {packs.map((pack) => (
+        {packs.items.map((pack) => (
           <div
             key={pack.id}
             className="pack"
@@ -31,7 +33,7 @@ export function PacksSection() {
           >
             <div className="pack-name">{pack.name}</div>
             <div className="pack-price">
-              {pack.price} <small>MXN</small>
+              {pack.price} <small>{packs.currency}</small>
             </div>
             <p className="pack-desc">{pack.description}</p>
             <div className="pack-items">
@@ -42,7 +44,7 @@ export function PacksSection() {
               ))}
             </div>
             <Link className="btn btn-ghost" href="#cta">
-              {pack.featured ? "Cotizar este pack" : "Empezar aquí"}
+              {pack.featured ? packs.ctaFeatured : packs.ctaDefault}
             </Link>
           </div>
         ))}
