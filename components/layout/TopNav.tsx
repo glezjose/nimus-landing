@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export function TopNav({
   menuHiddenAtCta = false,
 }: TopNavProps) {
   const t = useTranslations();
+  const navToolsRef = useRef<HTMLDivElement>(null);
 
   return (
     <nav
@@ -36,8 +38,12 @@ export function TopNav({
       </Link>
 
       <div className="topnav__center">
-        <div className="topnav__nav-tools">
-          <NavMenu dark={dark} hiddenAtCta={menuHiddenAtCta} />
+        <div ref={navToolsRef} className="topnav__nav-tools">
+          <NavMenu
+            dark={dark}
+            hiddenAtCta={menuHiddenAtCta}
+            navToolsRef={navToolsRef}
+          />
           <LocaleToggleChip className="nav-locale-chip" />
         </div>
       </div>

@@ -11,10 +11,21 @@ function fitCameraToViewport(
 ) {
   const aspect = width / Math.max(height, 1);
   camera.aspect = aspect;
-  camera.fov = width < 640 ? 46 : 42;
 
   const narrow = width < 720 || aspect < 0.92;
-  camera.position.set(0, narrow ? 0.22 : 0.35, narrow ? 4.1 : 3.2);
+  const desktop = width >= 1000 && !narrow;
+
+  if (narrow) {
+    camera.fov = width < 640 ? 46 : 42;
+    camera.position.set(0, 0.22, 4.1);
+  } else if (desktop) {
+    camera.fov = 42;
+    camera.position.set(0, 0.35, 3.2);
+  } else {
+    camera.fov = 42;
+    camera.position.set(0, 0.35, 3.2);
+  }
+
   camera.updateProjectionMatrix();
 }
 
@@ -29,7 +40,8 @@ function fitModelToScene(
 
   model.position.sub(center);
   const maxDim = Math.max(size.x, size.y, size.z);
-  const fitScale = (width < 720 ? 1.78 : 2.15) / Math.max(maxDim, 0.001);
+  const targetSize = width < 720 ? 1.78 : width >= 1000 ? 1.83 : 2.15;
+  const fitScale = targetSize / Math.max(maxDim, 0.001);
   model.scale.setScalar(fitScale);
   model.position.y += size.y * fitScale * 0.02;
 }

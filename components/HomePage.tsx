@@ -45,10 +45,10 @@ export function HomePage() {
       <SiteChrome toastMessage={toastMessage} toastVisible={toastVisible} />
       <main>
         <HeroSection />
+        <EditorialSection />
+        <WorkStripSection />
         <TapBarSection />
         <ProductsSection />
-        <WorkStripSection />
-        <EditorialSection />
         <ProcessSection />
         <SystemsSection />
         <PacksSection />

@@ -2,12 +2,19 @@
 
 import {
   ArrowTopRightOnSquareIcon,
-  Bars3Icon,
+  Bars2Icon,
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  type CSSProperties,
+  type RefObject,
+} from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useScrollProgress } from "@/lib/hooks/useScrollProgress";
@@ -16,18 +23,97 @@ import { siteConfig } from "@/lib/site";
 type NavMenuProps = {
   dark?: boolean;
   hiddenAtCta?: boolean;
+  navToolsRef: RefObject<HTMLDivElement | null>;
 };
 
-export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
+const MENU_SHELL_PAD = 10;
+const MENU_VIEWPORT_PAD = 10;
+const MENU_MOBILE_BOTTOM_INSET = 56;
+const MENU_MOBILE_MAX_HEIGHT = 560;
+
+function getPanelGeometry(tools: DOMRect) {
+  const mobile = window.innerWidth <= 860;
+  const pad = MENU_SHELL_PAD;
+  const viewportPad = MENU_VIEWPORT_PAD;
+  const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+
+  const shellWidth = tools.width + pad * 2;
+  const openWidth = mobile
+    ? Math.min(shellWidth, window.innerWidth - viewportPad * 2)
+    : shellWidth;
+
+  const originX = tools.left - pad;
+  const originY = tools.top - pad;
+  const originW = shellWidth;
+  const originH = tools.height + pad * 2;
+
+  const openY = tools.top - pad;
+  const openHeight = mobile
+    ? Math.min(
+        MENU_MOBILE_MAX_HEIGHT,
+        viewportHeight - openY - MENU_MOBILE_BOTTOM_INSET,
+      )
+    : Math.min(580, viewportHeight - 96);
+
+  const openX = mobile
+    ? Math.min(
+        originX,
+        window.innerWidth - viewportPad - openWidth,
+      )
+    : originX;
+
+  return {
+    "--menu-shell-pad": `${pad}px`,
+    "--menu-tools-h": `${tools.height}px`,
+    "--menu-origin-x": `${originX}px`,
+    "--menu-origin-y": `${originY}px`,
+    "--menu-origin-w": `${originW}px`,
+    "--menu-origin-h": `${originH}px`,
+    "--menu-open-x": `${openX}px`,
+    "--menu-open-y": `${openY}px`,
+    "--menu-open-w": `${openWidth}px`,
+    "--menu-open-h": `${openHeight}px`,
+  } as CSSProperties;
+}
+
+export function NavMenu({
+  dark = false,
+  hiddenAtCta = false,
+  navToolsRef,
+}: NavMenuProps) {
   const t = useTranslations();
   const scrollProgress = useScrollProgress();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [panelStyle, setPanelStyle] = useState<CSSProperties>({});
 
   const setMenuOpen = useCallback((next: boolean) => {
     setOpen(next);
     document.body.style.overflow = next ? "hidden" : "";
   }, []);
+
+  const syncPanelGeometry = useCallback(() => {
+    const tools = navToolsRef.current;
+    if (!tools) return;
+
+    setPanelStyle(getPanelGeometry(tools.getBoundingClientRect()));
+  }, [navToolsRef]);
+
+  useLayoutEffect(() => {
+    syncPanelGeometry();
+
+    const tools = navToolsRef.current;
+    const topnav = tools?.closest(".topnav");
+    const openAttr = open ? "true" : "false";
+
+    tools?.setAttribute("data-menu-open", openAttr);
+    topnav?.setAttribute("data-menu-open", openAttr);
+  }, [open, navToolsRef, syncPanelGeometry]);
+
+  useLayoutEffect(() => {
+    syncPanelGeometry();
+  }, [syncPanelGeometry]);
 
   useEffect(() => {
     setMounted(true);
@@ -35,6 +121,24 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
       document.body.style.overflow = "";
     };
   }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 860px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    syncPanelGeometry();
+    window.addEventListener("resize", syncPanelGeometry);
+    window.addEventListener("scroll", syncPanelGeometry, { passive: true });
+    return () => {
+      window.removeEventListener("resize", syncPanelGeometry);
+      window.removeEventListener("scroll", syncPanelGeometry);
+    };
+  }, [syncPanelGeometry]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -49,21 +153,13 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
   }, [hiddenAtCta, setMenuOpen]);
 
   const panel = (
-    <>
-      <button
-        type="button"
-        className="nav-menu__backdrop"
-        aria-label={t.nav.closeAria}
-        data-open={open ? "true" : "false"}
-        onClick={() => setMenuOpen(false)}
-      />
-
-      <div
-        className={`nav-menu__panel${dark ? " nav-menu__panel--dark" : ""}`}
-        id="site-nav-menu"
-        data-open={open ? "true" : "false"}
-        aria-hidden={!open}
-      >
+    <div
+      className={`nav-menu__panel${dark ? " nav-menu__panel--dark" : ""}`}
+      id="site-nav-menu"
+      data-open={open ? "true" : "false"}
+      aria-hidden={!open}
+      style={panelStyle}
+    >
         <div className="nav-menu__toolbar">
           <button
             type="button"
@@ -115,7 +211,9 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
               />
             </a>
           </div>
+        </div>
 
+        {isMobile ? (
           <div className="nav-menu__bottom">
             <Link
               href="#cta"
@@ -133,9 +231,8 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
               <UserIcon width={20} height={20} aria-hidden="true" />
             </Link>
           </div>
-        </div>
+        ) : null}
       </div>
-    </>
   );
 
   return (
@@ -150,18 +247,40 @@ export function NavMenu({ dark = false, hiddenAtCta = false }: NavMenuProps) {
         className="nav-menu__trigger-shell"
         aria-expanded={open}
         aria-controls="site-nav-menu"
+        aria-label={open ? t.nav.closeAria : undefined}
         onClick={() => setMenuOpen(!open)}
       >
         <span className="nav-menu__trigger-main">
-          <Bars3Icon width={18} height={18} aria-hidden="true" />
-          <span>{t.nav.menu}</span>
+          <span className="nav-menu__trigger-icon" aria-hidden="true">
+            <Bars2Icon
+              width={18}
+              height={18}
+              data-state={open ? "inactive" : "active"}
+            />
+            <XMarkIcon
+              width={18}
+              height={18}
+              data-state={open ? "active" : "inactive"}
+            />
+          </span>
+          <span className="nav-menu__trigger-label">
+            <span className="nav-menu__trigger-label-sizer" aria-hidden="true">
+              {t.nav.close}
+            </span>
+            <span className="nav-menu__trigger-label-text">
+              {open ? t.nav.close : t.nav.menu}
+            </span>
+          </span>
         </span>
         <span className="nav-menu__trigger-divider" aria-hidden="true" />
         <span
           className="nav-menu__trigger-scroll"
           aria-label={`Scroll progress ${scrollProgress} percent`}
         >
-          {scrollProgress}%
+          <span className="nav-menu__trigger-scroll-digits">{scrollProgress}</span>
+          <span className="nav-menu__trigger-scroll-suffix" aria-hidden="true">
+            %
+          </span>
         </span>
       </button>
 
