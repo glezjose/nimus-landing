@@ -4,16 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 
 export function useScrollChrome() {
   const [navScrolled, setNavScrolled] = useState(false);
-  const [floatCtaVisible, setFloatCtaVisible] = useState(false);
   const [toTopVisible, setToTopVisible] = useState(false);
   const [menuHiddenAtCta, setMenuHiddenAtCta] = useState(false);
 
   const onScroll = useCallback(() => {
     const y = window.scrollY;
     setNavScrolled(y > 20);
-    setFloatCtaVisible(
-      y > 600 && y < document.body.scrollHeight - window.innerHeight - 400,
-    );
     setToTopVisible(y > window.innerHeight);
 
     const cta = document.getElementById("cta");
@@ -56,7 +52,6 @@ export function useScrollChrome() {
 
   return {
     navScrolled,
-    floatCtaVisible,
     toTopVisible,
     menuHiddenAtCta,
     scrollToTop,

@@ -7,7 +7,6 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { TapBarSection } from "@/components/sections/TapBarSection";
 import { ProductsSection } from "@/components/sections/ProductsSection";
 import { WorkStripSection } from "@/components/sections/WorkStripSection";
-import { EditorialSection } from "@/components/sections/EditorialSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { SystemsSection } from "@/components/sections/SystemsSection";
 import { PacksSection } from "@/components/sections/PacksSection";
@@ -45,7 +44,6 @@ export function HomePage() {
       <SiteChrome toastMessage={toastMessage} toastVisible={toastVisible} />
       <main>
         <HeroSection />
-        <EditorialSection />
         <WorkStripSection />
         <TapBarSection />
         <ProductsSection />

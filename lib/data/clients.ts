@@ -1,20 +1,67 @@
 export type Client = {
   id: string;
-  tag: string;
   name: string;
   nameEmphasis?: string;
   meta: string;
+  photoSrc: string;
 };
 
 export const clients: Client[] = [
-  { id: "1", tag: "Cliente 01", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
-  { id: "2", tag: "Cliente 02", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
-  { id: "3", tag: "Cliente 03", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
-  { id: "4", tag: "Cliente 04", name: "Nombre ", nameEmphasis: "marca", meta: "MERIDA, YUC" },
-  { id: "5", tag: "Cliente 05", name: "HUSH N' SLUSH", meta: "MERIDA, YUC" },
-  { id: "6", tag: "Cliente 06", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
-  { id: "7", tag: "Cliente 07", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
-  { id: "8", tag: "Cliente 08", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
-  { id: "9", tag: "Cliente 09", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
-  { id: "10", tag: "Cliente 10", name: "Nombre ", nameEmphasis: "marca", meta: "Rubro · Ciudad" },
+  {
+    id: "bernardino",
+    name: "Bernardino",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/bernardino.jpeg",
+  },
+  {
+    id: "hushnslush",
+    name: "HUSH N' SLUSH",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/hushnslush.png",
+  },
+  {
+    id: "jmgruas",
+    name: "JM ",
+    nameEmphasis: "Grúas",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/jmgruas.png",
+  },
+  {
+    id: "kankabal",
+    name: "Kankabal",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/kankabal.png",
+  },
+  {
+    id: "laanita",
+    name: "La ",
+    nameEmphasis: "Anita",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/laanita.jpeg",
+  },
+  {
+    id: "mariscosdemazatlan",
+    name: "Mariscos de ",
+    nameEmphasis: "Mazatlán",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/mariscosdemazatlan.png",
+  },
+  {
+    id: "mayapop",
+    name: "Mayapop",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/mayapop.png",
+  },
+  {
+    id: "moses",
+    name: "Moses",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/moses.png",
+  },
+  {
+    id: "sutegui",
+    name: "Sutegui",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/sutegui.jpeg",
+  },
 ];

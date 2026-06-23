@@ -4,12 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { Grainient } from "@/components/ui/Grainient";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
+import { TAPBAR_GRAINIENT } from "@/lib/grainient/tapbar-bg";
 
 export function TapBarSection() {
   const t = useTranslations();
   const { tapbar } = t.sections;
   const [current, setCurrent] = useState(2);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const auto = setInterval(() => {
@@ -23,6 +34,12 @@ export function TapBarSection() {
 
   return (
     <section className="feature" id="tapbar">
+      <div className="feature__bg">
+        <Grainient
+          {...TAPBAR_GRAINIENT}
+          timeSpeed={reducedMotion ? 0 : TAPBAR_GRAINIENT.timeSpeed}
+        />
+      </div>
       <div className="feature-inner">
         <div>
           <Reveal className="feature-tag">{tapbar.tag}</Reveal>

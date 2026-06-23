@@ -19,7 +19,6 @@ export type Dictionary = {
     social: string;
     faq: string;
     instagram: string;
-    floatCta: string;
     backToTopAria: string;
   };
   hero: {
@@ -78,31 +77,17 @@ export type Dictionary = {
       }>;
     };
     work: {
-      sk: string;
-      titleBefore: string;
-      titleEmphasis: string;
-      titleAfter: string;
-      note: string;
+      title: string;
+      subtitle: string;
+      swipeHint: string;
       photoPlaceholder: string;
       clients: ReadonlyArray<{
         id: string;
-        tag: string;
         name: string;
         nameEmphasis?: string;
         meta: string;
+        photoSrc: string;
       }>;
-    };
-    editorial: {
-      markTl: string;
-      markTr: string;
-      markBl: string;
-      markBr: string;
-      titleBefore: string;
-      titleEmphasis: string;
-      label: string;
-      body1Strong: string;
-      body1After: string;
-      body2: string;
     };
     process: {
       sk: string;

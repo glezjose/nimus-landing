@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { TopNav } from "./TopNav";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useScrollChrome } from "@/lib/hooks/useScrollChrome";
@@ -14,7 +13,6 @@ export function SiteChrome({ toastMessage, toastVisible }: SiteChromeProps) {
   const t = useTranslations();
   const {
     navScrolled,
-    floatCtaVisible,
     toTopVisible,
     menuHiddenAtCta,
     scrollToTop,
@@ -23,10 +21,6 @@ export function SiteChrome({ toastMessage, toastVisible }: SiteChromeProps) {
   return (
     <>
       <TopNav scrolled={navScrolled} dark menuHiddenAtCta={menuHiddenAtCta} />
-
-      <Link className="float-cta" href="#cta" data-visible={floatCtaVisible ? "true" : "false"}>
-        {t.nav.floatCta} <span className="arr">→</span>
-      </Link>
 
       <button
         className="to-top"

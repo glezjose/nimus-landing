@@ -34,7 +34,6 @@ export const es = {
     social: "Redes",
     faq: "FAQ",
     instagram: "Instagram",
-    floatCta: "Cotizar tu pedido",
     backToTopAria: "Volver arriba",
   },
   hero: {
@@ -73,28 +72,11 @@ export const es = {
       items: products,
     },
     work: {
-      sk: "Trabajamos con",
-      titleBefore: "Marcas que ya entregan en ",
-      titleEmphasis: "un toque",
-      titleAfter: ".",
-      note: "+40 negocios activos · México y LATAM",
+      title: "Para marcas que cuidan sus clientes.",
+      subtitle: "Tus clientes se van. Tu marca permanece.",
+      swipeHint: "Desliza para descubrir",
       photoPlaceholder: "Foto del cliente",
       clients,
-    },
-    editorial: {
-      markTl: "Interface module · rev 2.1",
-      markTr: "Tap to connect",
-      markBl: "PLA matte · NTAG215",
-      markBr: "Dimensions · 150mm",
-      titleBefore: "Pensado para marcas que ",
-      titleEmphasis: "cuidan a sus clientes.",
-      label: "El por qué",
-      body1Strong:
-        "Cada día, negocios pierden contacto con clientes que ya estuvieron ahí",
-      body1After:
-        " — no por falta de esfuerzo, sino por un instante de fricción. El cliente sale del local, olvida seguir la cuenta, nunca deja la reseña.",
-      body2:
-        "Una pieza física en su mesa o en su mano cierra ese hueco en un solo toque. Sin app, sin suscripción, sin login. La pieza llega lista y tus enlaces siguen siendo tuyos — los actualizas cuando quieras, sin que nada caduque.",
     },
     process: {
       sk: "Proceso · 4 pasos",

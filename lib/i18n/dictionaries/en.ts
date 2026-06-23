@@ -1,4 +1,5 @@
 import type { Dictionary } from "../types";
+import { clients } from "@/lib/data/clients";
 
 export const en = {
   meta: {
@@ -25,7 +26,6 @@ export const en = {
     social: "Social",
     faq: "FAQ",
     instagram: "Instagram",
-    floatCta: "Quote your order",
     backToTopAria: "Back to top",
   },
   hero: {
@@ -208,39 +208,11 @@ export const en = {
       ],
     },
     work: {
-      sk: "We work with",
-      titleBefore: "Brands already delivering in ",
-      titleEmphasis: "one tap",
-      titleAfter: ".",
-      note: "+40 active businesses · Mexico and LATAM",
+      title: "For brands that care about their customers.",
+      subtitle: "Your customers leave. Your brand stays.",
+      swipeHint: "Swipe to discover",
       photoPlaceholder: "Client photo",
-      clients: [
-        { id: "1", tag: "Client 01", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-        { id: "2", tag: "Client 02", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-        { id: "3", tag: "Client 03", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-        { id: "4", tag: "Client 04", name: "Brand ", nameEmphasis: "name", meta: "MERIDA, YUC" },
-        { id: "5", tag: "Client 05", name: "HUSH N' SLUSH", meta: "MERIDA, YUC" },
-        { id: "6", tag: "Client 06", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-        { id: "7", tag: "Client 07", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-        { id: "8", tag: "Client 08", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-        { id: "9", tag: "Client 09", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-        { id: "10", tag: "Client 10", name: "Brand ", nameEmphasis: "name", meta: "Industry · City" },
-      ],
-    },
-    editorial: {
-      markTl: "Interface module · rev 2.1",
-      markTr: "Tap to connect",
-      markBl: "PLA matte · NTAG215",
-      markBr: "Dimensions · 150mm",
-      titleBefore: "Built for brands that ",
-      titleEmphasis: "care about their customers.",
-      label: "The why",
-      body1Strong:
-        "Every day, businesses lose touch with customers who were already there",
-      body1After:
-        " — not from lack of effort, but from a moment of friction. The customer leaves, forgets to follow, never leaves the review.",
-      body2:
-        "A physical piece on their table or in their hand closes that gap in one tap. No app, no subscription, no login. The piece arrives ready and your links stay yours — update them whenever you want, nothing expires.",
+      clients,
     },
     process: {
       sk: "Process · 4 steps",
