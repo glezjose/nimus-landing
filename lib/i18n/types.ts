@@ -81,6 +81,7 @@ export type Dictionary = {
       title: string;
       subtitle: string;
       swipeHint: string;
+      scrollAria: string;
       photoPlaceholder: string;
       clients: ReadonlyArray<{
         id: string;

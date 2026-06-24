@@ -11,26 +11,11 @@ type SiteChromeProps = {
 
 export function SiteChrome({ toastMessage, toastVisible }: SiteChromeProps) {
   const t = useTranslations();
-  const {
-    navScrolled,
-    toTopVisible,
-    menuHiddenAtCta,
-    scrollToTop,
-  } = useScrollChrome();
+  const { navScrolled, menuHiddenAtCta } = useScrollChrome();
 
   return (
     <>
       <TopNav scrolled={navScrolled} dark menuHiddenAtCta={menuHiddenAtCta} />
-
-      <button
-        className="to-top"
-        type="button"
-        aria-label={t.nav.backToTopAria}
-        data-visible={toTopVisible ? "true" : "false"}
-        onClick={scrollToTop}
-      >
-        ↑
-      </button>
 
       <div
         className="toast"

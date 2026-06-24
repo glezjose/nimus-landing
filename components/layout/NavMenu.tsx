@@ -91,7 +91,6 @@ export function NavMenu({
 
   const setMenuOpen = useCallback((next: boolean) => {
     setOpen(next);
-    document.body.style.overflow = next ? "hidden" : "";
   }, []);
 
   const syncPanelGeometry = useCallback(() => {
@@ -118,9 +117,6 @@ export function NavMenu({
 
   useEffect(() => {
     setMounted(true);
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, []);
 
   useEffect(() => {

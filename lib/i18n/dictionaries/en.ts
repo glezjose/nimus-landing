@@ -212,6 +212,7 @@ export const en = {
       title: "For brands that care about their customers.",
       subtitle: "Your customers leave. Your brand stays.",
       swipeHint: "Swipe to discover",
+      scrollAria: "Go to Tap Bar section",
       photoPlaceholder: "Client photo",
       clients,
     },

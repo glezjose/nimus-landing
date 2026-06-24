@@ -76,6 +76,7 @@ export const es = {
       title: "Para marcas que cuidan sus clientes.",
       subtitle: "Tus clientes se van. Tu marca permanece.",
       swipeHint: "Desliza para descubrir",
+      scrollAria: "Ir a la sección Tap Bar",
       photoPlaceholder: "Foto del cliente",
       clients,
     },

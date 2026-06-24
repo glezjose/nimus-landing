@@ -4,13 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 
 export function useScrollChrome() {
   const [navScrolled, setNavScrolled] = useState(false);
-  const [toTopVisible, setToTopVisible] = useState(false);
   const [menuHiddenAtCta, setMenuHiddenAtCta] = useState(false);
 
   const onScroll = useCallback(() => {
     const y = window.scrollY;
     setNavScrolled(y > 20);
-    setToTopVisible(y > window.innerHeight);
 
     const cta = document.getElementById("cta");
     if (cta) {
@@ -46,14 +44,8 @@ export function useScrollChrome() {
     };
   }, [onScroll]);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return {
     navScrolled,
-    toTopVisible,
     menuHiddenAtCta,
-    scrollToTop,
   };
 }

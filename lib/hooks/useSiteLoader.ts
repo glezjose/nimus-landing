@@ -1,14 +1,22 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const SYNC_KEY = "nimus-site-synced";
-const MIN_LOAD_MS = 2000;
-const MIN_RELOAD_MS = 1800;
-const MAX_LOAD_MS = 5500;
-const MIN_SYNC_MS = 500;
-const FADE_MS = 450;
-const CRITICAL_IMAGES = ["/assets/nimus-logo-white.png", "/assets/hero-visual.png"];
+/** Minimum time the loader stays up on first visit. */
+const MIN_LOAD_MS = 800;
+/** Minimum time the loader stays up on return visits (same session). */
+const MIN_RELOAD_MS = 600;
+/** Hard cap — loader dismisses even if assets are still pending. */
+const MAX_LOAD_MS = 2800;
+/** Brief “synced” label before fade-out starts. */
+const MIN_SYNC_MS = 250;
+const FADE_MS = 400;
+const CRITICAL_IMAGES = [
+  "/assets/nimus-logo-complete-white.png",
+  "/assets/nimus-logo-white.png",
+  "/assets/hero-visual.png",
+];
 
 type LoaderPhase = "loading" | "synced" | "hidden";
 
@@ -57,11 +65,6 @@ export function useSiteLoader(syncedLabel: string) {
   const [statusLabel, setStatusLabel] = useState("1");
   const targetRef = useRef(1);
   const displayRef = useRef(1);
-  const unicornReadyRef = useRef(false);
-
-  const markUnicornReady = useCallback(() => {
-    unicornReadyRef.current = true;
-  }, []);
 
   useLayoutEffect(() => {
     if (typeof window === "undefined") return;
@@ -149,46 +152,34 @@ export function useSiteLoader(syncedLabel: string) {
 
       await document.fonts.ready;
       if (cancelled) return;
-      setTarget(48);
+      setTarget(52);
 
       await Promise.all(CRITICAL_IMAGES.map(preloadImage));
       if (cancelled) return;
-      setTarget(68);
-
-      const unicornPoll = window.setInterval(() => {
-        if (unicornReadyRef.current) {
-          window.clearInterval(unicornPoll);
-          setTarget(88);
-        }
-      }, 120);
-
-      window.setTimeout(() => {
-        window.clearInterval(unicornPoll);
-        setTarget(88);
-      }, 2600);
+      setTarget(92);
 
       while (!cancelled) {
         const elapsed = performance.now() - startedAt;
-        setTarget(68 + Math.min(31, (elapsed / MIN_LOAD_MS) * 31));
+        setTarget(52 + Math.min(48, (elapsed / MIN_LOAD_MS) * 48));
 
         if (
           elapsed >= MIN_LOAD_MS &&
-          targetRef.current >= 88 &&
-          displayRef.current >= 85
+          targetRef.current >= 90 &&
+          displayRef.current >= 88
         ) {
           break;
         }
 
         if (elapsed >= MAX_LOAD_MS) break;
 
-        await wait(80);
+        await wait(60);
       }
 
       if (cancelled) return;
 
       setTarget(100);
 
-      const animateDeadline = performance.now() + 900;
+      const animateDeadline = performance.now() + 500;
       while (!cancelled && displayRef.current < 100 && performance.now() < animateDeadline) {
         await wait(40);
       }
@@ -211,7 +202,6 @@ export function useSiteLoader(syncedLabel: string) {
     phase,
     progress,
     statusLabel,
-    markUnicornReady,
     isVisible: phase !== "hidden",
   };
 }

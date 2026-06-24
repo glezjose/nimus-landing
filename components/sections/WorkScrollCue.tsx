@@ -2,7 +2,8 @@
 
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
-import { HERO_NEXT_SECTION_ID } from "@/lib/data/hero";
+
+const WORK_NEXT_SECTION_ID = "tapbar";
 
 function prefersReducedMotion() {
   return (
@@ -11,11 +12,11 @@ function prefersReducedMotion() {
   );
 }
 
-export function HeroScrollCue() {
+export function WorkScrollCue() {
   const t = useTranslations();
 
   const scrollToNextSection = () => {
-    const target = document.getElementById(HERO_NEXT_SECTION_ID);
+    const target = document.getElementById(WORK_NEXT_SECTION_ID);
     if (!target) return;
 
     const top = target.getBoundingClientRect().top + window.scrollY;
@@ -30,7 +31,7 @@ export function HeroScrollCue() {
       type="button"
       className="hero-scroll-cue"
       onClick={scrollToNextSection}
-      aria-label={t.hero.scrollAria}
+      aria-label={t.sections.work.scrollAria}
     >
       <ChevronDownIcon className="hero-scroll-cue__icon" aria-hidden="true" />
     </button>
