@@ -42,6 +42,7 @@ export const en = {
       "100% on-brand design",
     ],
     backgroundAria: "Decorative background animation",
+    scrollAria: "Go to client work section",
   },
   sections: {
     tapbar: {

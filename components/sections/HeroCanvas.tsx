@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import {
+  HERO_IDLE_HALF_ARC,
+  HERO_IDLE_SPEED,
+} from "@/lib/data/hero";
 
 export const HERO_MODEL_PATH = "/models/hero-tapbar.glb";
 
@@ -131,8 +135,34 @@ function positionContactShadow(
   shadow.scale.set(footprint, footprint, 1);
 }
 
+function lerpAngle(from: number, to: number, t: number) {
+  let delta = ((to - from + Math.PI) % (2 * Math.PI)) - Math.PI;
+  if (delta < -Math.PI) delta += 2 * Math.PI;
+  return from + delta * t;
+}
+
+function captureCameraSpherical(
+  camera: import("three").PerspectiveCamera,
+  target: import("three").Vector3,
+  THREE: typeof import("three"),
+) {
+  const offset = camera.position.clone().sub(target);
+  return new THREE.Spherical().setFromVector3(offset);
+}
+
+function applyCameraSpherical(
+  camera: import("three").PerspectiveCamera,
+  target: import("three").Vector3,
+  spherical: import("three").Spherical,
+  THREE: typeof import("three"),
+) {
+  const offset = new THREE.Vector3().setFromSpherical(spherical);
+  camera.position.copy(target).add(offset);
+}
+
 export function HeroCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const interactRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -152,17 +182,6 @@ export function HeroCanvas() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-
-    const resize = () => {
-      if (!container || !renderer || !camera) return;
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      if (width === 0 || height === 0) return;
-
-      fitCameraToViewport(camera, width, height);
-      renderer.setSize(width, height, false);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    };
 
     const boot = async () => {
       const THREE = await import("three");
@@ -189,6 +208,16 @@ export function HeroCanvas() {
         container.clientHeight,
       );
 
+      const defaultTarget = new THREE.Vector3(0, 0, 0);
+      let defaultCameraSpherical = captureCameraSpherical(
+        camera,
+        defaultTarget,
+        THREE,
+      );
+      const defaultModelYaw = 0;
+      const idleResetDelayMs = 2500;
+      const resetLerp = 0.045;
+
       renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true,
@@ -200,7 +229,6 @@ export function HeroCanvas() {
       renderer.toneMappingExposure = 1.18;
       container.appendChild(renderer.domElement);
       renderer.domElement.className = "hero-canvas__el";
-      resize();
 
       pmremGenerator = new THREE.PMREMGenerator(renderer);
       pmremGenerator.compileEquirectangularShader();
@@ -224,14 +252,86 @@ export function HeroCanvas() {
       contactShadowTexture = shadow.texture;
       scene.add(contactShadow);
 
-      controls = new OrbitControls(camera, renderer.domElement);
+      controls = new OrbitControls(
+        camera,
+        interactRef.current ?? renderer.domElement,
+      );
       controls.enablePan = false;
       controls.enableZoom = false;
       controls.enableDamping = true;
-      controls.dampingFactor = 0.06;
+      controls.dampingFactor = 0.04;
+      controls.rotateSpeed = 0.55;
       controls.minPolarAngle = Math.PI * 0.28;
       controls.maxPolarAngle = Math.PI * 0.62;
       controls.target.set(0, 0, 0);
+
+      const idleHalfArc = HERO_IDLE_HALF_ARC;
+      const idleSpeed = HERO_IDLE_SPEED;
+      let modelScene: import("three").Object3D | null = null;
+      let idleYawCenter = defaultModelYaw;
+      let userInteracting = false;
+      let isResetting = false;
+      let resetTimer: number | undefined;
+      const idleClock = new THREE.Clock();
+
+      const syncDefaultCamera = () => {
+        if (!camera || !controls) return;
+        fitCameraToViewport(
+          camera,
+          container.clientWidth,
+          container.clientHeight,
+        );
+        defaultCameraSpherical = captureCameraSpherical(
+          camera,
+          controls.target,
+          THREE,
+        );
+      };
+
+      const scheduleIdleReset = () => {
+        if (resetTimer !== undefined) {
+          window.clearTimeout(resetTimer);
+        }
+        resetTimer = window.setTimeout(() => {
+          isResetting = true;
+          resetTimer = undefined;
+        }, idleResetDelayMs);
+      };
+
+      const cancelIdleReset = () => {
+        if (resetTimer !== undefined) {
+          window.clearTimeout(resetTimer);
+          resetTimer = undefined;
+        }
+        isResetting = false;
+      };
+
+      const resize = () => {
+        if (!container || !renderer || !camera) return;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        if (width === 0 || height === 0) return;
+
+        if (!userInteracting && !isResetting) {
+          syncDefaultCamera();
+        } else {
+          fitCameraToViewport(camera, width, height);
+        }
+
+        renderer.setSize(width, height, false);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      };
+
+      controls.addEventListener("start", () => {
+        userInteracting = true;
+        cancelIdleReset();
+      });
+      controls.addEventListener("end", () => {
+        userInteracting = false;
+        scheduleIdleReset();
+      });
+
+      resize();
 
       const loader = new GLTFLoader();
       loader.load(
@@ -242,6 +342,8 @@ export function HeroCanvas() {
           fitModelToScene(gltf.scene, THREE, container.clientWidth);
           enhanceModelMaterials(gltf.scene, THREE);
           scene.add(gltf.scene);
+          modelScene = gltf.scene;
+          idleYawCenter = defaultModelYaw;
 
           if (contactShadow) {
             positionContactShadow(contactShadow, gltf.scene, THREE);
@@ -254,15 +356,82 @@ export function HeroCanvas() {
       );
 
       const animate = () => {
-        if (disposed || !renderer || !camera) return;
+        if (disposed || !renderer || !camera || !controls) return;
         frameId = window.requestAnimationFrame(animate);
 
-        if (!prefersReducedMotion && controls) {
-          controls.autoRotate = true;
-          controls.autoRotateSpeed = 0.55;
+        if (isResetting && modelScene) {
+          controls.enableDamping = false;
+
+          const currentSpherical = captureCameraSpherical(
+            camera,
+            controls.target,
+            THREE,
+          );
+
+          currentSpherical.theta = lerpAngle(
+            currentSpherical.theta,
+            defaultCameraSpherical.theta,
+            resetLerp,
+          );
+          currentSpherical.phi = THREE.MathUtils.lerp(
+            currentSpherical.phi,
+            defaultCameraSpherical.phi,
+            resetLerp,
+          );
+          currentSpherical.radius = THREE.MathUtils.lerp(
+            currentSpherical.radius,
+            defaultCameraSpherical.radius,
+            resetLerp,
+          );
+
+          applyCameraSpherical(
+            camera,
+            controls.target,
+            currentSpherical,
+            THREE,
+          );
+
+          modelScene.rotation.y = lerpAngle(
+            modelScene.rotation.y,
+            defaultModelYaw,
+            resetLerp,
+          );
+
+          const cameraSettled =
+            Math.abs(currentSpherical.theta - defaultCameraSpherical.theta) <
+              0.015 &&
+            Math.abs(currentSpherical.phi - defaultCameraSpherical.phi) <
+              0.015 &&
+            Math.abs(currentSpherical.radius - defaultCameraSpherical.radius) <
+              0.03;
+          const modelSettled =
+            Math.abs(modelScene.rotation.y - defaultModelYaw) < 0.015;
+
+          if (cameraSettled && modelSettled) {
+            applyCameraSpherical(
+              camera,
+              controls.target,
+              defaultCameraSpherical,
+              THREE,
+            );
+            modelScene.rotation.y = defaultModelYaw;
+            idleYawCenter = defaultModelYaw;
+            isResetting = false;
+            controls.enableDamping = true;
+            idleClock.start();
+          }
+        } else if (
+          !prefersReducedMotion &&
+          modelScene &&
+          !userInteracting
+        ) {
+          controls.enableDamping = true;
+          const elapsed = idleClock.getElapsedTime();
+          modelScene.rotation.y =
+            idleYawCenter + idleHalfArc * Math.sin(elapsed * idleSpeed);
         }
 
-        controls?.update();
+        controls.update();
         renderer.render(scene, camera);
       };
 
@@ -273,6 +442,9 @@ export function HeroCanvas() {
       window.addEventListener("resize", resize);
 
       return () => {
+        if (resetTimer !== undefined) {
+          window.clearTimeout(resetTimer);
+        }
         observer.disconnect();
         window.removeEventListener("resize", resize);
       };
@@ -303,5 +475,14 @@ export function HeroCanvas() {
     };
   }, []);
 
-  return <div ref={containerRef} className="hero-canvas" aria-hidden="true" />;
+  return (
+    <>
+      <div ref={containerRef} className="hero-canvas" aria-hidden="true" />
+      <div
+        ref={interactRef}
+        className="hero-stage__interact"
+        aria-hidden="true"
+      />
+    </>
+  );
 }

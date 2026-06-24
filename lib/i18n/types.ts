@@ -26,6 +26,7 @@ export type Dictionary = {
     trailWords: readonly string[];
     marquee: readonly string[];
     backgroundAria: string;
+    scrollAria: string;
   };
   sections: {
     tapbar: {

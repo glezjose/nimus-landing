@@ -20,9 +20,34 @@ function MarqueePills({
   );
 }
 
+function MarqueeTrack({
+  items,
+  prefix,
+  orientation,
+}: {
+  items: readonly string[];
+  prefix: string;
+  orientation: "vertical" | "horizontal";
+}) {
+  const setClass =
+    orientation === "vertical"
+      ? "hero-marquee__set hero-marquee__set--vertical"
+      : "hero-marquee__set hero-marquee__set--horizontal";
+
+  return (
+    <div className={`hero-marquee__track hero-marquee__track--${orientation}`}>
+      <div className={setClass}>
+        <MarqueePills items={items} prefix={`${prefix}-a`} />
+      </div>
+      <div className={setClass} aria-hidden="true">
+        <MarqueePills items={items} prefix={`${prefix}-b`} />
+      </div>
+    </div>
+  );
+}
+
 export function HeroMarqueeVertical({ onDark = true }: { onDark?: boolean }) {
   const t = useTranslations();
-  const items = [...t.hero.marquee, ...t.hero.marquee];
 
   return (
     <div
@@ -30,9 +55,7 @@ export function HeroMarqueeVertical({ onDark = true }: { onDark?: boolean }) {
       aria-hidden="true"
     >
       <div className="hero-marquee__viewport hero-marquee__viewport--vertical">
-        <div className="hero-marquee__track hero-marquee__track--vertical">
-          <MarqueePills items={items} prefix="v" />
-        </div>
+        <MarqueeTrack items={t.hero.marquee} prefix="v" orientation="vertical" />
       </div>
     </div>
   );
@@ -40,7 +63,6 @@ export function HeroMarqueeVertical({ onDark = true }: { onDark?: boolean }) {
 
 export function HeroMarqueeHorizontal() {
   const t = useTranslations();
-  const items = [...t.hero.marquee, ...t.hero.marquee];
 
   return (
     <div
@@ -48,9 +70,7 @@ export function HeroMarqueeHorizontal() {
       aria-hidden="true"
     >
       <div className="hero-marquee__viewport hero-marquee__viewport--horizontal">
-        <div className="hero-marquee__track hero-marquee__track--horizontal">
-          <MarqueePills items={items} prefix="h" />
-        </div>
+        <MarqueeTrack items={t.hero.marquee} prefix="h" orientation="horizontal" />
       </div>
     </div>
   );

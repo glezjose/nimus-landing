@@ -91,6 +91,19 @@ export const marqueeItems = [
   "Diseño 100% a tu marca",
 ];
 
+/** Radians of idle sway on each side of center (180° total arc). */
+export const HERO_IDLE_HALF_ARC = Math.PI / 2;
+
+/** Angular speed of hero model idle sway (rad/s factor in sin(elapsed * speed)). */
+export const HERO_IDLE_SPEED = 0.2;
+
+/** One full idle sway cycle — shared with hero marquee loop duration. */
+export const HERO_IDLE_CYCLE_SECONDS = (2 * Math.PI) / HERO_IDLE_SPEED;
+
+export const HERO_MARQUEE_DURATION_SECONDS = HERO_IDLE_CYCLE_SECONDS;
+
+export const HERO_NEXT_SECTION_ID = "trabajos";
+
 export const scrollDotSections = [
   { target: "#top", label: "Inicio" },
   { target: "#tapbar", label: "Tap Bar" },

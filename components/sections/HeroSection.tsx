@@ -2,10 +2,20 @@ import { HeroBackground } from "./HeroBackground";
 import { HeroCanvas } from "./HeroCanvas";
 import { HeroHeadline } from "./HeroHeadline";
 import { HeroMarqueeHorizontal, HeroMarqueeVertical } from "./HeroMarquee";
+import { HeroScrollCue } from "./HeroScrollCue";
+import { HERO_MARQUEE_DURATION_SECONDS } from "@/lib/data/hero";
 
 export function HeroSection() {
   return (
-    <section className="hero-section hero-section--editorial" id="top">
+    <section
+      className="hero-section hero-section--editorial"
+      id="top"
+      style={
+        {
+          "--hero-marquee-duration": `${HERO_MARQUEE_DURATION_SECONDS}s`,
+        } as React.CSSProperties
+      }
+    >
       <HeroBackground />
       <HeroMarqueeVertical onDark />
 
@@ -16,6 +26,10 @@ export function HeroSection() {
 
         <div className="hero-stage reveal in-view">
           <HeroCanvas />
+        </div>
+
+        <div className="hero-scroll-slot">
+          <HeroScrollCue />
         </div>
 
         <HeroMarqueeHorizontal />

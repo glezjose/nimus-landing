@@ -1,26 +1,29 @@
 "use client";
 
-import UnicornScene from "unicornstudio-react/next";
-import { useTranslations } from "@/components/providers/DictionaryProvider";
+import dynamic from "next/dynamic";
+
+const LightRays = dynamic(() => import("@/components/LightRays"), { ssr: false });
 
 export function HeroBackground() {
-  const t = useTranslations();
-
   return (
     <div className="hero-bg" aria-hidden="true">
-      <UnicornScene
-        projectId="xXLVuzQIF2EmrAEKHhJq"
-        width="100%"
-        height="100%"
-        scale={1}
-        dpi={1.5}
-        lazyLoad={false}
-        sdkUrl="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.5/dist/unicornStudio.umd.js"
-        className="hero-unicorn"
-        altText=""
-        ariaLabel={t.hero.backgroundAria}
-      />
-      <div className="hero-bg-overlay" />
+      <div className="hero-rays">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#163a50"
+          raysSpeed={1}
+          lightSpread={2.9}
+          rayLength={3.6}
+          pulsating={false}
+          fadeDistance={1.9}
+          saturation={1}
+          followMouse
+          mouseInfluence={0.1}
+          noiseAmount={0}
+          distortion={0.1}
+        />
+      </div>
+      <div className="hero-bg-overlay hero-bg-overlay--rays" />
     </div>
   );
 }

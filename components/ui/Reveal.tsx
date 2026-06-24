@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { createElement, useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
 type RevealProps = {
   children: ReactNode;
@@ -56,13 +56,13 @@ export function Reveal({
         ? "reveal"
         : `reveal ${variant}`;
 
-  return (
-    <Tag
-      ref={ref}
-      id={id}
-      className={`${variantClass}${visible ? " in-view" : ""}${className ? ` ${className}` : ""}`}
-    >
-      {children}
-    </Tag>
+  return createElement(
+    Tag,
+    {
+      ref,
+      id,
+      className: `${variantClass}${visible ? " in-view" : ""}${className ? ` ${className}` : ""}`,
+    },
+    children,
   );
 }

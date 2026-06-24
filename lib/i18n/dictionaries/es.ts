@@ -41,6 +41,7 @@ export const es = {
     trailWords: ["por", "tu", "marca."],
     marquee: marqueeItems,
     backgroundAria: "Animación de fondo decorativa",
+    scrollAria: "Ir a la sección de clientes",
   },
   sections: {
     tapbar: {
