@@ -16,6 +16,7 @@ import {
   type RefObject,
 } from "react";
 import { createPortal } from "react-dom";
+import Shuffle from "@/components/Shuffle";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useScrollProgress } from "@/lib/hooks/useScrollProgress";
 import { siteConfig } from "@/lib/site";
@@ -267,9 +268,22 @@ export function NavMenu({
             <span className="nav-menu__trigger-label-sizer" aria-hidden="true">
               {t.nav.close}
             </span>
-            <span className="nav-menu__trigger-label-text">
-              {open ? t.nav.close : t.nav.menu}
-            </span>
+            <Shuffle
+              text={open ? t.nav.close : t.nav.menu}
+              tag="span"
+              className="nav-menu__trigger-label-text"
+              triggerOnChange
+              triggerOnce={false}
+              triggerOnHover={false}
+              respectReducedMotion
+              shuffleDirection="right"
+              duration={0.28}
+              stagger={0.025}
+              shuffleTimes={1}
+              animationMode="evenodd"
+              ease="power3.out"
+              textAlign="left"
+            />
           </span>
         </span>
         <span className="nav-menu__trigger-divider" aria-hidden="true" />
