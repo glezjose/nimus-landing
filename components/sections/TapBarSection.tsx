@@ -10,6 +10,7 @@ import {
   DEFAULT_TAPBAR_OPTION_ID,
   tapBarOptionFitSize,
   tapBarOptionModels,
+  tapBarOptionPreviewImages,
   type TapBarOptionId,
 } from "@/lib/data/tapbar-options";
 
@@ -104,8 +105,10 @@ export function TapBarSection() {
               <TapBarStage
                 activeId={activeId}
                 modelPath={tapBarOptionModels[activeId]}
+                previewImage={tapBarOptionPreviewImages[activeId]}
                 fitSize={tapBarOptionFitSize[activeId]}
                 view3dAria={tapbar.view3dAria}
+                priorityPreview
               />
             </div>
           </div>

@@ -2,11 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import {
-  DEFAULT_TAPBAR_OPTION_ID,
-  tapBarOptionPreviewImages,
-  type TapBarOptionId,
-} from "@/lib/data/tapbar-options";
+import { DEFAULT_TAPBAR_OPTION_ID, type TapBarOptionId } from "@/lib/data/tapbar-options";
 
 const TapBarModelCanvas = dynamic(
   () =>
@@ -19,8 +15,10 @@ const TapBarModelCanvas = dynamic(
 type TapBarStageProps = {
   activeId: TapBarOptionId;
   modelPath: string;
+  previewImage: string;
   fitSize: number;
   view3dAria: string;
+  priorityPreview?: boolean;
 };
 
 function CubeIcon() {
@@ -44,8 +42,10 @@ function CubeIcon() {
 export function TapBarStage({
   activeId,
   modelPath,
+  previewImage,
   fitSize,
   view3dAria,
+  priorityPreview = false,
 }: TapBarStageProps) {
   const [modelActive, setModelActive] = useState(false);
 
@@ -59,12 +59,14 @@ export function TapBarStage({
         <>
           <img
             key={activeId}
-            src={tapBarOptionPreviewImages[activeId]}
+            src={previewImage}
             alt=""
-            className="tapbar-model-preview"
+            className={`tapbar-model-preview tapbar-model-preview--${activeId}`}
             decoding="async"
             fetchPriority={
-              activeId === DEFAULT_TAPBAR_OPTION_ID ? "high" : "low"
+              priorityPreview || activeId === DEFAULT_TAPBAR_OPTION_ID
+                ? "high"
+                : "low"
             }
           />
           <button

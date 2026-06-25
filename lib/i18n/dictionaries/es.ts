@@ -90,8 +90,38 @@ export const es = {
       titleBefore: "Una pieza para cada ",
       titleEmphasis: "punto de contacto",
       titleAfter: " entre tu marca y tus clientes.",
-      lede:
-        "Cada línea cubre un momento específico — la mesa del restaurante, las llaves del cliente, el mostrador. Todas se imprimen bajo demanda y se personalizan con tu identidad visual.",
+      tapboard: {
+        titleLine1: "Tapboard:",
+        titleLine2: "placa NFC en",
+        titleEmphasis: "mesa o mostrador.",
+        sub: "Cada ficha abre un destino: reseñas, menú, WhatsApp o redes, con tu logo en relieve.",
+        options: [
+          {
+            id: "bar-4",
+            label: "Board 4",
+            title: "Tap Board 4",
+            description:
+              "Placa de 4 fichas con tu marca. Cuatro destinos personalizados, logo en relieve e iconografía a medida.",
+            price: "$650",
+          },
+          {
+            id: "bar-3",
+            label: "Board 3",
+            title: "Tap Board 3",
+            description:
+              "Placa de 3 fichas con tu marca. Reseñas, seguir y un destino más — todo en una sola pieza.",
+            price: "$580",
+          },
+          {
+            id: "bar-2",
+            label: "Board 2",
+            title: "Tap Board 2",
+            description:
+              "Placa de 2 fichas con tu marca. Logo en relieve e iconos personalizados para dos enlaces clave.",
+            price: "$450",
+          },
+        ],
+      },
       currency: "MXN",
       items: products,
     },

@@ -93,8 +93,38 @@ export const en = {
       titleBefore: "One piece for every ",
       titleEmphasis: "touchpoint",
       titleAfter: " between your brand and your customers.",
-      lede:
-        "Each line covers a specific moment — the restaurant table, the customer's keys, the counter. All are printed on demand and customized with your visual identity.",
+      tapboard: {
+        titleLine1: "Tapboard:",
+        titleLine2: "NFC plaque for",
+        titleEmphasis: "table or counter.",
+        sub: "Each tile opens a destination: reviews, menu, WhatsApp, or social, with your embossed logo.",
+        options: [
+          {
+            id: "bar-4",
+            label: "Board 4",
+            title: "Tap Board 4",
+            description:
+              "4-tile branded board. Four custom destinations with embossed logo and bespoke iconography.",
+            price: "$650",
+          },
+          {
+            id: "bar-3",
+            label: "Board 3",
+            title: "Tap Board 3",
+            description:
+              "3-tile branded board. Reviews, follow, and one more destination — all in one piece.",
+            price: "$580",
+          },
+          {
+            id: "bar-2",
+            label: "Board 2",
+            title: "Tap Board 2",
+            description:
+              "2-tile branded board. Embossed logo and custom icons for your two key links.",
+            price: "$450",
+          },
+        ],
+      },
       currency: "MXN",
       items: [
         {
