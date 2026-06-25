@@ -52,6 +52,7 @@ export const en = {
       sub: "Menu, reviews, and social — all in one tap.",
       currency: "MXN",
       view3dAria: "View 3D model",
+      tilesMarqueeAria: "Destinations you can assign to each tile",
       options: [
         {
           id: "bar-4",

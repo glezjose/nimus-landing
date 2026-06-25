@@ -11,11 +11,16 @@ type SiteChromeProps = {
 
 export function SiteChrome({ toastMessage, toastVisible }: SiteChromeProps) {
   const t = useTranslations();
-  const { navScrolled, menuHiddenAtCta } = useScrollChrome();
+  const { navScrolled, navOnCream, menuHiddenAtCta } = useScrollChrome();
 
   return (
     <>
-      <TopNav scrolled={navScrolled} dark menuHiddenAtCta={menuHiddenAtCta} />
+      <TopNav
+        scrolled={navScrolled}
+        onCream={navOnCream}
+        dark
+        menuHiddenAtCta={menuHiddenAtCta}
+      />
 
       <div
         className="toast"

@@ -49,6 +49,7 @@ export const es = {
       sub: "Menú, reseñas y redes sociales en un solo toque.",
       currency: "MXN",
       view3dAria: "Ver modelo 3D",
+      tilesMarqueeAria: "Destinos que puedes programar en cada ficha",
       options: [
         {
           id: "bar-4",
@@ -95,7 +96,7 @@ export const es = {
       items: products,
     },
     work: {
-      title: "Para marcas que cuidan sus clientes.",
+      title: "Para marcas que cuidan a sus clientes.",
       subtitle: "Un toque. Presencia permanente.",
       swipeHint: "Desliza para descubrir",
       scrollAria: "Ir a la sección Tap Bar",

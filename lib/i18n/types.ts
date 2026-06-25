@@ -38,6 +38,7 @@ export type Dictionary = {
       sub: string;
       currency: string;
       view3dAria: string;
+      tilesMarqueeAria: string;
       options: ReadonlyArray<{
         id: TapBarOptionId;
         label: string;

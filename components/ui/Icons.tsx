@@ -48,6 +48,44 @@ export function ChipIcon({ type }: { type: string }) {
           <path d="M16.6 5.8c-1-1-1.5-2.3-1.5-3.6h-3v13.5c-.1 1.4-1.2 2.5-2.6 2.5-1.5 0-2.6-1.2-2.6-2.6 0-1.6 1.5-2.8 3.1-2.3v-3.1c-3.3-.4-6.2 2.2-6.2 5.4 0 3.1 2.6 5.3 5.3 5.3 2.9 0 5.3-2.4 5.3-5.3V9.7c1.2.8 2.5 1.3 4 1.3v-3c0 0-1.8 0-2.8-2.2z" />
         </svg>
       );
+    case "google":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 9.43-6.11 9.93-7H12v-2.8h7.9c.12-.64.19-1.3.19-2.2 0-2.21-.8-4.09-2.1-5.61L12 2z" />
+        </svg>
+      );
+    case "facebook":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13.5 22v-8h2.7l.4-3.1H13.5V9.1c0-.9.2-1.5 1.5-1.5H17V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H8.2v3.1h2.4V22h3z" />
+        </svg>
+      );
+    case "linkedin":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5 3a2 2 0 100 4 2 2 0 000-4zM4 8h3v13H4V8zm7 0h2.8v1.8h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6V21h-3v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-3V8z" />
+        </svg>
+      );
+    case "youtube":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21.6 7.2a2.5 2.5 0 00-1.8-1.8C18 5 12 5 12 5s-6 0-7.8.4A2.5 2.5 0 002.4 7.2 26 26 0 002 12a26 26 0 00.4 4.8 2.5 2.5 0 001.8 1.8C6 19 12 19 12 19s6 0 7.8-.4a2.5 2.5 0 001.8-1.8A26 26 0 0022 12a26 26 0 00-.4-4.8zM10 15.5V8.5l5.2 3.5L10 15.5z" />
+        </svg>
+      );
+    case "maps":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 20l-5-2V6l5 2 6-3 5 2v12l-5-2-6 3z" />
+          <path d="M9 6v12M15 3v12" />
+        </svg>
+      );
+    case "email":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="M3 7l9 6 9-6" />
+        </svg>
+      );
     default:
       return (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">

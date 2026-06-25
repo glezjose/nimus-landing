@@ -10,12 +10,14 @@ import { useTranslations } from "@/components/providers/DictionaryProvider";
 
 type TopNavProps = {
   scrolled?: boolean;
+  onCream?: boolean;
   dark?: boolean;
   menuHiddenAtCta?: boolean;
 };
 
 export function TopNav({
   scrolled = false,
+  onCream = false,
   dark = false,
   menuHiddenAtCta = false,
 }: TopNavProps) {
@@ -24,7 +26,7 @@ export function TopNav({
 
   return (
     <nav
-      className={`topnav${dark ? " topnav--dark" : ""}${scrolled ? " is-scrolled" : ""}`}
+      className={`topnav${dark ? " topnav--dark" : ""}${scrolled ? " is-scrolled" : ""}${onCream ? " topnav--on-cream" : ""}`}
     >
       <Link href="#top" aria-label={t.nav.brandAria} className="topnav__brand">
         <Image

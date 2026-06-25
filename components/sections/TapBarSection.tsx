@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { DualToneRainBackground } from "@/components/ruixen/dual-tone-rain-background";
 import { InvertTabs } from "@/components/ruixen/invert-tabs";
 import { TapBarStage } from "@/components/sections/TapBarStage";
+import { TapBarTilesMarquee } from "@/components/sections/TapBarTilesMarquee";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import {
   DEFAULT_TAPBAR_OPTION_ID,
@@ -32,18 +32,12 @@ export function TapBarSection() {
 
   return (
     <section className="feature" id="tapbar">
-      <div className="feature__bg">
-        <DualToneRainBackground />
-      </div>
-      <div className="feature__edge-fade" aria-hidden="true" />
       <div className="feature-inner">
         <div className="feature-copy">
-          <h2>
-            {tapbar.titleLine1}
-            <br />
-            {tapbar.titleLine2}
-            <br />
-            <em>{tapbar.titleEmphasis}</em>
+          <h2 className="feature-title">
+            <span className="feature-title__prefix">{tapbar.titleLine1}</span>
+            <span className="feature-title__subject">{tapbar.titleLine2}</span>
+            <em className="feature-title__emphasis">{tapbar.titleEmphasis}</em>
           </h2>
           <p className="feature-sub">{tapbar.sub}</p>
         </div>
@@ -103,6 +97,8 @@ export function TapBarSection() {
                 </motion.div>
               </AnimatePresence>
             </div>
+
+            <TapBarTilesMarquee ariaLabel={tapbar.tilesMarqueeAria} />
 
             <div className="feature-preview-card__stage">
               <TapBarStage
