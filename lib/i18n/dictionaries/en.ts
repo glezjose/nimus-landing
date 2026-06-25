@@ -490,7 +490,7 @@ export const en = {
     version: "v 2.0 · Public landing",
   },
   loader: {
-    synced: "Synced",
+    synced: "Ready",
     aria: "NIMUS loading animation",
   },
 } satisfies Dictionary;

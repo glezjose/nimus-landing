@@ -179,7 +179,7 @@ export const es = {
     version: "v 2.0 · Landing pública",
   },
   loader: {
-    synced: "Sincronizado",
+    synced: "Listo",
     aria: "Animación de carga NIMUS",
   },
 } satisfies Dictionary;

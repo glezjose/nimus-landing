@@ -6,18 +6,18 @@ import { useEffect, useRef } from "react";
 import type { LottieRefCurrentProps } from "lottie-react";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useSiteLoader } from "@/lib/hooks/useSiteLoader";
-import spinnerAnimation from "@/public/assets/ios-loading-spinner.json";
+import loaderAnimation from "@/public/assets/animations/loader.json";
 
 const LOADER_LOGO_SRC = "/assets/nimus-logo-complete-white.png";
-const SPINNER_SPEED = 0.55;
+const LOADER_SPEED = 1;
 
 export function SiteLoader() {
   const t = useTranslations();
   const { phase, statusLabel, isVisible } = useSiteLoader(t.loader.synced);
-  const spinnerRef = useRef<LottieRefCurrentProps | null>(null);
+  const loaderRef = useRef<LottieRefCurrentProps | null>(null);
 
   useEffect(() => {
-    spinnerRef.current?.setSpeed(SPINNER_SPEED);
+    loaderRef.current?.setSpeed(LOADER_SPEED);
   }, [isVisible]);
 
   if (!isVisible) return null;
@@ -44,14 +44,14 @@ export function SiteLoader() {
         </div>
       </div>
 
-      <div className="site-loader__spinner" aria-hidden="true">
+      <div className="site-loader__loader" aria-hidden="true">
         <Lottie
-          lottieRef={spinnerRef}
-          animationData={spinnerAnimation}
+          lottieRef={loaderRef}
+          animationData={loaderAnimation}
           loop
           autoplay
           style={{ width: "100%", height: "100%" }}
-          onDOMLoaded={() => spinnerRef.current?.setSpeed(SPINNER_SPEED)}
+          onDOMLoaded={() => loaderRef.current?.setSpeed(LOADER_SPEED)}
         />
       </div>
     </div>

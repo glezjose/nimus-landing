@@ -67,14 +67,13 @@ body.site-loading::before {
   object-fit: contain;
 }
 
-.site-loader__spinner {
+.site-loader__loader {
   position: absolute;
   right: clamp(16px, 3vw, 32px);
   bottom: clamp(12px, 3vw, 28px);
   z-index: 2;
-  width: clamp(44px, 8vw, 56px);
-  height: clamp(44px, 8vw, 56px);
-  filter: brightness(0) invert(1);
+  width: clamp(86px, 16.8vw, 115px);
+  height: clamp(86px, 16.8vw, 115px);
 }
 
 @media (max-width: 640px) {
@@ -92,9 +91,9 @@ body.site-loading::before {
     width: min(300px, 72vw);
   }
 
-  .site-loader__spinner {
-    width: clamp(40px, 10vw, 48px);
-    height: clamp(40px, 10vw, 48px);
+  .site-loader__loader {
+    width: clamp(77px, 19.2vw, 96px);
+    height: clamp(77px, 19.2vw, 96px);
     right: clamp(10px, 2.5vw, 16px);
     bottom: clamp(10px, 2.5vw, 16px);
   }
