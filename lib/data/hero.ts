@@ -104,6 +104,9 @@ export const HERO_MARQUEE_DURATION_SECONDS = HERO_IDLE_CYCLE_SECONDS;
 
 export const HERO_NEXT_SECTION_ID = "trabajos";
 
+/** Scroll target for the hero cue — lands past the inter-section dead space. */
+export const TRABAJOS_INTRO_ID = "trabajos-intro";
+
 export const scrollDotSections = [
   { target: "#top", label: "Inicio" },
   { target: "#tapbar", label: "Tap Bar" },

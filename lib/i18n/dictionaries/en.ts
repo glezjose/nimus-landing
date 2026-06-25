@@ -210,7 +210,7 @@ export const en = {
     },
     work: {
       title: "For brands that care about their customers.",
-      subtitle: "Your customers leave. Your brand stays.",
+      subtitle: "One tap. Lasting presence.",
       swipeHint: "Swipe to discover",
       scrollAria: "Go to Tap Bar section",
       photoPlaceholder: "Client photo",

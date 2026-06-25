@@ -8,16 +8,30 @@ export type Client = {
 
 export const clients: Client[] = [
   {
-    id: "bernardino",
-    name: "Bernardino",
+    id: "laanita",
+    name: "La ",
+    nameEmphasis: "Anita",
     meta: "MÉRIDA, YUC",
-    photoSrc: "/assets/clients/bernardino.jpeg",
+    photoSrc: "/assets/clients/laanita.jpeg",
   },
   {
     id: "hushnslush",
     name: "HUSH N' SLUSH",
     meta: "MÉRIDA, YUC",
     photoSrc: "/assets/clients/hushnslush.png",
+  },
+  {
+    id: "addixgym",
+    name: "Addix ",
+    nameEmphasis: "Gym",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/addixgym.png",
+  },
+  {
+    id: "sutegui",
+    name: "Sutegui",
+    meta: "MÉRIDA, YUC",
+    photoSrc: "/assets/clients/sutegui.jpeg",
   },
   {
     id: "jmgruas",
@@ -31,13 +45,6 @@ export const clients: Client[] = [
     name: "Kankabal",
     meta: "MÉRIDA, YUC",
     photoSrc: "/assets/clients/kankabal.png",
-  },
-  {
-    id: "laanita",
-    name: "La ",
-    nameEmphasis: "Anita",
-    meta: "MÉRIDA, YUC",
-    photoSrc: "/assets/clients/laanita.jpeg",
   },
   {
     id: "mariscosdemazatlan",
@@ -59,9 +66,9 @@ export const clients: Client[] = [
     photoSrc: "/assets/clients/moses.png",
   },
   {
-    id: "sutegui",
-    name: "Sutegui",
+    id: "bernardino",
+    name: "Bernardino",
     meta: "MÉRIDA, YUC",
-    photoSrc: "/assets/clients/sutegui.jpeg",
+    photoSrc: "/assets/clients/bernardino.jpeg",
   },
 ];

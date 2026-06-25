@@ -2,7 +2,10 @@
 
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
-import { HERO_NEXT_SECTION_ID } from "@/lib/data/hero";
+import {
+  HERO_NEXT_SECTION_ID,
+  TRABAJOS_INTRO_ID,
+} from "@/lib/data/hero";
 
 function prefersReducedMotion() {
   return (
@@ -15,10 +18,16 @@ export function HeroScrollCue() {
   const t = useTranslations();
 
   const scrollToNextSection = () => {
-    const target = document.getElementById(HERO_NEXT_SECTION_ID);
+    const target =
+      document.getElementById(TRABAJOS_INTRO_ID) ??
+      document.getElementById(HERO_NEXT_SECTION_ID);
     if (!target) return;
 
-    const top = target.getBoundingClientRect().top + window.scrollY;
+    const scrollMargin =
+      parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    const top =
+      target.getBoundingClientRect().top + window.scrollY - scrollMargin;
+
     window.scrollTo({
       top,
       behavior: prefersReducedMotion() ? "auto" : "smooth",

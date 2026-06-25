@@ -74,7 +74,7 @@ export const es = {
     },
     work: {
       title: "Para marcas que cuidan sus clientes.",
-      subtitle: "Tus clientes se van. Tu marca permanece.",
+      subtitle: "Un toque. Presencia permanente.",
       swipeHint: "Desliza para descubrir",
       scrollAria: "Ir a la sección Tap Bar",
       photoPlaceholder: "Foto del cliente",

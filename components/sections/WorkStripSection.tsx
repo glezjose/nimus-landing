@@ -1,82 +1,76 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo } from "react";
-import { Reveal } from "@/components/ui/Reveal";
-import Stack from "@/components/ui/Stack";
+import BlurText from "@/components/ui/BlurText";
+import { ScrollTiltedGrid, type GridTile } from "@/components/ruixen/scroll-tilted-grid";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
-import type { Client } from "@/lib/data/clients";
 import { WorkScrollCue } from "./WorkScrollCue";
 
-function clientAlt(client: Client) {
-  return `${client.name}${client.nameEmphasis ?? ""}`.trim();
-}
-
-function WorkCard({ client }: { client: Client }) {
-  return (
-    <div className="clients-arch__card">
-      <div className="clients-arch__photo">
-        <Image
-          className="clients-arch__photo-img"
-          src={client.photoSrc}
-          alt={clientAlt(client)}
-          width={460}
-          height={598}
-          sizes="(max-width: 860px) 78vw, 460px"
-          draggable={false}
-        />
-        <div className="clients-arch__caption">
-          <div className="clients-arch__name">
-            {client.name}
-            {client.nameEmphasis ? <em>{client.nameEmphasis}</em> : null}
-          </div>
-          <div className="clients-arch__meta">{client.meta}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const GRID_CLIENT_COUNT = 10;
 
 export function WorkStripSection() {
   const t = useTranslations();
   const { work } = t.sections;
 
-  const stackCards = useMemo(
-    () => work.clients.map((client) => <WorkCard key={client.id} client={client} />),
+  const gridTiles = useMemo<GridTile[]>(
+    () =>
+      work.clients.slice(0, GRID_CLIENT_COUNT).map((client) => ({
+        src: client.photoSrc,
+        caption: {
+          name: client.name,
+          nameEmphasis: client.nameEmphasis,
+          meta: client.meta,
+        },
+      })),
     [work.clients],
   );
 
   return (
     <section className="clients-arch" id="trabajos">
-      <div className="clients-arch__inner">
-        <div className="clients-arch__body">
-          <div className="clients-arch__head">
-            <Reveal className="clients-arch__lead">
-              <h2 className="clients-arch__title">{work.title}</h2>
-            </Reveal>
-
-            <Reveal className="clients-arch__trail">
-              <p className="clients-arch__subtitle">{work.subtitle}</p>
-            </Reveal>
-          </div>
-
-          <div className="clients-arch__gallery">
-            <div className="clients-arch__stack-wrap">
-              <Stack
-                cards={stackCards}
-                randomRotation
-                sensitivity={180}
-                sendToBackOnClick
-                autoplay
-                autoplayDelay={3200}
-                pauseOnHover
-                mobileClickOnly
-              />
-            </div>
-          </div>
+      <div className="clients-arch__stage clients-arch__stage--intro" id="trabajos-intro">
+        <div className="clients-arch__stage-inner">
+          <BlurText
+            as="h2"
+            text={work.title}
+            className="clients-arch__blur-title"
+            animateBy="words"
+            direction="top"
+            delay={120}
+            stepDuration={0.32}
+          />
         </div>
+        <div className="clients-arch__scroll-slot clients-arch__scroll-slot--intro">
+          <WorkScrollCue />
+        </div>
+      </div>
 
-        <div className="clients-arch__scroll-slot">
+      <ScrollTiltedGrid
+        className="clients-arch__grid"
+        tiles={gridTiles}
+        loop={false}
+        aspectRatio="400/520"
+        maxWidth="3xl"
+        gap={10}
+        rounded="28px"
+        maxTilt={64}
+        maxBlur={7}
+        sectionPadding="14vh"
+      />
+
+      <div className="clients-arch__stage clients-arch__stage--outro">
+        <div className="clients-arch__stage-inner">
+          <BlurText
+            as="p"
+            text={work.subtitle}
+            className="clients-arch__blur-subtitle"
+            animateBy="words"
+            direction="top"
+            delay={120}
+            stepDuration={0.32}
+            replayOnReenter
+          />
+        </div>
+        <div className="clients-arch__scroll-slot clients-arch__scroll-slot--outro">
           <WorkScrollCue />
         </div>
       </div>
