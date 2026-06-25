@@ -45,12 +45,10 @@ export const es = {
   },
   sections: {
     tapbar: {
-      tag: "Producto destacado · Línea 01",
       titleLine1: "Tap Bar:",
-      titleLine2: "tu mesa,",
-      titleEmphasis: "conectada.",
-      sub: "Stand de mesa con 2 a 4 chips NFC integrados. El cliente acerca el teléfono y el chip lo lleva directo a donde tú quieras — menú digital, Google Reviews, Instagram o WhatsApp. Sin apps, sin instalaciones.",
-      cta: "Ver variantes y precios",
+      titleLine2: "tu negocio",
+      titleEmphasis: "conectado.",
+      sub: "Stand con 2–4 chips NFC. Un toque a menú, reseñas, redes o WhatsApp — sin apps.",
       currency: "MXN",
       variantPills: {
         bar2: "Bar 2",

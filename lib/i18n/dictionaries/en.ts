@@ -46,12 +46,10 @@ export const en = {
   },
   sections: {
     tapbar: {
-      tag: "Featured product · Line 01",
       titleLine1: "Tap Bar:",
-      titleLine2: "your table,",
+      titleLine2: "your business",
       titleEmphasis: "connected.",
-      sub: "Table stand with 2 to 4 integrated NFC chips. Customers tap their phone and go straight where you want — digital menu, Google Reviews, Instagram, or WhatsApp. No apps, no setup.",
-      cta: "See variants and pricing",
+      sub: "Stand with 2–4 NFC chips. One tap to menu, reviews, social, or WhatsApp — no apps.",
       currency: "MXN",
       variantPills: {
         bar2: "Bar 2",
@@ -63,19 +61,15 @@ export const en = {
       features: [
         {
           num: "01",
-          text: "Up to <strong>4 programmable destinations</strong> in one piece, with embossed iconography.",
+          text: "Up to <strong>4 destinations</strong> per piece.",
         },
         {
           num: "02",
-          text: "Two- or three-color design with your logo <strong>embossed in relief</strong>.",
+          text: "Embossed logo in <strong>two or three colors</strong>.",
         },
         {
           num: "03",
-          text: "Wedge, clamshell, or premium format with <strong>metal insert</strong>.",
-        },
-        {
-          num: "04",
-          text: "<strong>Reprogrammable</strong> at no cost during the warranty period.",
+          text: "<strong>Free reprogramming</strong> during warranty.",
         },
       ],
       variants: [

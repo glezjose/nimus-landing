@@ -91,19 +91,15 @@ export const numbers = [
 export const tapBarFeatures = [
   {
     num: "01",
-    text: "Hasta <strong>4 destinos programables</strong> en una sola pieza, con iconografía en relieve.",
+    text: "Hasta <strong>4 destinos</strong> en una pieza.",
   },
   {
     num: "02",
-    text: "Diseño bicolor o tricolor con el logo de tu marca <strong>impreso en relieve</strong>.",
+    text: "Logo en relieve, <strong>bicolor o tricolor</strong>.",
   },
   {
     num: "03",
-    text: "Formato wedge, clamshell o premium con <strong>inserto metálico</strong>.",
-  },
-  {
-    num: "04",
-    text: "<strong>Reprogramable</strong> sin costo durante la garantía.",
+    text: "<strong>Reprogramable</strong> sin costo en garantía.",
   },
 ];
 

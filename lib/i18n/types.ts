@@ -30,12 +30,10 @@ export type Dictionary = {
   };
   sections: {
     tapbar: {
-      tag: string;
       titleLine1: string;
       titleLine2: string;
       titleEmphasis: string;
       sub: string;
-      cta: string;
       currency: string;
       variantPills: {
         bar2: string;
