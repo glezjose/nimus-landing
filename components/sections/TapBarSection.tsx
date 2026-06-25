@@ -1,25 +1,34 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { DualToneRainBackground } from "@/components/ruixen/dual-tone-rain-background";
-import { Reveal } from "@/components/ui/Reveal";
+import { InvertTabs } from "@/components/ruixen/invert-tabs";
+import { TapBarModelCanvas } from "@/components/sections/TapBarModelCanvas";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
+import {
+  DEFAULT_TAPBAR_OPTION_ID,
+  tapBarOptionFitSize,
+  tapBarOptionModels,
+  type TapBarOptionId,
+} from "@/lib/data/tapbar-options";
 
 export function TapBarSection() {
   const t = useTranslations();
   const { tapbar } = t.sections;
-  const [current, setCurrent] = useState(2);
+  const [activeId, setActiveId] = useState<TapBarOptionId>(DEFAULT_TAPBAR_OPTION_ID);
 
-  useEffect(() => {
-    const auto = setInterval(() => {
-      setCurrent((i) => (i + 1) % tapbar.variants.length);
-    }, 3800);
-    return () => clearInterval(auto);
-  }, [tapbar.variants.length]);
+  const tabItems = useMemo(
+    () =>
+      tapbar.options.map((option) => ({
+        value: option.id,
+        label: option.label,
+      })),
+    [tapbar.options],
+  );
 
-  const selectVariant = (i: number) => setCurrent(i);
-  const variant = tapbar.variants[current];
+  const activeOption =
+    tapbar.options.find((option) => option.id === activeId) ?? tapbar.options[0];
 
   return (
     <section className="feature" id="tapbar">
@@ -28,7 +37,7 @@ export function TapBarSection() {
       </div>
       <div className="feature__edge-fade" aria-hidden="true" />
       <div className="feature-inner">
-        <div>
+        <div className="feature-copy">
           <h2>
             {tapbar.titleLine1}
             <br />
@@ -37,62 +46,55 @@ export function TapBarSection() {
             <em>{tapbar.titleEmphasis}</em>
           </h2>
           <p className="feature-sub">{tapbar.sub}</p>
-          <Reveal variant="stagger" className="feature-list">
-            {tapbar.features.map((item) => (
-              <div key={item.num} className="feature-list-item">
-                <span className="num">{item.num}</span>
-                <span dangerouslySetInnerHTML={{ __html: item.text }} />
-              </div>
-            ))}
-          </Reveal>
         </div>
 
         <div className="feature-visual">
-          <div className="tap-variants" id="tap-variants">
-            <div className="stage-bg" />
-            <div className="variant-label">
-              <div className="v-name" id="variant-name">
-                {variant.name}
-              </div>
-              <div className="v-sub" id="variant-sub">
-                {variant.sub}
-              </div>
-            </div>
-            <div className="variant-price" id="variant-price">
-              <span id="variant-price-amount">{variant.price}</span>
-              <small>{tapbar.currency}</small>
-            </div>
-
-            {tapbar.variants.map((v) => (
-              <Image
-                key={v.id}
-                className={`variant-img${current === v.id ? " active" : ""}`}
-                data-i={v.id}
-                src={v.image}
-                alt={v.alt}
-                width={400}
-                height={400}
-                sizes="(max-width: 1000px) 80vw, 400px"
+          <div className="feature-preview-card">
+            <div className="feature-preview-card__toolbar">
+              <InvertTabs
+                items={tabItems}
+                defaultValue={activeId}
+                onChange={(value) => setActiveId(value as TapBarOptionId)}
+                sound={false}
+                className="tapbar-tabs--card"
+                fill
+                dividers
               />
-            ))}
+            </div>
 
-            <div className="variant-pills">
-              {tapbar.variants.map((v) => (
-                <button
-                  key={v.slug}
-                  className="variant-pill"
-                  type="button"
-                  data-i={v.id}
-                  data-active={current === v.id ? "true" : undefined}
-                  onClick={() => selectVariant(v.id)}
+            <div className="feature-preview-card__copy" aria-live="polite">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={activeId}
+                  className="feature-preview-card__copy-inner"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
                 >
-                  {v.slug === "bar-2" && tapbar.variantPills.bar2}
-                  {v.slug === "qr" && tapbar.variantPills.qr}
-                  {v.slug === "bar-3" && tapbar.variantPills.bar3}
-                  {v.slug === "bar-4" && tapbar.variantPills.bar4}
-                  {v.slug === "max" && tapbar.variantPills.max}
-                </button>
-              ))}
+                  <div className="feature-preview-card__heading">
+                    <h3 className="feature-preview-card__title">
+                      {activeOption.title}
+                    </h3>
+                    <p className="feature-preview-card__price">
+                      <span className="feature-preview-card__price-value">
+                        {activeOption.price}
+                      </span>
+                      <small>{tapbar.currency}</small>
+                    </p>
+                  </div>
+                  <p className="feature-preview-card__body">
+                    {activeOption.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="feature-preview-card__stage">
+              <TapBarModelCanvas
+                modelPath={tapBarOptionModels[activeId]}
+                fitSize={tapBarOptionFitSize[activeId]}
+              />
             </div>
           </div>
         </div>

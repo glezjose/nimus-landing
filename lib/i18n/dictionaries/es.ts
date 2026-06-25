@@ -5,14 +5,12 @@ import {
   processSteps,
   quoteOptions,
   systems,
-  tapBarFeatures,
 } from "@/lib/data/content";
 import { faqs } from "@/lib/data/faqs";
 import { marqueeItems } from "@/lib/data/hero";
 import { navLinks } from "@/lib/data/nav";
 import { packs } from "@/lib/data/packs";
 import { products } from "@/lib/data/products";
-import { tapBarVariants } from "@/lib/data/variants";
 
 export const es = {
   meta: {
@@ -50,15 +48,40 @@ export const es = {
       titleEmphasis: "conectado.",
       sub: "Stand con 2–4 chips NFC. Un toque a menú, reseñas, redes o WhatsApp — sin apps.",
       currency: "MXN",
-      variantPills: {
-        bar2: "Bar 2",
-        qr: "QR",
-        bar3: "Bar 3",
-        bar4: "Bar 4",
-        max: "Max",
-      },
-      features: tapBarFeatures,
-      variants: tapBarVariants,
+      options: [
+        {
+          id: "bar-4",
+          label: "Bar 4",
+          title: "Tap Bar 4",
+          description:
+            "Stand de 4 fichas con tu marca. Cuatro destinos personalizados, logo en relieve e iconografía a medida.",
+          price: "$650",
+        },
+        {
+          id: "bar-3",
+          label: "Bar 3",
+          title: "Tap Bar 3",
+          description:
+            "Stand de 3 fichas con tu marca. Reseñas, seguir y un destino más — todo en una sola pieza.",
+          price: "$580",
+        },
+        {
+          id: "bar-2",
+          label: "Bar 2",
+          title: "Tap Bar 2",
+          description:
+            "Stand de 2 fichas con tu marca. Logo en relieve e iconos personalizados para dos enlaces clave.",
+          price: "$450",
+        },
+        {
+          id: "stand",
+          label: "Stand",
+          title: "Stand NFC",
+          description:
+            "Una ficha NFC personalizable: tu color, icono y enlace. Ideal para mostrador o un solo punto de contacto.",
+          price: "$390",
+        },
+      ],
     },
     products: {
       sk: "Catálogo · 6 líneas",

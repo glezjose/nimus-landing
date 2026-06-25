@@ -1,3 +1,5 @@
+import type { TapBarOptionId } from "@/lib/data/tapbar-options";
+
 export type NavLink = { href: string; label: string };
 
 export type Dictionary = {
@@ -35,22 +37,12 @@ export type Dictionary = {
       titleEmphasis: string;
       sub: string;
       currency: string;
-      variantPills: {
-        bar2: string;
-        qr: string;
-        bar3: string;
-        bar4: string;
-        max: string;
-      };
-      features: ReadonlyArray<{ num: string; text: string }>;
-      variants: ReadonlyArray<{
-        id: number;
-        slug: string;
-        name: string;
-        sub: string;
+      options: ReadonlyArray<{
+        id: TapBarOptionId;
+        label: string;
+        title: string;
+        description: string;
         price: string;
-        image: string;
-        alt: string;
       }>;
     };
     products: {

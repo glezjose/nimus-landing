@@ -70,7 +70,7 @@ export function WorkStripSection() {
           />
         </div>
         <div className="clients-arch__scroll-slot clients-arch__scroll-slot--outro">
-          <WorkScrollCue />
+          <WorkScrollCue variant="tapbar" />
         </div>
       </div>
     </section>
