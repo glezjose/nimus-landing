@@ -2650,7 +2650,6 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
   overflow: hidden;
   color: var(--bg);
   min-height: 100dvh;
-  --tapbar-mobile-card-inset: 12px;
   padding:
     var(--nav-bar-height)
     var(--layout-gutter)

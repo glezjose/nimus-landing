@@ -115,9 +115,6 @@ export const TAPBAR_SCROLL_PAST_CUE_PADDING = 16;
 /** Match Tap Bar / model mobile layout breakpoint */
 export const MOBILE_LAYOUT_MQ = "(max-width: 1000px)";
 
-/** Gap between nav and preview card when scrolling to Tap Bar on mobile */
-export const TAPBAR_MOBILE_CARD_SCROLL_INSET = 12;
-
 export const scrollDotSections = [
   { target: "#top", label: "Inicio" },
   { target: "#tapbar", label: "Tap Bar" },

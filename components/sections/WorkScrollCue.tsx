@@ -3,8 +3,8 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import {
+  HERO_NEXT_SECTION_ID,
   MOBILE_LAYOUT_MQ,
-  TAPBAR_MOBILE_CARD_SCROLL_INSET,
   TAPBAR_SCROLL_PAST_CUE_PADDING,
   TAPBAR_SECTION_ID,
 } from "@/lib/data/hero";
@@ -35,15 +35,28 @@ export function WorkScrollCue({ variant = "hint" }: WorkScrollCueProps) {
   }
 
   const scrollToTapBar = () => {
-    const target = document.getElementById(TAPBAR_SECTION_ID);
-    if (!target) return;
+    const tapbar = document.getElementById(TAPBAR_SECTION_ID);
+    if (!tapbar) return;
 
     const isMobile = window.matchMedia(MOBILE_LAYOUT_MQ).matches;
     const scrollMargin =
-      parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      parseFloat(getComputedStyle(tapbar).scrollMarginTop) || 0;
+
+    if (isMobile) {
+      const trabajos = document.getElementById(HERO_NEXT_SECTION_ID);
+      const seamTop = trabajos
+        ? trabajos.getBoundingClientRect().bottom + window.scrollY
+        : tapbar.getBoundingClientRect().top + window.scrollY - scrollMargin;
+
+      window.scrollTo({
+        top: seamTop,
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+      });
+      return;
+    }
 
     const tapbarTop =
-      target.getBoundingClientRect().top + window.scrollY - scrollMargin;
+      tapbar.getBoundingClientRect().top + window.scrollY - scrollMargin;
 
     const cue = document.querySelector(".hero-scroll-cue--work-outro");
     const pastCueTop = cue
@@ -52,26 +65,8 @@ export function WorkScrollCue({ variant = "hint" }: WorkScrollCueProps) {
         TAPBAR_SCROLL_PAST_CUE_PADDING
       : tapbarTop;
 
-    let top = Math.max(tapbarTop, pastCueTop);
-
-    if (isMobile) {
-      const card = target.querySelector<HTMLElement>(".feature-preview-card");
-      if (card) {
-        const cardInset =
-          parseFloat(
-            getComputedStyle(target).getPropertyValue("--tapbar-mobile-card-inset"),
-          ) || TAPBAR_MOBILE_CARD_SCROLL_INSET;
-        const cardTop =
-          card.getBoundingClientRect().top +
-          window.scrollY -
-          scrollMargin -
-          cardInset;
-        top = Math.max(top, cardTop);
-      }
-    }
-
     window.scrollTo({
-      top,
+      top: Math.max(tapbarTop, pastCueTop),
       behavior: prefersReducedMotion() ? "auto" : "smooth",
     });
   };
