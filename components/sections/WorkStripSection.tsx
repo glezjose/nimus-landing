@@ -19,7 +19,6 @@ export function WorkStripSection() {
         caption: {
           name: client.name,
           nameEmphasis: client.nameEmphasis,
-          meta: client.meta,
         },
       })),
     [work.clients],

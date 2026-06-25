@@ -38,6 +38,25 @@ const focusEase: [typeof easeIntoFocus, typeof easeOutOfFocus] = [
   easeOutOfFocus,
 ];
 
+const MOTION_AMPLITUDE = {
+  full: { tx: 40, sk: 20, rot: 5, tz: 300 },
+  compact: { tx: 10, sk: 5, rot: 2, tz: 140 },
+} as const;
+
+function useCompactMotion(breakpoint = "(max-width: 860px)") {
+  const [compact, setCompact] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(breakpoint);
+    const update = () => setCompact(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [breakpoint]);
+
+  return compact;
+}
+
 export type MaxWidthToken = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "none";
 
 export type GapToken = 4 | 6 | 8 | 10 | 12 | 14;
@@ -82,6 +101,7 @@ type TileConfig = {
   rounded: string;
   scrollY: MotionValue<number>;
   container?: RefObject<HTMLElement | null>;
+  compactMotion: boolean;
 };
 
 function Tile({
@@ -106,7 +126,11 @@ function Tile({
     rounded,
     scrollY,
     container,
+    compactMotion,
   } = config;
+  const amplitude = compactMotion
+    ? MOTION_AMPLITUDE.compact
+    : MOTION_AMPLITUDE.full;
 
   // Per-tile scroll progress, computed from the shared scrollY motion value
   // and this tile's measured position. Driving this manually instead of via
@@ -164,7 +188,9 @@ function Tile({
   const ty = useTransform(p, [0, 0.5, 1], ["100%", "0%", "-100%"], {
     ease: focusEase,
   });
-  const tz = useTransform(p, [0, 0.5, 1], [300, 0, 300], { ease: focusEase });
+  const tz = useTransform(p, [0, 0.5, 1], [amplitude.tz, 0, amplitude.tz], {
+    ease: focusEase,
+  });
   const rx = useTransform(p, [0, 0.5, 1], [maxTilt, 0, -maxTilt], {
     ease: focusEase,
   });
@@ -172,15 +198,21 @@ function Tile({
   const tx = useTransform(
     p,
     [0, 0.5, 1],
-    [`${sign * 40}%`, "0%", `${sign * 40}%`],
+    [`${sign * amplitude.tx}%`, "0%", `${sign * amplitude.tx}%`],
     { ease: focusEase },
   );
-  const rot = useTransform(p, [0, 0.5, 1], [-sign * 5, 0, sign * 5], {
-    ease: focusEase,
-  });
-  const sk = useTransform(p, [0, 0.5, 1], [sign * 20, 0, -sign * 20], {
-    ease: focusEase,
-  });
+  const rot = useTransform(
+    p,
+    [0, 0.5, 1],
+    [-sign * amplitude.rot, 0, sign * amplitude.rot],
+    { ease: focusEase },
+  );
+  const sk = useTransform(
+    p,
+    [0, 0.5, 1],
+    [sign * amplitude.sk, 0, -sign * amplitude.sk],
+    { ease: focusEase },
+  );
 
   const innerSY = useTransform(p, [0, 0.5, 1], [1.8, 1, 1.8], {
     ease: focusEase,
@@ -313,6 +345,11 @@ export type ScrollTiltedGridProps = {
   sectionPadding?: string;
   /** Additional className applied to the outer `<section>`. */
   className?: string;
+  /**
+   * How aggressively tiles slide/skew horizontally during scroll.
+   * `auto` tightens horizontal motion below 860px to avoid page sideways drift.
+   */
+  motionProfile?: "auto" | "full" | "compact";
 };
 
 /**
@@ -336,11 +373,19 @@ export function ScrollTiltedGrid({
   maxCycles = Infinity,
   sectionPadding = "20vh",
   className,
+  motionProfile = "auto",
 }: ScrollTiltedGridProps = {}) {
   const [cycles, setCycles] = useState(
     loop ? Math.min(initialCycles, maxCycles) : 1,
   );
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const mobileViewport = useCompactMotion();
+  const compactMotion =
+    motionProfile === "compact"
+      ? true
+      : motionProfile === "full"
+        ? false
+        : mobileViewport;
 
   // A single shared scroll position, owned by this component. The previous
   // implementation leaned on motion's useScroll({ container }) but its 'change'
@@ -403,12 +448,22 @@ export function ScrollTiltedGrid({
       rounded,
       scrollY,
       container,
+      compactMotion,
     }),
-    [aspectRatio, perspective, maxTilt, maxBlur, rounded, scrollY, container],
+    [
+      aspectRatio,
+      perspective,
+      maxTilt,
+      maxBlur,
+      rounded,
+      scrollY,
+      container,
+      compactMotion,
+    ],
   );
 
   const gridClass = [
-    "mx-auto grid w-full grid-cols-2 px-6",
+    "mx-auto grid w-full grid-cols-2 px-0",
     MAX_WIDTH_CLASS[maxWidth],
     GAP_CLASS[gap],
   ]

@@ -30,8 +30,8 @@ export function TopNav({
         <Image
           src="/assets/nimus-logo-white.png"
           alt={t.nav.brandAlt}
-          width={48}
-          height={48}
+          width={40}
+          height={40}
           className="brand-logo brand-logo--mark"
           priority
         />
@@ -50,7 +50,7 @@ export function TopNav({
 
       <div className="topnav__actions">
         <Link href="#cta" className="nav-icon-btn" aria-label={t.nav.contactAria}>
-          <UserIcon width={20} height={20} aria-hidden="true" />
+          <UserIcon width={18} height={18} aria-hidden="true" />
         </Link>
         <Link href="#cta" className="nav-cta">
           {t.nav.cta}

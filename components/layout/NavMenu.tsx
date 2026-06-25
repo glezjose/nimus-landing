@@ -2,7 +2,6 @@
 
 import {
   ArrowTopRightOnSquareIcon,
-  Bars2Icon,
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
@@ -17,6 +16,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import Shuffle from "@/components/Shuffle";
+import { NavMenuLottieIcon } from "@/components/layout/NavMenuLottieIcon";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useScrollProgress } from "@/lib/hooks/useScrollProgress";
 import { siteConfig } from "@/lib/site";
@@ -249,16 +249,7 @@ export function NavMenu({
       >
         <span className="nav-menu__trigger-main">
           <span className="nav-menu__trigger-icon" aria-hidden="true">
-            <Bars2Icon
-              width={18}
-              height={18}
-              data-state={open ? "inactive" : "active"}
-            />
-            <XMarkIcon
-              width={18}
-              height={18}
-              data-state={open ? "active" : "inactive"}
-            />
+            <NavMenuLottieIcon open={open} />
           </span>
           <span className="nav-menu__trigger-label">
             <span className="nav-menu__trigger-label-sizer" aria-hidden="true">
