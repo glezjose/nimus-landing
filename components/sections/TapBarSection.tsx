@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { DualToneRainBackground } from "@/components/ruixen/dual-tone-rain-background";
 import { InvertTabs } from "@/components/ruixen/invert-tabs";
-import { TapBarModelCanvas } from "@/components/sections/TapBarModelCanvas";
+import { TapBarStage } from "@/components/sections/TapBarStage";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import {
   DEFAULT_TAPBAR_OPTION_ID,
@@ -67,12 +67,17 @@ export function TapBarSection() {
                 <motion.div
                   key={activeId}
                   className="feature-preview-card__copy-inner"
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, y: -3 }}
+                  transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
                 >
-                  <div className="feature-preview-card__heading">
+                  <motion.div
+                    className="feature-preview-card__heading"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
+                  >
                     <h3 className="feature-preview-card__title">
                       {activeOption.title}
                     </h3>
@@ -82,18 +87,29 @@ export function TapBarSection() {
                       </span>
                       <small>{tapbar.currency}</small>
                     </p>
-                  </div>
-                  <p className="feature-preview-card__body">
+                  </motion.div>
+                  <motion.p
+                    className="feature-preview-card__body"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.22,
+                      delay: 0.09,
+                      ease: [0.2, 0, 0, 1],
+                    }}
+                  >
                     {activeOption.description}
-                  </p>
+                  </motion.p>
                 </motion.div>
               </AnimatePresence>
             </div>
 
             <div className="feature-preview-card__stage">
-              <TapBarModelCanvas
+              <TapBarStage
+                activeId={activeId}
                 modelPath={tapBarOptionModels[activeId]}
                 fitSize={tapBarOptionFitSize[activeId]}
+                view3dAria={tapbar.view3dAria}
               />
             </div>
           </div>

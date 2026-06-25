@@ -11,6 +11,13 @@ export const tapBarOptionModels: Record<TapBarOptionId, string> = {
   stand: "/models/tapstand.glb",
 };
 
+export const tapBarOptionPreviewImages: Record<TapBarOptionId, string> = {
+  "bar-4": "/assets/products/tapbar-4.png",
+  "bar-3": "/assets/products/tapbar-3.png",
+  "bar-2": "/assets/products/tapbar-2.png",
+  stand: "/assets/products/tapstand.png",
+};
+
 export const DEFAULT_TAPBAR_MODEL_FIT_SIZE = 1.72;
 
 /** Per-variant bounding fit — only override when a GLB reads too large in the stage */

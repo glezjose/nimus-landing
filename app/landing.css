@@ -2665,6 +2665,34 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
+}
+
+/* backdrop-filter won't blur CSS gradient rain — filter the layer directly */
+.feature__bg .dual-tone-rain {
+  filter: blur(14px);
+  transform: scale(1.1);
+  transform-origin: center center;
+}
+
+.feature__bg .dual-tone-rain__grid {
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    transparent 0,
+    transparent 2px,
+    color-mix(in srgb, var(--night) 88%, transparent) 2px
+  );
+}
+
+.feature__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--night) 38%, transparent);
 }
 
 .feature__bg .dual-tone-rain__canvas {
@@ -2737,42 +2765,47 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
 }
 
 .feature-preview-card {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  left: -87px;
+  top: 1px;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
   width: 100%;
   height: 100%;
   min-height: 0;
-  padding: 8px;
+  padding: 10px;
+  border: var(--outline-width) solid var(--outline-dark);
   border-radius: 28px;
-  background: #0d0d0b;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 28px 56px -32px rgba(0, 0, 0, 0.72);
+  background: var(--nav-filled-bg);
+  box-shadow: none;
   box-sizing: border-box;
   overflow: hidden;
 }
 
 .feature-preview-card__toolbar {
-  padding: 0 0 2px;
+  padding: 0 2px 8px;
 }
 
 .feature-preview-card .tapbar-tabs--card.it {
   width: 100%;
-  --it-bg: #0d0d0b;
+  --it-bg: var(--nav-filled-bg);
   --it-text: rgba(255, 255, 255, 0.92);
   --it-pill: #ffffff;
 }
 
 .feature-preview-card .tapbar-tabs--card .it-bar {
   min-height: var(--nav-pill-height);
-  border: var(--outline-width) solid var(--outline-dark);
 }
 
 .feature-preview-card .tapbar-tabs--card .it-bar button {
   height: calc(var(--nav-pill-height) - 8px);
   font-family: var(--font-archivo), sans-serif;
   letter-spacing: 0.01em;
+  transition: transform var(--nav-interactive-duration) var(--nav-interactive-ease);
+}
+
+.feature-preview-card .tapbar-tabs--card .it-bar button:active {
+  transform: scale(0.96);
 }
 
 .feature-preview-card .tapbar-tabs--card .it-bar__divider {
@@ -2786,7 +2819,12 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
 }
 
 .feature-preview-card__copy {
-  padding: 16px 4px 12px;
+  padding: 8px 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: calc(
+    24px + clamp(20px, 2.4vw, 26px) * 1.08 + 8px + 14px * 1.5 * 2
+  );
+  box-sizing: border-box;
 }
 
 .feature-preview-card__copy-inner {
@@ -2816,9 +2854,10 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
 }
 
 .feature-preview-card__body {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
+  min-height: 2lh;
   font-size: 14px;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--hero-trail);
   text-wrap: pretty;
 }
@@ -2854,16 +2893,54 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
   position: relative;
   flex: 1;
   min-height: clamp(240px, 40vh, 400px);
-  margin: 8px 10px 10px;
+  margin: 10px 0 0;
+  border-radius: 18px;
   overflow: hidden;
+}
+
+.tapbar-model-preview {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  transform: translate(-50%, -50%) scale(1.04);
+  transform-origin: center center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.tapbar-model-3d-toggle {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+}
+
+.feature-preview-card__stage .nav-icon-btn {
+  border: var(--outline-width) solid var(--outline-dark);
+  background: var(--nav-filled-bg);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.feature-preview-card__stage .nav-icon-btn:hover {
+  border-color: var(--outline-brand);
+  color: var(--outline-brand);
+  background: var(--nav-hover-bg);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.feature-preview-card__stage .nav-icon-btn:active {
+  transform: scale(0.96);
 }
 
 .tapbar-model-canvas {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: -1px;
+  inset: 0;
   width: 100%;
   height: 100%;
 }
@@ -2878,8 +2955,11 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
 /* Feature visual */
 .feature-visual {
   position: relative;
+  display: flex;
+  flex-direction: column;
   aspect-ratio: 1;
   min-height: 0;
+  overflow: visible;
 }
 
 /* Legacy tap variant carousel — unused */
@@ -3077,6 +3157,7 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
   }
   .feature-preview-card {
     position: relative;
+    left: 0;
     top: -1px;
     display: grid;
     grid-template-rows: auto auto auto;
@@ -3095,7 +3176,10 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
   }
   .feature-preview-card__copy {
     text-align: left;
-    padding: 8px 4px 4px;
+    padding: 6px 16px 14px;
+    min-height: calc(
+      20px + clamp(17px, 4.6vw, 20px) * 1.08 + 6px + 13px * 1.45 * 3
+    );
   }
   .feature-preview-card__title {
     font-size: clamp(17px, 4.6vw, 20px);
@@ -3105,6 +3189,7 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
   }
   .feature-preview-card__body {
     margin-top: 6px;
+    min-height: 3lh;
     font-size: 13px;
     line-height: 1.45;
   }
@@ -3113,7 +3198,8 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
     height: clamp(252px, 72vw, 332px);
     min-height: 0;
     flex: none;
-    margin: 4px 8px 10px;
+    margin: 10px 0 0;
+    border-radius: 18px 18px 0 0;
     overflow: hidden;
   }
 

@@ -46,8 +46,9 @@ export const es = {
       titleLine1: "Tap Bar:",
       titleLine2: "tu negocio",
       titleEmphasis: "conectado.",
-      sub: "Stand con 2–4 chips NFC. Un toque a menú, reseñas, redes o WhatsApp — sin apps.",
+      sub: "Menú, reseñas y redes sociales en un solo toque.",
       currency: "MXN",
+      view3dAria: "Ver modelo 3D",
       options: [
         {
           id: "bar-4",
