@@ -82,38 +82,31 @@ export function ProductsSection() {
       </section>
 
       <section className="section product-catalog-section" id="product-catalog">
+        <Reveal className="product-catalog-intro">
+          <h2 className="product-catalog-title">
+            {products.titleBefore}
+            <em>{products.titleEmphasis}</em>
+            {products.titleAfter}
+          </h2>
+        </Reveal>
+
         <Reveal variant="stagger" className="lineup">
           {products.items.map((product) => (
             <Link
               key={product.id}
-              className={`lcard span-${product.span}${product.featured ? " featured" : ""}`}
+              className={`lcard lcard--catalog span-${product.span}`}
               href="#cta"
-              style={
-                {
-                  "--card-accent": product.accent,
-                  "--photo-bg": product.photoBg,
-                } as React.CSSProperties
-              }
             >
               <div className="lcard-photo">
-                <div className="photo-grid" />
                 <span className="photo-tag">{product.line}</span>
                 <PhotoPlaceholder label={product.placeholder} />
               </div>
               <div className="lcard-body">
-                <div className="l-arrow">↗</div>
-                <h3 className="l-name">
-                  {product.name}
-                  <em>{product.nameEmphasis}</em>
-                </h3>
+                <h3 className="l-name">{product.name}</h3>
                 <p className="l-tag">{product.description}</p>
-                <div className="l-foot">
-                  <span className="l-from">{product.priceLabel}</span>
-                  <span className="l-price">
-                    {product.price}{" "}
-                    <small>{products.currency}</small>
-                  </span>
-                </div>
+                <p className="l-price-line">
+                  {product.priceLabel} {product.price} {products.currency}
+                </p>
               </div>
             </Link>
           ))}

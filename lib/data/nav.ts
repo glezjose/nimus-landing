@@ -10,7 +10,6 @@ export const NAV_CREAM_SECTION_IDS = [
   "tapbar",
   "productos",
   "tapbase",
-  "product-catalog",
 ] as const;
 
 export function isNavOverCreamSurface(navBottom = 72): boolean {

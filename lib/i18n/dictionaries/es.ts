@@ -86,10 +86,10 @@ export const es = {
       ],
     },
     products: {
-      sk: "Catálogo · 6 líneas",
-      titleBefore: "Una pieza para cada ",
-      titleEmphasis: "punto de contacto",
-      titleAfter: " entre tu marca y tus clientes.",
+      sk: "Objetos secundarios",
+      titleBefore: "Piezas pequeñas para ",
+      titleEmphasis: "completar la experiencia",
+      titleAfter: ".",
       tapboard: {
         titleLine1: "Tapboard:",
         titleLine2: "para tu",
