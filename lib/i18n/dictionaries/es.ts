@@ -52,36 +52,36 @@ export const es = {
       tilesMarqueeAria: "Destinos que puedes programar en cada ficha",
       options: [
         {
-          id: "bar-4",
-          label: "Bar 4",
-          title: "Tap Bar 4",
+          id: "stand",
+          label: "Stand",
+          title: "Stand NFC",
           description:
-            "Stand de 4 fichas con tu marca. Cuatro destinos personalizados, logo en relieve e iconografía a medida.",
-          price: "$650",
-        },
-        {
-          id: "bar-3",
-          label: "Bar 3",
-          title: "Tap Bar 3",
-          description:
-            "Stand de 3 fichas con tu marca. Reseñas, seguir y un destino más — todo en una sola pieza.",
-          price: "$580",
+            "Ficha NFC individual para un punto clave: menú, reseñas, WhatsApp o redes. La colocas en mostrador y la puedes reprogramar cuando cambie tu campaña.",
+          price: "$430",
         },
         {
           id: "bar-2",
           label: "Bar 2",
           title: "Tap Bar 2",
           description:
-            "Stand de 2 fichas con tu marca. Logo en relieve e iconos personalizados para dos enlaces clave.",
-          price: "$450",
+            "Dos acciones esenciales en una pieza compacta. Ideal para menú y reseñas, o para combinar contacto directo con redes.",
+          price: "$780",
         },
         {
-          id: "stand",
-          label: "Stand",
-          title: "Stand NFC",
+          id: "bar-3",
+          label: "Bar 3",
+          title: "Tap Bar 3",
           description:
-            "Una ficha NFC personalizable: tu color, icono y enlace. Ideal para mostrador o un solo punto de contacto.",
-          price: "$390",
+            "Tres accesos visibles para guiar al cliente sin explicación: reseñas, WhatsApp y redes, con iconos claros y tu marca al frente.",
+          price: "$1,140",
+        },
+        {
+          id: "bar-4",
+          label: "Bar 4",
+          title: "Tap Bar 4",
+          description:
+            "Cuatro destinos en una pieza de mostrador. Perfecta para negocios que quieren menú, reseñas, contacto y redes siempre a la vista.",
+          price: "$1,440",
         },
       ],
     },
@@ -92,33 +92,57 @@ export const es = {
       titleAfter: " entre tu marca y tus clientes.",
       tapboard: {
         titleLine1: "Tapboard:",
-        titleLine2: "placa NFC en",
-        titleEmphasis: "mesa o mostrador.",
-        sub: "Cada ficha abre un destino: reseñas, menú, WhatsApp o redes, con tu logo en relieve.",
+        titleLine2: "para tu",
+        titleEmphasis: "mesa o mostrador",
+        sub: "Un chip NFC para abrir cualquier destino desde la mesa.",
         options: [
           {
-            id: "bar-4",
-            label: "Board 4",
-            title: "Tap Board 4",
+            id: "bar-2",
+            label: "Board 2",
+            title: "Tap Board 2",
             description:
-              "Placa de 4 fichas con tu marca. Cuatro destinos personalizados, logo en relieve e iconografía a medida.",
-            price: "$650",
+              "Dos fichas sobre una placa limpia para las acciones principales: abrir menú y dejar reseña sin buscar códigos ni enlaces.",
+            price: "$780",
           },
           {
             id: "bar-3",
             label: "Board 3",
             title: "Tap Board 3",
             description:
-              "Placa de 3 fichas con tu marca. Reseñas, seguir y un destino más — todo en una sola pieza.",
-            price: "$580",
+              "Tres destinos en mesa o mostrador para ordenar, escribir por WhatsApp y seguir tus redes desde el mismo punto.",
+            price: "$1,140",
           },
           {
-            id: "bar-2",
-            label: "Board 2",
-            title: "Tap Board 2",
+            id: "bar-4",
+            label: "Board 4",
+            title: "Tap Board 4",
             description:
-              "Placa de 2 fichas con tu marca. Logo en relieve e iconos personalizados para dos enlaces clave.",
+              "Cuatro fichas para cubrir todo el recorrido del cliente: menú, reseñas, contacto y redes en una placa con presencia de marca.",
+            price: "$1,440",
+          },
+        ],
+      },
+      tapbase: {
+        titleLine1: "Tapbase:",
+        titleLine2: "para tu",
+        titleEmphasis: "barra o vitrina",
+        sub: "Accesos rápidos para vitrina, barra o punto de venta.",
+        options: [
+          {
+            id: "base-3",
+            label: "Base 3",
+            title: "Tap Base 3",
+            description:
+              "Base compacta de tres fichas para mostrador. Mantiene reseñas, menú y contacto visibles sin ocupar espacio de venta.",
             price: "$450",
+          },
+          {
+            id: "base-4",
+            label: "Base 4",
+            title: "Tap Base 4",
+            description:
+              "Base de cuatro fichas para vitrinas, barras o recepción. Ordena tus accesos clave y convierte el punto de venta en un disparador digital.",
+            price: "$550",
           },
         ],
       },

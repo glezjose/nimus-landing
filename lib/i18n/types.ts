@@ -1,4 +1,8 @@
-import type { TapBarOptionId, TapboardOptionId } from "@/lib/data/tapbar-options";
+import type {
+  TapBarOptionId,
+  TapboardOptionId,
+  TapbaseOptionId,
+} from "@/lib/data/tapbar-options";
 
 export type NavLink = { href: string; label: string };
 
@@ -59,6 +63,19 @@ export type Dictionary = {
         sub: string;
         options: ReadonlyArray<{
           id: TapboardOptionId;
+          label: string;
+          title: string;
+          description: string;
+          price: string;
+        }>;
+      };
+      tapbase: {
+        titleLine1: string;
+        titleLine2: string;
+        titleEmphasis: string;
+        sub: string;
+        options: ReadonlyArray<{
+          id: TapbaseOptionId;
           label: string;
           title: string;
           description: string;

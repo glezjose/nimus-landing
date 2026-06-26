@@ -6,7 +6,12 @@ export const navLinks = [
 ];
 
 /** Sections with #fdf9ef (or similar) surfaces — nav inverts to light chrome */
-export const NAV_CREAM_SECTION_IDS = ["tapbar", "productos"] as const;
+export const NAV_CREAM_SECTION_IDS = [
+  "tapbar",
+  "productos",
+  "tapbase",
+  "product-catalog",
+] as const;
 
 export function isNavOverCreamSurface(navBottom = 72): boolean {
   if (typeof document === "undefined") return false;

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { DEFAULT_TAPBAR_OPTION_ID, type TapBarOptionId } from "@/lib/data/tapbar-options";
+import { DEFAULT_TAPBAR_OPTION_ID } from "@/lib/data/tapbar-options";
 
 const TapBarModelCanvas = dynamic(
   () =>
@@ -13,7 +13,7 @@ const TapBarModelCanvas = dynamic(
 );
 
 type TapBarStageProps = {
-  activeId: TapBarOptionId;
+  activeId: string;
   modelPath: string;
   previewImage: string;
   fitSize: number;

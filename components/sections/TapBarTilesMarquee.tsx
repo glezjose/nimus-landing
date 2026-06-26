@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { ChipIcon } from "@/components/ui/Icons";
-import { tapBarTiles } from "@/lib/data/tapbar-tiles";
+import { tapBarTiles, type TapBarTileIcon } from "@/lib/data/tapbar-tiles";
 
 const TILE_COUNT = tapBarTiles.length;
 const MARQUEE_DURATION_SECONDS = 32;
@@ -15,7 +15,7 @@ function TileChip({
   color,
   ariaHidden,
 }: {
-  icon: string;
+  icon: TapBarTileIcon;
   label: string;
   color: string;
   ariaHidden?: boolean;

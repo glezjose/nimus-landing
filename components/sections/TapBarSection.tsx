@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { InvertTabs } from "@/components/ruixen/invert-tabs";
 import { TapBarStage } from "@/components/sections/TapBarStage";
 import { TapBarTilesMarquee } from "@/components/sections/TapBarTilesMarquee";
+import { FeatureTitleEmphasis } from "@/components/ui/FeatureTitleEmphasis";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import {
   DEFAULT_TAPBAR_OPTION_ID,
@@ -38,7 +39,7 @@ export function TapBarSection() {
           <h2 className="feature-title">
             <span className="feature-title__prefix">{tapbar.titleLine1}</span>
             <span className="feature-title__subject">{tapbar.titleLine2}</span>
-            <em className="feature-title__emphasis">{tapbar.titleEmphasis}</em>
+            <FeatureTitleEmphasis>{tapbar.titleEmphasis}</FeatureTitleEmphasis>
           </h2>
           <p className="feature-sub">{tapbar.sub}</p>
         </div>
@@ -53,7 +54,6 @@ export function TapBarSection() {
                 sound={false}
                 className="tapbar-tabs--card"
                 fill
-                dividers
               />
             </div>
 

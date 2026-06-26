@@ -1,19 +1,28 @@
-export const tapBarOptionIds = ["bar-4", "bar-3", "bar-2", "stand"] as const;
+export const tapBarOptionIds = ["stand", "bar-2", "bar-3", "bar-4"] as const;
 
 export type TapBarOptionId = (typeof tapBarOptionIds)[number];
 
 /** Tapboard catalog — Bar 2 / 3 / 4 only (no Stand) */
-export const tapboardOptionIds = ["bar-4", "bar-3", "bar-2"] as const;
+export const tapboardOptionIds = ["bar-2", "bar-3", "bar-4"] as const;
 
 export type TapboardOptionId = (typeof tapboardOptionIds)[number];
 
-export const DEFAULT_TAPBOARD_OPTION_ID: TapboardOptionId = "bar-4";
+export const DEFAULT_TAPBOARD_OPTION_ID: TapboardOptionId = "bar-2";
+
+/** Tapbase catalog — Base 3 / 4 only */
+export const tapbaseOptionIds = ["base-3", "base-4"] as const;
+
+export type TapbaseOptionId = (typeof tapbaseOptionIds)[number];
+
+export const DEFAULT_TAPBASE_OPTION_ID: TapbaseOptionId = "base-3";
+
+export type FeaturePreviewOptionId = TapBarOptionId | TapbaseOptionId;
 
 export function isTapboardOptionId(id: TapBarOptionId): id is TapboardOptionId {
   return (tapboardOptionIds as readonly string[]).includes(id);
 }
 
-export const DEFAULT_TAPBAR_OPTION_ID: TapBarOptionId = "bar-4";
+export const DEFAULT_TAPBAR_OPTION_ID: TapBarOptionId = "stand";
 
 export const tapBarOptionModels: Record<TapBarOptionId, string> = {
   "bar-4": "/models/tapbar-4.glb",
@@ -55,4 +64,19 @@ export const tapboardOptionFitSize: Record<TapboardOptionId, number> = {
   "bar-4": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 1.2,
   "bar-3": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 1.2,
   "bar-2": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 0.75 * 1.2,
+};
+
+export const tapbaseOptionModels: Record<TapbaseOptionId, string> = {
+  "base-4": "/models/tapbase-4.glb",
+  "base-3": "/models/tapbase-3.glb",
+};
+
+export const tapbaseOptionPreviewImages: Record<TapbaseOptionId, string> = {
+  "base-4": "/assets/products/tapbase-4.png",
+  "base-3": "/assets/products/tapbase-3.png",
+};
+
+export const tapbaseOptionFitSize: Record<TapbaseOptionId, number> = {
+  "base-4": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 1.2,
+  "base-3": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 1.2,
 };

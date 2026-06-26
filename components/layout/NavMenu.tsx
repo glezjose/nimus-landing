@@ -15,7 +15,8 @@ import {
   type RefObject,
 } from "react";
 import { createPortal } from "react-dom";
-import Shuffle from "@/components/Shuffle";
+import "slot-text/style.css";
+import { SlotText } from "slot-text/react";
 import { NavMenuLottieIcon } from "@/components/layout/NavMenuLottieIcon";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useScrollProgress } from "@/lib/hooks/useScrollProgress";
@@ -87,6 +88,7 @@ export function NavMenu({
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const [panelStyle, setPanelStyle] = useState<CSSProperties>({});
 
   const setMenuOpen = useCallback((next: boolean) => {
@@ -128,6 +130,14 @@ export function NavMenu({
   }, []);
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
     syncPanelGeometry();
     window.addEventListener("resize", syncPanelGeometry);
     window.addEventListener("scroll", syncPanelGeometry, { passive: true });
@@ -148,6 +158,9 @@ export function NavMenu({
   useEffect(() => {
     if (hiddenAtCta) setMenuOpen(false);
   }, [hiddenAtCta, setMenuOpen]);
+
+  const menuLabelSizer =
+    t.nav.close.length >= t.nav.menu.length ? t.nav.close : t.nav.menu;
 
   const panel = (
     <div
@@ -253,27 +266,27 @@ export function NavMenu({
           </span>
           <span className="nav-menu__trigger-label">
             <span className="nav-menu__trigger-label-sizer" aria-hidden="true">
-              {t.nav.close}
+              {menuLabelSizer}
             </span>
-            <Shuffle
-              text={open ? t.nav.close : t.nav.menu}
-              tag="span"
-              className="nav-menu__trigger-label-text"
-              triggerOnChange
-              triggerOnce={false}
-              triggerOnHover={false}
-              respectReducedMotion
-              shuffleDirection="right"
-              duration={0.28}
-              stagger={0.025}
-              shuffleTimes={1}
-              animationMode="evenodd"
-              ease="power3.out"
-              textAlign="left"
-            />
+            {reduceMotion ? (
+              <span className="nav-menu__trigger-label-text">
+                {open ? t.nav.close : t.nav.menu}
+              </span>
+            ) : (
+              <SlotText
+                text={open ? t.nav.close : t.nav.menu}
+                className="nav-menu__trigger-label-text"
+                options={{
+                  direction: open ? "up" : "down",
+                  skipUnchanged: false,
+                  duration: 280,
+                  stagger: 25,
+                  exitOffset: 40,
+                }}
+              />
+            )}
           </span>
         </span>
-        <span className="nav-menu__trigger-divider" aria-hidden="true" />
         <span
           className="nav-menu__trigger-scroll"
           aria-label={`Scroll progress ${scrollProgress} percent`}

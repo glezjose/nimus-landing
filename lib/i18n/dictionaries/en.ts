@@ -55,36 +55,36 @@ export const en = {
       tilesMarqueeAria: "Destinations you can assign to each tile",
       options: [
         {
-          id: "bar-4",
-          label: "Bar 4",
-          title: "Tap Bar 4",
+          id: "stand",
+          label: "Stand",
+          title: "NFC Stand",
           description:
-            "4-tile branded stand. Four custom destinations with embossed logo and bespoke iconography.",
-          price: "$650",
-        },
-        {
-          id: "bar-3",
-          label: "Bar 3",
-          title: "Tap Bar 3",
-          description:
-            "3-tile branded stand. Reviews, follow, and one more destination — all in one piece.",
-          price: "$580",
+            "One NFC tile for a key action: menu, reviews, WhatsApp, or social. Place it on the counter and reprogram it whenever the campaign changes.",
+          price: "$430",
         },
         {
           id: "bar-2",
           label: "Bar 2",
           title: "Tap Bar 2",
           description:
-            "2-tile branded stand. Embossed logo and custom icons for your two key links.",
-          price: "$450",
+            "Two essential actions in one compact piece. Ideal for menu and reviews, or pairing direct contact with social.",
+          price: "$780",
         },
         {
-          id: "stand",
-          label: "Stand",
-          title: "NFC Stand",
+          id: "bar-3",
+          label: "Bar 3",
+          title: "Tap Bar 3",
           description:
-            "A single customisable NFC tile — your colour, icon, and link. Perfect for counters or one touchpoint.",
-          price: "$390",
+            "Three visible access points that guide customers without explanation: reviews, WhatsApp, and social, with clear icons and your brand up front.",
+          price: "$1,140",
+        },
+        {
+          id: "bar-4",
+          label: "Bar 4",
+          title: "Tap Bar 4",
+          description:
+            "Four destinations in one counter piece. Built for businesses that want menu, reviews, contact, and social always in sight.",
+          price: "$1,440",
         },
       ],
     },
@@ -95,33 +95,57 @@ export const en = {
       titleAfter: " between your brand and your customers.",
       tapboard: {
         titleLine1: "Tapboard:",
-        titleLine2: "NFC plaque for",
-        titleEmphasis: "table or counter.",
-        sub: "Each tile opens a destination: reviews, menu, WhatsApp, or social, with your embossed logo.",
+        titleLine2: "for your",
+        titleEmphasis: "table or counter",
+        sub: "An NFC chip that opens any destination from the table.",
         options: [
           {
-            id: "bar-4",
-            label: "Board 4",
-            title: "Tap Board 4",
+            id: "bar-2",
+            label: "Board 2",
+            title: "Tap Board 2",
             description:
-              "4-tile branded board. Four custom destinations with embossed logo and bespoke iconography.",
-            price: "$650",
+              "Two tiles on a clean plaque for the main actions: open the menu and leave a review without hunting for codes or links.",
+            price: "$780",
           },
           {
             id: "bar-3",
             label: "Board 3",
             title: "Tap Board 3",
             description:
-              "3-tile branded board. Reviews, follow, and one more destination — all in one piece.",
-            price: "$580",
+              "Three destinations on table or counter for ordering, WhatsApp, and social from the same spot.",
+            price: "$1,140",
           },
           {
-            id: "bar-2",
-            label: "Board 2",
-            title: "Tap Board 2",
+            id: "bar-4",
+            label: "Board 4",
+            title: "Tap Board 4",
             description:
-              "2-tile branded board. Embossed logo and custom icons for your two key links.",
+              "Four tiles for the full customer path: menu, reviews, contact, and social in a branded plaque with presence.",
+            price: "$1,440",
+          },
+        ],
+      },
+      tapbase: {
+        titleLine1: "Tapbase:",
+        titleLine2: "for your",
+        titleEmphasis: "bar or display",
+        sub: "Quick access for displays, bars, or point of sale.",
+        options: [
+          {
+            id: "base-3",
+            label: "Base 3",
+            title: "Tap Base 3",
+            description:
+              "Compact three-tile base for counters. Keeps reviews, menu, and contact visible without taking over selling space.",
             price: "$450",
+          },
+          {
+            id: "base-4",
+            label: "Base 4",
+            title: "Tap Base 4",
+            description:
+              "Four-tile base for displays, bars, or reception. Organizes your key links and turns the point of sale into a digital trigger.",
+            price: "$550",
           },
         ],
       },

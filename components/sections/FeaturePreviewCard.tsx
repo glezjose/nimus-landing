@@ -9,11 +9,11 @@ import {
   tapBarOptionFitSize,
   tapBarOptionModels,
   tapBarOptionPreviewImages,
-  type TapBarOptionId,
+  type FeaturePreviewOptionId,
 } from "@/lib/data/tapbar-options";
 
 export type FeaturePreviewOption = {
-  id: TapBarOptionId;
+  id: FeaturePreviewOptionId;
   label: string;
   title: string;
   description: string;
@@ -22,14 +22,14 @@ export type FeaturePreviewOption = {
 
 type FeaturePreviewCardProps = {
   options: ReadonlyArray<FeaturePreviewOption>;
-  defaultOptionId: TapBarOptionId;
+  defaultOptionId: FeaturePreviewOptionId;
   currency: string;
   view3dAria: string;
   tilesMarqueeAria?: string;
   className?: string;
-  models?: Partial<Record<TapBarOptionId, string>>;
-  previewImages?: Partial<Record<TapBarOptionId, string>>;
-  fitSizes?: Partial<Record<TapBarOptionId, number>>;
+  models?: Partial<Record<FeaturePreviewOptionId, string>>;
+  previewImages?: Partial<Record<FeaturePreviewOptionId, string>>;
+  fitSizes?: Partial<Record<FeaturePreviewOptionId, number>>;
   priorityPreview?: boolean;
 };
 
@@ -45,7 +45,7 @@ export function FeaturePreviewCard({
   fitSizes = tapBarOptionFitSize,
   priorityPreview = false,
 }: FeaturePreviewCardProps) {
-  const [activeId, setActiveId] = useState<TapBarOptionId>(defaultOptionId);
+  const [activeId, setActiveId] = useState<FeaturePreviewOptionId>(defaultOptionId);
 
   const tabItems = useMemo(
     () =>
@@ -59,10 +59,9 @@ export function FeaturePreviewCard({
   const activeOption =
     options.find((option) => option.id === activeId) ?? options[0];
 
-  const modelPath = models[activeId] ?? tapBarOptionModels[activeId];
-  const previewImage =
-    previewImages[activeId] ?? tapBarOptionPreviewImages[activeId];
-  const fitSize = fitSizes[activeId] ?? tapBarOptionFitSize[activeId];
+  const modelPath = models[activeId] ?? "";
+  const previewImage = previewImages[activeId] ?? "";
+  const fitSize = fitSizes[activeId] ?? tapBarOptionFitSize["bar-4"];
 
   return (
     <div className={className ? `feature-preview-card ${className}` : "feature-preview-card"}>
@@ -70,11 +69,10 @@ export function FeaturePreviewCard({
         <InvertTabs
           items={tabItems}
           defaultValue={activeId}
-          onChange={(value) => setActiveId(value as TapBarOptionId)}
+          onChange={(value) => setActiveId(value as FeaturePreviewOptionId)}
           sound={false}
           className="tapbar-tabs--card"
           fill
-          dividers
         />
       </div>
 
