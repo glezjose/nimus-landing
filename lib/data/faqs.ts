@@ -8,37 +8,37 @@ export type Faq = {
 export const faqs: Faq[] = [
   {
     id: "nfc",
-    question: "¿Qué es exactamente un ",
+    question: "¿Qué hace un ",
     questionEmphasis: "chip NFC",
     answer:
-      "Un chip NFC es un circuito pasivo que se activa cuando un teléfono se acerca. El cliente no necesita instalar nada — la mayoría de smartphones modernos detectan el chip de forma nativa y abren el destino que tú configures (Instagram, menú, WhatsApp, reseñas).",
+      "Acercas el teléfono y abre el link que tú elijas: Instagram, menú, WhatsApp, reseñas o una promo. No requiere app, batería ni login del cliente.",
   },
   {
     id: "reprogram",
-    question: "¿Puedo ",
-    questionEmphasis: "cambiar el destino",
+    question: "¿Se puede ",
+    questionEmphasis: "editar después",
     answer:
-      "Sí. Los chips NTAG215 son reprogramables. Si cambias tu Instagram, agregas un menú nuevo o lanzas una promoción, podemos reprogramar todos los chips sin costo extra dentro del año de garantía.",
+      "Sí. Usamos chips NTAG215 reprogramables. Si cambias de menú, perfil o campaña, actualizamos el destino sin costo durante el año de garantía.",
   },
   {
     id: "minimum",
     question: "¿Cuál es el ",
-    questionEmphasis: "mínimo de piezas",
+    questionEmphasis: "mínimo para pedir",
     answer:
-      "En catálogo estándar, el mínimo es 10 piezas por variante. En Línea Personalizada o Smart Toys hay mínimos específicos (10–20 piezas). Para piezas únicas o pruebas, cotizamos caso por caso.",
+      "Para catálogo estándar empezamos desde 10 piezas por variante. En diseños personalizados o Smart Toys, el mínimo depende del proyecto; normalmente va de 10 a 20.",
   },
   {
     id: "shipping",
-    question: "¿Hacen ",
-    questionEmphasis: "envíos a toda la república",
+    question: "¿Envían ",
+    questionEmphasis: "a todo México",
     answer:
-      "Sí, enviamos a nivel nacional. El costo se cotiza según volumen y destino. Coordinamos paquetería con seguimiento desde el día de entrega del lote.",
+      "Sí. Cotizamos el envío según destino y volumen, y te compartimos guía de rastreo cuando el lote sale.",
   },
   {
     id: "custom",
-    question: "¿Qué pasa si quiero un ",
+    question: "¿Pueden hacer un ",
     questionEmphasis: "diseño exclusivo",
     answer:
-      "Activamos la Línea Personalizada. Hay tres niveles: adaptación de logo (+$100), forma nueva (+$300) o concepto desde cero con exclusividad y registro del modelo (+$800). El cargo es único por proyecto, no por pieza.",
+      "Sí. Podemos adaptar tu logo, crear una forma nueva o desarrollar un concepto desde cero con exclusividad. El cargo de diseño se paga una vez por proyecto.",
   },
 ];

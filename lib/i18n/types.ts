@@ -178,6 +178,7 @@ export type Dictionary = {
       titleEmphasis: string;
       titleAfter: string;
       lede: string;
+      chatToday: string;
       items: ReadonlyArray<{
         id: string;
         question: string;

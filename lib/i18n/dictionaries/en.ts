@@ -368,45 +368,46 @@ export const en = {
     },
     faq: {
       sk: "Frequently asked questions",
-      titleBefore: "What ",
-      titleEmphasis: "businesses",
-      titleAfter: " ask us before starting.",
+      titleBefore: "Common ",
+      titleEmphasis: "questions",
+      titleAfter: "",
       lede: "Short answers. If something's missing, reach us on WhatsApp or email.",
+      chatToday: "Today",
       items: [
         {
           id: "nfc",
-          question: "What exactly is an ",
+          question: "What does an ",
           questionEmphasis: "NFC chip",
           answer:
-            "An NFC chip is a passive circuit activated when a phone gets close. Customers don't need to install anything — most modern smartphones detect the chip natively and open the destination you configure (Instagram, menu, WhatsApp, reviews).",
+            "Tap a phone and it opens the link you choose: Instagram, menu, WhatsApp, reviews, or a promo. No app, battery, or customer login required.",
         },
         {
           id: "reprogram",
-          question: "Can I ",
-          questionEmphasis: "change the destination",
+          question: "Can it be ",
+          questionEmphasis: "edited later",
           answer:
-            "Yes. NTAG215 chips are reprogrammable. If you change your Instagram, add a new menu, or launch a promotion, we can reprogram all chips at no extra cost within the warranty year.",
+            "Yes. We use reprogrammable NTAG215 chips. If your menu, profile, or campaign changes, we update the destination at no cost during the warranty year.",
         },
         {
           id: "minimum",
           question: "What is the ",
           questionEmphasis: "minimum order",
           answer:
-            "For standard catalog, the minimum is 10 units per variant. Custom Line or Smart Toys have specific minimums (10–20 units). For one-offs or tests, we quote case by case.",
+            "Standard catalog orders start at 10 units per variant. Custom designs and Smart Toys depend on the project, usually between 10 and 20 units.",
         },
         {
           id: "shipping",
           question: "Do you ",
           questionEmphasis: "ship nationwide",
           answer:
-            "Yes, we ship across Mexico. Cost is quoted by volume and destination. We coordinate tracked courier from delivery day.",
+            "Yes, we ship across Mexico. Shipping is quoted by destination and volume, and we send tracking once the batch is on its way.",
         },
         {
           id: "custom",
-          question: "What if I want an ",
+          question: "Can you make an ",
           questionEmphasis: "exclusive design",
           answer:
-            "We activate the Custom Line. Three tiers: logo adaptation (+$100), new shape (+$300), or concept from scratch with exclusivity and model registration (+$800). The fee is per project, not per unit.",
+            "Yes. We can adapt your logo, create a new shape, or develop a concept from scratch with exclusivity. The design fee is paid once per project.",
         },
       ],
     },

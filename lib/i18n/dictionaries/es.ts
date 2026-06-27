@@ -198,10 +198,11 @@ export const es = {
     },
     faq: {
       sk: "Preguntas frecuentes",
-      titleBefore: "Lo que los ",
-      titleEmphasis: "negocios",
-      titleAfter: " nos preguntan antes de empezar.",
+      titleBefore: "Preguntas ",
+      titleEmphasis: "frecuentes",
+      titleAfter: "",
       lede: "Respuestas cortas. Si falta algo, escríbenos por WhatsApp o correo.",
+      chatToday: "Hoy",
       items: faqs,
     },
     cta: {
