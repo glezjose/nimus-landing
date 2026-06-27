@@ -4125,17 +4125,35 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
   margin-bottom: 0 !important;
   padding-top: clamp(16px, 4vh, 40px);
   padding-bottom: clamp(18px, 3vh, 30px);
+  background: transparent;
+}
+
+/* Full-bleed opaque mask: extends up over the nav band and out to the
+   viewport edges so released cards (and their shadow halo) are fully hidden
+   as they scroll up behind the pinned header. */
+.section-process .process-stack-head::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  top: calc(-1 * var(--nav-bar-height) - 2px);
+  bottom: 0;
   background: var(--night);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .section-process .process-stack-head::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   bottom: -28px;
   height: 28px;
   background: linear-gradient(to bottom, var(--night), rgba(13, 13, 11, 0));
+  z-index: -1;
   pointer-events: none;
 }
 
@@ -4145,7 +4163,7 @@ section[id], div[id] { scroll-margin-top: var(--nav-bar-height); }
 }
 
 .section-process .process-scroll-stack__inner {
-  padding: 0 0 42vh;
+  padding: clamp(36px, 6vh, 80px) 0 42vh;
 }
 
 .section-process .scroll-stack-card.process-stack-card {
