@@ -1,24 +1,24 @@
 export const processSteps = [
   {
-    num: "Paso 01",
+    num: "1.",
     title: "Brief y ",
     titleEmphasis: "cotización",
     body: "Escogemos línea, cantidad y destinos NFC. Recibes propuesta y plazos en menos de 24 horas.",
   },
   {
-    num: "Paso 02",
+    num: "2.",
     title: "Diseño y ",
     titleEmphasis: "validación",
     body: "Adaptación de logo o diseño exclusivo. 1–2 iteraciones de prueba antes de producción según el nivel.",
   },
   {
-    num: "Paso 03",
+    num: "3.",
     title: "Impresión ",
     titleEmphasis: "3D",
     body: "Bicolor o tricolor. Programación NFC incluida. Lotes de hasta 25 piezas en 3–5 días hábiles.",
   },
   {
-    num: "Paso 04",
+    num: "4.",
     title: "Entrega y ",
     titleEmphasis: "activación",
     body: "Recibes cada pieza lista para colocar, con destino NFC probado. Te guiamos en la activación y ajustamos enlaces cuando cambie tu campaña.",

@@ -7,14 +7,17 @@ import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useProcessStackMotion } from "@/components/sections/useProcessStackMotion";
+import { useCoarsePointer } from "@/components/sections/useCoarsePointer";
 
 /** Breathing room between the pinned header and the locked card stack. */
 const STACK_GAP = 36;
 
-const STEP_MEDIA: Record<string, string | undefined> = {
-  "Paso 03": "/assets/steps/printer.gif",
-  "Step 03": "/assets/steps/printer.gif",
-};
+const STEP_MEDIA = [
+  undefined,
+  undefined,
+  "/assets/steps/printer.gif",
+  undefined,
+] as const;
 
 type ProcessStep = {
   num: string;
@@ -23,18 +26,26 @@ type ProcessStep = {
   body: string;
 };
 
-function ProcessStepCardContent({ step }: { step: ProcessStep }) {
-  const mediaSrc = STEP_MEDIA[step.num];
+function ProcessStepCardContent({
+  step,
+  index,
+}: {
+  step: ProcessStep;
+  index: number;
+}) {
+  const mediaSrc = STEP_MEDIA[index];
 
   return (
     <div className="process-stack-card__layout">
       <div className="process-stack-card__copy">
-        <div className="ps-num">{step.num}</div>
-        <h3 className="ps-title">
-          {step.title}
-          <em>{step.titleEmphasis}</em>
-        </h3>
-        <p className="ps-body">{step.body}</p>
+        <span className="ps-num">{step.num}</span>
+        <div className="process-stack-card__bottom">
+          <h3 className="ps-title">
+            {step.title}
+            <em>{step.titleEmphasis}</em>
+          </h3>
+          <p className="ps-body">{step.body}</p>
+        </div>
       </div>
       <div className="process-stack-card__media">
         {mediaSrc ? (
@@ -58,14 +69,14 @@ export function ProcessSection() {
   const t = useTranslations();
   const { process } = t.sections;
   const stackMotion = useProcessStackMotion();
-  const [stackTopPx, setStackTopPx] = useState(360);
+  const isMobile = useCoarsePointer();
+  const [stackTopPx, setStackTopPx] = useState<number | null>(null);
 
   useEffect(() => {
     if (!stackMotion) return;
 
-    const head = document.querySelector<HTMLElement>(".process-stack-head");
-
     const measure = () => {
+      const head = document.querySelector<HTMLElement>(".process-stack-head");
       const navHeight =
         Number.parseFloat(
           getComputedStyle(document.documentElement).getPropertyValue(
@@ -77,17 +88,15 @@ export function ProcessSection() {
     };
 
     measure();
+    const settleTimer = window.setTimeout(measure, 600);
+
+    window.addEventListener("orientationchange", measure);
     window.addEventListener("resize", measure);
 
-    const observer =
-      typeof ResizeObserver !== "undefined" && head
-        ? new ResizeObserver(measure)
-        : null;
-    if (head) observer?.observe(head);
-
     return () => {
+      window.clearTimeout(settleTimer);
+      window.removeEventListener("orientationchange", measure);
       window.removeEventListener("resize", measure);
-      observer?.disconnect();
     };
   }, [stackMotion]);
 
@@ -128,34 +137,35 @@ export function ProcessSection() {
           <div className="lede">{process.lede}</div>
         </Reveal>
 
-        {stackMotion ? (
+        {stackMotion && stackTopPx !== null ? (
           <ScrollStack
             useWindowScroll
             useLenis={false}
+            snapToPixels={isMobile}
             className="process-scroll-stack"
             innerClassName="process-scroll-stack__inner"
-            itemDistance={170}
-            itemStackDistance={26}
+            itemDistance={isMobile ? 130 : 170}
+            itemStackDistance={isMobile ? 18 : 26}
             stackPosition={`${stackTopPx}px`}
-            scaleEndPosition={`${Math.max(stackTopPx - 120, 48)}px`}
-            baseScale={0.9}
-            itemScale={0.035}
-            blurAmount={2.5}
+            scaleEndPosition={`${Math.max(stackTopPx - (isMobile ? 80 : 120), 48)}px`}
+            baseScale={isMobile ? 0.94 : 0.9}
+            itemScale={isMobile ? 0.02 : 0.035}
+            blurAmount={isMobile ? 0 : 2.5}
           >
-            {process.steps.map((step) => (
+            {process.steps.map((step, index) => (
               <ScrollStackItem
                 key={step.num}
                 itemClassName="process-stack-card pstep"
               >
-                <ProcessStepCardContent step={step} />
+                <ProcessStepCardContent step={step} index={index} />
               </ScrollStackItem>
             ))}
           </ScrollStack>
-        ) : (
+        ) : stackMotion ? null : (
           <div className="process-steps-static">
-            {process.steps.map((step) => (
+            {process.steps.map((step, index) => (
               <article key={step.num} className="process-stack-card pstep">
-                <ProcessStepCardContent step={step} />
+                <ProcessStepCardContent step={step} index={index} />
               </article>
             ))}
           </div>

@@ -206,25 +206,25 @@ export const en = {
         "Short operation, no middlemen, local production. Modeling, testing, and printing under one roof.",
       steps: [
         {
-          num: "Step 01",
+          num: "1.",
           title: "Brief and ",
           titleEmphasis: "quote",
           body: "We choose line, quantity, and NFC destinations. You receive a proposal and timeline in under 24 hours.",
         },
         {
-          num: "Step 02",
+          num: "2.",
           title: "Design and ",
           titleEmphasis: "approval",
           body: "Logo adaptation or exclusive design. 1–2 test iterations before production depending on tier.",
         },
         {
-          num: "Step 03",
+          num: "3.",
           title: "3D ",
           titleEmphasis: "printing",
           body: "Two- or three-color. NFC programming included. Batches up to 25 units in 3–5 business days.",
         },
         {
-          num: "Step 04",
+          num: "4.",
           title: "Delivery and ",
           titleEmphasis: "activation",
           body: "Each piece arrives ready to place, with its NFC destination tested. We guide activation and adjust links when your campaign changes.",
