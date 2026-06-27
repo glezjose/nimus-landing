@@ -85,7 +85,6 @@ export type Dictionary = {
       currency: string;
       items: ReadonlyArray<{
         id: string;
-        line: string;
         name: string;
         nameEmphasis: string;
         description: string;
@@ -115,7 +114,7 @@ export type Dictionary = {
     process: {
       sk: string;
       titleBefore: string;
-      titleEmphasis: string;
+      titleRotatingTexts: readonly string[];
       titleAfter: string;
       lede: string;
       steps: ReadonlyArray<{

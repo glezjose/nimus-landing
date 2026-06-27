@@ -65,14 +65,14 @@ export function FeaturePreviewCard({
 
   return (
     <div className={className ? `feature-preview-card ${className}` : "feature-preview-card"}>
-      <div className="feature-preview-card__toolbar">
-        <InvertTabs
-          items={tabItems}
-          defaultValue={activeId}
-          onChange={(value) => setActiveId(value as FeaturePreviewOptionId)}
-          sound={false}
-          className="tapbar-tabs--card"
-          fill
+      <div className="feature-preview-card__stage">
+        <TapBarStage
+          activeId={activeId}
+          modelPath={modelPath}
+          previewImage={previewImage}
+          fitSize={fitSize}
+          view3dAria={view3dAria}
+          priorityPreview={priorityPreview}
         />
       </div>
 
@@ -120,14 +120,14 @@ export function FeaturePreviewCard({
         <TapBarTilesMarquee ariaLabel={tilesMarqueeAria} />
       ) : null}
 
-      <div className="feature-preview-card__stage">
-        <TapBarStage
-          activeId={activeId}
-          modelPath={modelPath}
-          previewImage={previewImage}
-          fitSize={fitSize}
-          view3dAria={view3dAria}
-          priorityPreview={priorityPreview}
+      <div className="feature-preview-card__toolbar">
+        <InvertTabs
+          items={tabItems}
+          defaultValue={activeId}
+          onChange={(value) => setActiveId(value as FeaturePreviewOptionId)}
+          sound={false}
+          className="tapbar-tabs--card"
+          fill
         />
       </div>
     </div>

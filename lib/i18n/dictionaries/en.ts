@@ -153,7 +153,6 @@ export const en = {
       items: [
         {
           id: "smartlink",
-          line: "Line 02 · Smart Link",
           name: "Smart Link",
           nameEmphasis: "",
           description: "Reprogrammable NFC keychain for any destination.",
@@ -166,7 +165,6 @@ export const en = {
         },
         {
           id: "fidget",
-          line: "Line 06 · Fidget",
           name: "Fidget Keychains",
           nameEmphasis: "",
           description: "Moving parts with your brand. Optional NFC.",
@@ -179,7 +177,6 @@ export const en = {
         },
         {
           id: "personalizada",
-          line: "Line 05 · Custom",
           name: "Custom pieces",
           nameEmphasis: "",
           description: "Custom 3D objects for campaigns or activations.",
@@ -202,8 +199,8 @@ export const en = {
     },
     process: {
       sk: "Process · 4 steps",
-      titleBefore: "From brief to ",
-      titleEmphasis: "your counter",
+      titleBefore: "On your ",
+      titleRotatingTexts: ["counter", "table", "bar", "display"],
       titleAfter: " in under a week.",
       lede:
         "Short operation, no middlemen, local production. Modeling, testing, and printing under one roof.",
@@ -230,7 +227,7 @@ export const en = {
           num: "Step 04",
           title: "Delivery and ",
           titleEmphasis: "activation",
-          body: "Arrives ready to use. Support included.",
+          body: "Each piece arrives ready to place, with its NFC destination tested. We guide activation and adjust links when your campaign changes.",
         },
       ],
     },

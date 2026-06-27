@@ -98,14 +98,16 @@ export function ProductsSection() {
               href="#cta"
             >
               <div className="lcard-photo">
-                <span className="photo-tag">{product.line}</span>
                 <PhotoPlaceholder label={product.placeholder} />
               </div>
               <div className="lcard-body">
                 <h3 className="l-name">{product.name}</h3>
                 <p className="l-tag">{product.description}</p>
                 <p className="l-price-line">
-                  {product.priceLabel} {product.price} {products.currency}
+                  <span className="l-price-value">
+                    {product.priceLabel} {product.price}
+                  </span>
+                  <small>{products.currency}</small>
                 </p>
               </div>
             </Link>

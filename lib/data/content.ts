@@ -21,7 +21,7 @@ export const processSteps = [
     num: "Paso 04",
     title: "Entrega y ",
     titleEmphasis: "activación",
-    body: "Llega listo para usar. Soporte incluido.",
+    body: "Recibes cada pieza lista para colocar, con destino NFC probado. Te guiamos en la activación y ajustamos enlaces cuando cambie tu campaña.",
   },
 ];
 

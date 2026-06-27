@@ -1,6 +1,5 @@
 export type Product = {
   id: string;
-  line: string;
   name: string;
   nameEmphasis: string;
   description: string;
@@ -16,7 +15,6 @@ export type Product = {
 export const products: Product[] = [
   {
     id: "smartlink",
-    line: "Línea 02 · Smart Link",
     name: "Smart Link",
     nameEmphasis: "",
     description: "Llavero NFC reprogramable para abrir cualquier destino.",
@@ -29,7 +27,6 @@ export const products: Product[] = [
   },
   {
     id: "fidget",
-    line: "Línea 06 · Fidget",
     name: "Llaveros Fidget",
     nameEmphasis: "",
     description: "Piezas móviles con tu marca. NFC opcional.",
@@ -42,7 +39,6 @@ export const products: Product[] = [
   },
   {
     id: "personalizada",
-    line: "Línea 05 · Personalizada",
     name: "Piezas a medida",
     nameEmphasis: "",
     description: "Objetos 3D personalizados para campañas o activaciones.",

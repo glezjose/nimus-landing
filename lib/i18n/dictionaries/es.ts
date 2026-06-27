@@ -87,7 +87,7 @@ export const es = {
     },
     products: {
       sk: "Objetos secundarios",
-      titleBefore: "Piezas pequeñas para ",
+      titleBefore: "Piezas para ",
       titleEmphasis: "completar la experiencia",
       titleAfter: ".",
       tapboard: {
@@ -159,8 +159,8 @@ export const es = {
     },
     process: {
       sk: "Proceso · 4 pasos",
-      titleBefore: "Del brief a ",
-      titleEmphasis: "tu mostrador",
+      titleBefore: "En tu ",
+      titleRotatingTexts: ["mostrador", "mesa", "barra", "vitrina"],
       titleAfter: " en menos de una semana.",
       lede:
         "Operación corta, sin intermediarios y con producción local. Modelado, prueba e impresión bajo el mismo techo.",
