@@ -26,7 +26,7 @@ export function OriginCollectionSection() {
         <p>{originCollection.lede}</p>
         <a
           className="nav-cta"
-          href="https://nimus.mx/shop"
+          href="https://shop.nimus.mx"
           target="_blank"
           rel="noopener noreferrer"
         >
