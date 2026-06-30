@@ -15,10 +15,10 @@ export type Product = {
 export const products: Product[] = [
   {
     id: "smartlink",
-    name: "Smart Link",
+    name: "Smart Link 5cm",
     nameEmphasis: "",
     description: "Llavero NFC reprogramable para abrir cualquier destino.",
-    price: "$72",
+    price: "$60",
     priceLabel: "Desde",
     accent: "var(--ink)",
     photoBg: "#b1b7bd",

@@ -57,10 +57,10 @@ export const en = {
         {
           id: "stand",
           label: "Stand",
-          title: "NFC Stand",
+          title: "Tap Stand",
           description:
             "One NFC tile for a key action: menu, reviews, WhatsApp, or social. Place it on the counter and reprogram it whenever the campaign changes.",
-          price: "$430",
+          price: "$350",
         },
         {
           id: "bar-2",
@@ -68,7 +68,7 @@ export const en = {
           title: "Tap Bar 2",
           description:
             "Two essential actions in one compact piece. Ideal for menu and reviews, or pairing direct contact with social.",
-          price: "$780",
+          price: "$650",
         },
         {
           id: "bar-3",
@@ -76,7 +76,7 @@ export const en = {
           title: "Tap Bar 3",
           description:
             "Three visible access points that guide customers without explanation: reviews, WhatsApp, and social, with clear icons and your brand up front.",
-          price: "$1,140",
+          price: "$800",
         },
         {
           id: "bar-4",
@@ -84,7 +84,7 @@ export const en = {
           title: "Tap Bar 4",
           description:
             "Four destinations in one counter piece. Built for businesses that want menu, reviews, contact, and social always in sight.",
-          price: "$1,440",
+          price: "$1,050",
         },
       ],
     },
@@ -105,7 +105,7 @@ export const en = {
             title: "Tap Board 2",
             description:
               "Two tiles on a clean plaque for the main actions: open the menu and leave a review without hunting for codes or links.",
-            price: "$780",
+            price: "$800",
           },
           {
             id: "bar-3",
@@ -113,7 +113,7 @@ export const en = {
             title: "Tap Board 3",
             description:
               "Three destinations on table or counter for ordering, WhatsApp, and social from the same spot.",
-            price: "$1,140",
+            price: "$900",
           },
           {
             id: "bar-4",
@@ -121,7 +121,7 @@ export const en = {
             title: "Tap Board 4",
             description:
               "Four tiles for the full customer path: menu, reviews, contact, and social in a branded plaque with presence.",
-            price: "$1,440",
+            price: "$1,050",
           },
         ],
       },
@@ -132,12 +132,20 @@ export const en = {
         sub: "Quick access for displays, bars, or point of sale.",
         options: [
           {
+            id: "base-2",
+            label: "Base 2",
+            title: "Tap Base 2",
+            description:
+              "Two-tile base for counter or display. Ideal when you only need menu and reviews, or contact and social.",
+            price: "$250",
+          },
+          {
             id: "base-3",
             label: "Base 3",
             title: "Tap Base 3",
             description:
               "Compact three-tile base for counters. Keeps reviews, menu, and contact visible without taking over selling space.",
-            price: "$450",
+            price: "$350",
           },
           {
             id: "base-4",
@@ -145,7 +153,7 @@ export const en = {
             title: "Tap Base 4",
             description:
               "Four-tile base for displays, bars, or reception. Organizes your key links and turns the point of sale into a digital trigger.",
-            price: "$550",
+            price: "$500",
           },
         ],
       },
@@ -153,10 +161,10 @@ export const en = {
       items: [
         {
           id: "smartlink",
-          name: "Smart Link",
+          name: "Smart Link 5cm",
           nameEmphasis: "",
           description: "Reprogrammable NFC keychain for any destination.",
-          price: "$72",
+          price: "$60",
           priceLabel: "From",
           accent: "var(--ink)",
           photoBg: "#b1b7bd",
@@ -306,7 +314,7 @@ export const en = {
         {
           id: "entrada",
           name: "Starter Pack",
-          price: "$1,800",
+          price: "$1,400",
           description:
             "For businesses taking their first digital step without a large investment.",
           color: "var(--brand-blue)",

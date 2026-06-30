@@ -12,7 +12,7 @@ export const packs: Pack[] = [
   {
     id: "entrada",
     name: "Pack Entrada",
-    price: "$1,800",
+    price: "$1,400",
     description:
       "Para el negocio que quiere dar el primer paso digital sin gran inversión.",
     color: "var(--brand-blue)",

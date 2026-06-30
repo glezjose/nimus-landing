@@ -9,8 +9,8 @@ export type TapboardOptionId = (typeof tapboardOptionIds)[number];
 
 export const DEFAULT_TAPBOARD_OPTION_ID: TapboardOptionId = "bar-2";
 
-/** Tapbase catalog — Base 3 / 4 only */
-export const tapbaseOptionIds = ["base-3", "base-4"] as const;
+/** Tapbase catalog — Base 2 / 3 / 4 */
+export const tapbaseOptionIds = ["base-2", "base-3", "base-4"] as const;
 
 export type TapbaseOptionId = (typeof tapbaseOptionIds)[number];
 
@@ -67,16 +67,19 @@ export const tapboardOptionFitSize: Record<TapboardOptionId, number> = {
 };
 
 export const tapbaseOptionModels: Record<TapbaseOptionId, string> = {
+  "base-2": "/models/tapbase-3.glb",
   "base-4": "/models/tapbase-4.glb",
   "base-3": "/models/tapbase-3.glb",
 };
 
 export const tapbaseOptionPreviewImages: Record<TapbaseOptionId, string> = {
+  "base-2": "/assets/products/tapbase-3.png",
   "base-4": "/assets/products/tapbase-4.png",
   "base-3": "/assets/products/tapbase-3.png",
 };
 
 export const tapbaseOptionFitSize: Record<TapbaseOptionId, number> = {
+  "base-2": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 1.2,
   "base-4": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 1.2,
   "base-3": DEFAULT_TAPBAR_MODEL_FIT_SIZE * 1.2,
 };

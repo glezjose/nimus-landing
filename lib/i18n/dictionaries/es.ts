@@ -54,10 +54,10 @@ export const es = {
         {
           id: "stand",
           label: "Stand",
-          title: "Stand NFC",
+          title: "Tap Stand",
           description:
             "Ficha NFC individual para un punto clave: menú, reseñas, WhatsApp o redes. La colocas en mostrador y la puedes reprogramar cuando cambie tu campaña.",
-          price: "$430",
+          price: "$350",
         },
         {
           id: "bar-2",
@@ -65,7 +65,7 @@ export const es = {
           title: "Tap Bar 2",
           description:
             "Dos acciones esenciales en una pieza compacta. Ideal para menú y reseñas, o para combinar contacto directo con redes.",
-          price: "$780",
+          price: "$650",
         },
         {
           id: "bar-3",
@@ -73,7 +73,7 @@ export const es = {
           title: "Tap Bar 3",
           description:
             "Tres accesos visibles para guiar al cliente sin explicación: reseñas, WhatsApp y redes, con iconos claros y tu marca al frente.",
-          price: "$1,140",
+          price: "$800",
         },
         {
           id: "bar-4",
@@ -81,7 +81,7 @@ export const es = {
           title: "Tap Bar 4",
           description:
             "Cuatro destinos en una pieza de mostrador. Perfecta para negocios que quieren menú, reseñas, contacto y redes siempre a la vista.",
-          price: "$1,440",
+          price: "$1,050",
         },
       ],
     },
@@ -102,7 +102,7 @@ export const es = {
             title: "Tap Board 2",
             description:
               "Dos fichas sobre una placa limpia para las acciones principales: abrir menú y dejar reseña sin buscar códigos ni enlaces.",
-            price: "$780",
+            price: "$800",
           },
           {
             id: "bar-3",
@@ -110,7 +110,7 @@ export const es = {
             title: "Tap Board 3",
             description:
               "Tres destinos en mesa o mostrador para ordenar, escribir por WhatsApp y seguir tus redes desde el mismo punto.",
-            price: "$1,140",
+            price: "$900",
           },
           {
             id: "bar-4",
@@ -118,7 +118,7 @@ export const es = {
             title: "Tap Board 4",
             description:
               "Cuatro fichas para cubrir todo el recorrido del cliente: menú, reseñas, contacto y redes en una placa con presencia de marca.",
-            price: "$1,440",
+            price: "$1,050",
           },
         ],
       },
@@ -129,12 +129,20 @@ export const es = {
         sub: "Accesos rápidos para vitrina, barra o punto de venta.",
         options: [
           {
+            id: "base-2",
+            label: "Base 2",
+            title: "Tap Base 2",
+            description:
+              "Base de dos fichas para mostrador o vitrina. Ideal cuando solo necesitas menú y reseñas, o contacto y redes.",
+            price: "$250",
+          },
+          {
             id: "base-3",
             label: "Base 3",
             title: "Tap Base 3",
             description:
               "Base compacta de tres fichas para mostrador. Mantiene reseñas, menú y contacto visibles sin ocupar espacio de venta.",
-            price: "$450",
+            price: "$350",
           },
           {
             id: "base-4",
@@ -142,7 +150,7 @@ export const es = {
             title: "Tap Base 4",
             description:
               "Base de cuatro fichas para vitrinas, barras o recepción. Ordena tus accesos clave y convierte el punto de venta en un disparador digital.",
-            price: "$550",
+            price: "$500",
           },
         ],
       },
