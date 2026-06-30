@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: "Nimus Make",
-  title: "Nimus Make · Objetos que conectan tu marca con tus clientes",
+  name: "Nimus",
+  title: "Nimus · Objetos que conectan tu marca con tus clientes",
   description:
     "Piezas 3D con chips NFC que conectan tu negocio con tus clientes en un toque. Menús digitales, llaveros y exhibidores, hechos a la medida de tu identidad.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://make.nimus.mx",

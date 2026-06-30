@@ -14,7 +14,7 @@ import { products } from "@/lib/data/products";
 
 export const es = {
   meta: {
-    title: "Nimus Make · Objetos que conectan tu marca con tus clientes",
+    title: "Nimus · Objetos que conectan tu marca con tus clientes",
     description:
       "Piezas 3D con chips NFC que conectan tu negocio con tus clientes en un toque. Menús digitales, llaveros y exhibidores, hechos a la medida de tu identidad.",
   },

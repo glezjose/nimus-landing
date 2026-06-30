@@ -27,15 +27,15 @@ export const products: Product[] = [
   },
   {
     id: "fidget",
-    name: "Llaveros Fidget",
+    name: "Objetos Fidget",
     nameEmphasis: "",
     description: "Piezas móviles con tu marca. NFC opcional.",
-    price: "$90",
+    price: "$70",
     priceLabel: "Desde",
     accent: "var(--ink)",
     photoBg: "#b1b7bd",
     span: 3,
-    placeholder: "Foto Llavero Fidget",
+    placeholder: "Foto Objetos Fidget",
   },
   {
     id: "personalizada",

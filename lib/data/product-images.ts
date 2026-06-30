@@ -1,13 +1,13 @@
 export const PRODUCT_CATALOG_IMAGES = {
   smartlink: [
-    "/assets/smartlink/1.jpeg",
-    "/assets/smartlink/2.jpeg",
-  ],
-  fidget: [
     "/assets/keychains/1.jpeg",
     "/assets/keychains/2.jpeg",
     "/assets/keychains/3.jpeg",
     "/assets/keychains/4.jpeg",
+  ],
+  fidget: [
+    "/assets/smartlink/1.jpeg",
+    "/assets/smartlink/2.jpeg",
   ],
   personalizada: [
     "/assets/custom/1.jpeg",

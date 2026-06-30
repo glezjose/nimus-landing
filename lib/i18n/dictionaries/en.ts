@@ -4,7 +4,7 @@ import { buildNavLinks } from "@/lib/data/nav";
 
 export const en = {
   meta: {
-    title: "Nimus Make · Physical objects that connect your brand to customers",
+    title: "Nimus · Physical objects that connect your brand to customers",
     description:
       "3D-printed pieces with NFC chips that connect your business to customers in one tap. Digital menus, keychains, and displays tailored to your brand identity.",
   },
@@ -180,15 +180,15 @@ export const en = {
         },
         {
           id: "fidget",
-          name: "Fidget Keychains",
+          name: "Fidget Objects",
           nameEmphasis: "",
           description: "Moving parts with your brand. Optional NFC.",
-          price: "$90",
+          price: "$70",
           priceLabel: "From",
           accent: "var(--ink)",
           photoBg: "#b1b7bd",
           span: 3 as const,
-          placeholder: "Fidget keychain photo",
+          placeholder: "Fidget objects photo",
         },
         {
           id: "personalizada",
