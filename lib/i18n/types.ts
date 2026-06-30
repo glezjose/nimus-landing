@@ -157,6 +157,7 @@ export type Dictionary = {
       titleLine2: string;
       lede: string;
       currency: string;
+      priceNote: string;
       ctaFeatured: string;
       ctaDefault: string;
       items: ReadonlyArray<{

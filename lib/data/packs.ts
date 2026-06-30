@@ -26,7 +26,7 @@ export const packs: Pack[] = [
   {
     id: "staff",
     name: "Pack Staff Experience",
-    price: "$4,500",
+    price: "$1,949",
     description:
       "El equipo completo para un restaurante, café o comercio que quiere diferenciarse.",
     color: "var(--brand-gray)",
@@ -42,7 +42,7 @@ export const packs: Pack[] = [
   {
     id: "menu",
     name: "Pack Menú Digital",
-    price: "$7,500",
+    price: "$2,499",
     description:
       "Elimina el menú impreso. Break-even contra impresión tradicional en 6–9 meses.",
     color: "var(--brand-orange)",

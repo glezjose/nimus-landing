@@ -48,6 +48,7 @@ export function PacksSection() {
           </div>
         ))}
       </Reveal>
+      <p className="packs-footnote">{packs.priceNote}</p>
     </section>
   );
 }

@@ -5,8 +5,9 @@ import { FeaturePreviewCard } from "@/components/sections/FeaturePreviewCard";
 import { SectionScrollCue } from "@/components/sections/SectionScrollCue";
 import { Reveal } from "@/components/ui/Reveal";
 import { FeatureTitleEmphasis } from "@/components/ui/FeatureTitleEmphasis";
-import { PhotoPlaceholder } from "@/components/ui/Icons";
+import { ProductPhotoCarousel } from "@/components/ui/ProductPhotoCarousel";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
+import { getProductCatalogImages } from "@/lib/data/product-images";
 import {
   DEFAULT_TAPBASE_OPTION_ID,
   DEFAULT_TAPBOARD_OPTION_ID,
@@ -100,7 +101,10 @@ export function ProductsSection() {
               href="#cta"
             >
               <div className="lcard-photo">
-                <PhotoPlaceholder label={product.placeholder} />
+                <ProductPhotoCarousel
+                  images={getProductCatalogImages(product.id)}
+                  label={product.placeholder}
+                />
               </div>
               <div className="lcard-body">
                 <h3 className="l-name">{product.name}</h3>

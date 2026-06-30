@@ -313,6 +313,7 @@ export const en = {
       lede:
         "Three packages ready to operate — from café to restaurant or premium experience. Products, programming, and service in one price.",
       currency: "MXN",
+      priceNote: "*Price does not include VAT",
       ctaFeatured: "Quote this pack",
       ctaDefault: "Start here",
       items: [
@@ -333,7 +334,7 @@ export const en = {
         {
           id: "staff",
           name: "Staff Experience Pack",
-          price: "$4,500",
+          price: "$1,949",
           description:
             "The full team setup for a restaurant, café, or shop that wants to stand out.",
           color: "var(--brand-gray)",
@@ -349,7 +350,7 @@ export const en = {
         {
           id: "menu",
           name: "Digital Menu Pack",
-          price: "$7,500",
+          price: "$2,499",
           description:
             "Eliminate printed menus. Break-even vs traditional printing in 6–9 months.",
           color: "var(--brand-orange)",

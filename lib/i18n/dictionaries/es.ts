@@ -211,6 +211,7 @@ export const es = {
       lede:
         "Tres tickets pensados para llegar listos a operar — desde cafetería hasta restaurante o experiencia premium. Productos, programación y servicio en un solo precio.",
       currency: "MXN",
+      priceNote: "*Precio no incluye IVA",
       ctaFeatured: "Cotizar este pack",
       ctaDefault: "Empezar aquí",
       items: packs,
