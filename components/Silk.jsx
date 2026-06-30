@@ -114,10 +114,10 @@ const Silk = ({ speed = 5, scale = 1, color = '#7B7481', noiseIntensity = 1.5, r
       style={{ width: '100%', height: '100%' }}
       gl={{ alpha: false, antialias: true }}
       onCreated={({ gl }) => {
-        gl.setClearColor('#0d0d0b');
+        gl.setClearColor('#163a50');
       }}
     >
-      <color attach="background" args={['#0d0d0b']} />
+      <color attach="background" args={['#163a50']} />
       <SilkPlane ref={meshRef} uniforms={uniforms} />
     </Canvas>
   );

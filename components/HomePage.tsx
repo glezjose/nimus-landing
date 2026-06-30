@@ -11,7 +11,6 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { OriginCollectionSection } from "@/components/sections/OriginCollectionSection";
 import { SystemsSection } from "@/components/sections/SystemsSection";
 import { PacksSection } from "@/components/sections/PacksSection";
-import { NumbersSection } from "@/components/sections/NumbersSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
@@ -52,7 +51,6 @@ export function HomePage() {
         <OriginCollectionSection />
         <SystemsSection />
         <PacksSection />
-        <NumbersSection />
         <FaqSection />
         <CtaSection onCopy={handleCopy} onToast={showToast} />
       </main>

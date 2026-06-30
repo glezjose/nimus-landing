@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-bg: #f5f3ee;
-  --color-ink: #1a1814;
-  --color-accent: #7d7d7d;
+  --color-bg: #fdf9ef;
+  --color-ink: #000000;
+  --color-accent: #b1b7bd;
   --font-display: var(--font-archivo), sans-serif;
   --font-body: var(--font-archivo), sans-serif;
   --font-mono: var(--font-space-mono), monospace;

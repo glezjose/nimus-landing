@@ -239,7 +239,7 @@ export const en = {
       titleAfter: ".",
       lede:
         "Locally printed light objects, designed to bring atmosphere to bars, tables, and corners.",
-      cta: "See Origin collection",
+      cta: "Origin Collection",
       scrollAria: "Go to digital systems section",
     },
     systems: {
@@ -309,7 +309,7 @@ export const en = {
           price: "$1,800",
           description:
             "For businesses taking their first digital step without a large investment.",
-          color: "var(--teal)",
+          color: "var(--brand-blue)",
           items: [
             "10 personalized Round Smart Links",
             "NFC destination programming",
@@ -323,7 +323,7 @@ export const en = {
           price: "$4,500",
           description:
             "The full team setup for a restaurant, café, or shop that wants to stand out.",
-          color: "var(--accent)",
+          color: "var(--brand-gray)",
           featured: true,
           items: [
             "15 personalized Smart Links (shape of choice)",
@@ -339,7 +339,7 @@ export const en = {
           price: "$7,500",
           description:
             "Eliminate printed menus. Break-even vs traditional printing in 6–9 months.",
-          color: "var(--coral)",
+          color: "var(--brand-orange)",
           items: [
             "25 personalized Smart Links",
             "10 Tap Bar Max (4 chips · premium)",

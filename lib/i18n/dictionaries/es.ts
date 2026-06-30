@@ -174,7 +174,7 @@ export const es = {
       titleAfter: ".",
       lede:
         "Objetos de luz impresos localmente, diseñados para dar ambiente a barras, mesas y rincones.",
-      cta: "Ver colección Origen",
+      cta: "Colección Origen",
       scrollAria: "Ir a la sección de sistemas",
     },
     systems: {

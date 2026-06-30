@@ -5,11 +5,14 @@ export const navLinks = [
   { href: "#preguntas", label: "FAQ" },
 ];
 
-/** Sections with #fdf9ef (or similar) surfaces — nav inverts to light chrome */
+/** Sections with light/cream surfaces — nav inverts to light chrome */
 export const NAV_CREAM_SECTION_IDS = [
   "tapbar",
   "productos",
   "tapbase",
+  "sistemas",
+  "paquetes",
+  "preguntas",
 ] as const;
 
 export function isNavOverCreamSurface(navBottom = 72): boolean {

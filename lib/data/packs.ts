@@ -15,7 +15,7 @@ export const packs: Pack[] = [
     price: "$1,800",
     description:
       "Para el negocio que quiere dar el primer paso digital sin gran inversión.",
-    color: "var(--teal)",
+    color: "var(--brand-blue)",
     items: [
       "10 Smart Links Round personalizados",
       "Programación de destinos NFC",
@@ -29,7 +29,7 @@ export const packs: Pack[] = [
     price: "$4,500",
     description:
       "El equipo completo para un restaurante, café o comercio que quiere diferenciarse.",
-    color: "var(--accent)",
+    color: "var(--brand-gray)",
     featured: true,
     items: [
       "15 Smart Links personalizados (forma a elegir)",
@@ -45,7 +45,7 @@ export const packs: Pack[] = [
     price: "$7,500",
     description:
       "Elimina el menú impreso. Break-even contra impresión tradicional en 6–9 meses.",
-    color: "var(--coral)",
+    color: "var(--brand-orange)",
     items: [
       "25 Smart Links personalizados",
       "10 Tap Bar Max (4 chips · premium)",

@@ -18,7 +18,7 @@ export const heroChips: HeroChip[] = [
   { label: "Instagram", color: "#e1306c", icon: "instagram" },
   { label: "Reseñas", color: "#fbbc04", icon: "reviews" },
   { label: "WhatsApp", color: "#25d366", icon: "whatsapp" },
-  { label: "Menú", color: "#7d7d7d", icon: "menu" },
+  { label: "Menú", color: "#b1b7bd", icon: "menu" },
   { label: "TikTok", color: "#69c9d0", icon: "tiktok" },
   { label: "Web", color: "#7c5cbf", icon: "web" },
 ];
@@ -40,7 +40,7 @@ export const heroDestinations: HeroDestination[] = [
     tag: "4.8 ★★★★★",
     avatar: "G",
     color: "#fbbc04",
-    gradient: "linear-gradient(160deg, #4285f4 0%, #1f1f1c 100%)",
+    gradient: "linear-gradient(160deg, var(--brand-blue) 0%, var(--black) 100%)",
   },
   {
     name: "+52 999 NIMUS",
@@ -49,7 +49,7 @@ export const heroDestinations: HeroDestination[] = [
     tag: "CHAT DIRECTO",
     avatar: "W",
     color: "#25d366",
-    gradient: "linear-gradient(160deg, #075e54 0%, #1a1a17 100%)",
+    gradient: "linear-gradient(160deg, var(--brand-blue) 0%, var(--black) 100%)",
   },
   {
     name: "Menú Digital",
@@ -57,8 +57,8 @@ export const heroDestinations: HeroDestination[] = [
     action: "Ver",
     tag: "32 PLATILLOS",
     avatar: "M",
-    color: "#7d7d7d",
-    gradient: "linear-gradient(160deg, #2a2620 0%, #1a1714 100%)",
+    color: "#b1b7bd",
+    gradient: "linear-gradient(160deg, var(--brand-blue) 0%, var(--black) 100%)",
   },
   {
     name: "@tu_marca",
@@ -67,7 +67,7 @@ export const heroDestinations: HeroDestination[] = [
     tag: "8.2K SEGUIDORES",
     avatar: "t",
     color: "#69c9d0",
-    gradient: "linear-gradient(160deg, #1a1a17 0%, #0a0a08 100%)",
+    gradient: "linear-gradient(160deg, var(--brand-blue) 0%, var(--black) 100%)",
   },
   {
     name: "tunegocio.mx",
@@ -76,7 +76,7 @@ export const heroDestinations: HeroDestination[] = [
     tag: "CATÁLOGO",
     avatar: "↗",
     color: "#7c5cbf",
-    gradient: "linear-gradient(160deg, #3d2e5e 0%, #1a1a17 100%)",
+    gradient: "linear-gradient(160deg, var(--brand-blue) 0%, var(--black) 100%)",
   },
 ];
 
