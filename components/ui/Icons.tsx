@@ -4,6 +4,7 @@ import {
   GiftIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
+import { EnvelopeIcon } from "@heroicons/react/24/solid";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -53,6 +54,38 @@ export function PhotoPlaceholder({ label, className = "" }: PhotoPlaceholderProp
       {label}
     </div>
   );
+}
+
+export type ContactChannel = "whatsapp" | "email" | "instagram";
+
+const ctaChannelIconProps = {
+  className: "cta-contact-icon__svg",
+  "aria-hidden": true as const,
+};
+
+export function CtaChannelIcon({ channel }: { channel: ContactChannel }) {
+  switch (channel) {
+    case "whatsapp":
+      return (
+        <FontAwesomeIcon
+          icon={faWhatsapp}
+          className="cta-contact-icon__svg"
+          fixedWidth
+          aria-hidden="true"
+        />
+      );
+    case "email":
+      return <EnvelopeIcon {...ctaChannelIconProps} />;
+    case "instagram":
+      return (
+        <FontAwesomeIcon
+          icon={faInstagram}
+          className="cta-contact-icon__svg"
+          fixedWidth
+          aria-hidden="true"
+        />
+      );
+  }
 }
 
 export function ChipIcon({ type }: { type: TapBarTileIcon }) {

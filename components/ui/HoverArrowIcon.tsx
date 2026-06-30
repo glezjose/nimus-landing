@@ -9,6 +9,7 @@ export function HoverArrowIcon({ size = 16, className }: HoverArrowIconProps) {
   return (
     <span
       className={["hover-arrow", className].filter(Boolean).join(" ")}
+      style={{ width: size, height: size }}
       aria-hidden
     >
       <ChevronRightIcon

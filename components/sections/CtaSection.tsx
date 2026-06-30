@@ -1,32 +1,20 @@
 "use client";
 
-import { FormEvent, useCallback } from "react";
+import { FormEvent } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { HoverArrowIcon } from "@/components/ui/HoverArrowIcon";
+import { SocialContacts } from "@/components/ui/SocialContacts";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { formatMessage } from "@/lib/i18n/types";
 import { siteConfig } from "@/lib/site";
 
 type CtaSectionProps = {
-  onCopy: (text: string) => void;
   onToast: (text: string) => void;
 };
 
-export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
+export function CtaSection({ onToast }: CtaSectionProps) {
   const t = useTranslations();
   const { cta } = t.sections;
-
-  const handleCopy = useCallback(
-    async (text: string) => {
-      try {
-        await navigator.clipboard.writeText(text);
-        onCopy(text);
-      } catch {
-        onToast(text);
-      }
-    },
-    [onCopy, onToast],
-  );
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -62,49 +50,11 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
           <p>{cta.intro}</p>
         </div>
         <div className="cta-right">
-          <a
-            className="cta-contact"
-            data-copy={siteConfig.whatsappDisplay}
-            href={`https://wa.me/${siteConfig.whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => handleCopy(siteConfig.whatsappDisplay)}
-          >
-            <div>
-              <div className="cl">{cta.whatsappLabel}</div>
-              <div className="cv">{siteConfig.whatsappDisplay}</div>
-            </div>
-            <span className="copy-hint">{cta.copyHint}</span>
-            <span className="arrow">↗</span>
-          </a>
-          <a
-            className="cta-contact"
-            data-copy={siteConfig.email}
-            href={`mailto:${siteConfig.email}`}
-            onClick={() => handleCopy(siteConfig.email)}
-          >
-            <div>
-              <div className="cl">{cta.emailLabel}</div>
-              <div className="cv">{siteConfig.email}</div>
-            </div>
-            <span className="copy-hint">{cta.copyHint}</span>
-            <span className="arrow">↗</span>
-          </a>
-          <a
-            className="cta-contact"
-            data-copy={siteConfig.instagram}
-            href={siteConfig.instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => handleCopy(siteConfig.instagram)}
-          >
-            <div>
-              <div className="cl">{cta.instagramLabel}</div>
-              <div className="cv">{siteConfig.instagram}</div>
-            </div>
-            <span className="copy-hint">{cta.copyHint}</span>
-            <span className="arrow">↗</span>
-          </a>
+          <SocialContacts
+            whatsappLabel={cta.whatsappLabel}
+            emailLabel={cta.emailLabel}
+            instagramLabel={cta.instagramLabel}
+          />
 
           <form className="quick-quote" id="quick-quote" onSubmit={handleSubmit}>
             <h3>
@@ -140,7 +90,8 @@ export function CtaSection({ onCopy, onToast }: CtaSectionProps) {
               </div>
             </div>
             <button type="submit">
-              {cta.submit} <span className="arr">→</span>
+              {cta.submit}
+              <HoverArrowIcon size={14} />
             </button>
             <div className="qq-tiny">{cta.formNote}</div>
           </form>

@@ -24,6 +24,7 @@ type FeaturePreviewCardProps = {
   options: ReadonlyArray<FeaturePreviewOption>;
   defaultOptionId: FeaturePreviewOptionId;
   currency: string;
+  priceNote?: string;
   view3dAria: string;
   tilesMarqueeAria?: string;
   className?: string;
@@ -37,6 +38,7 @@ export function FeaturePreviewCard({
   options,
   defaultOptionId,
   currency,
+  priceNote,
   view3dAria,
   tilesMarqueeAria,
   className,
@@ -93,12 +95,17 @@ export function FeaturePreviewCard({
               transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
             >
               <h3 className="feature-preview-card__title">{activeOption.title}</h3>
-              <p className="feature-preview-card__price">
-                <span className="feature-preview-card__price-value">
-                  {activeOption.price}
-                </span>
-                <small>{currency}</small>
-              </p>
+              <div className="feature-preview-card__pricing">
+                <p className="feature-preview-card__price">
+                  <span className="feature-preview-card__price-value">
+                    {activeOption.price}
+                  </span>
+                  <small>{currency}</small>
+                </p>
+                {priceNote ? (
+                  <p className="feature-preview-card__price-note">{priceNote}</p>
+                ) : null}
+              </div>
             </motion.div>
             <motion.p
               className="feature-preview-card__body"

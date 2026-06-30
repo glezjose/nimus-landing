@@ -26,6 +26,7 @@ export function TapBarSection() {
             options={tapbar.options}
             defaultOptionId={DEFAULT_TAPBAR_OPTION_ID}
             currency={tapbar.currency}
+            priceNote={tapbar.priceNote}
             view3dAria={tapbar.view3dAria}
             tilesMarqueeAria={tapbar.tilesMarqueeAria}
             priorityPreview

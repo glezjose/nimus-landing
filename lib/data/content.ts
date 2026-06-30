@@ -111,5 +111,5 @@ export const quoteOptions = [
   "Smart Link",
   "Smart Toys",
   "Línea Personalizada",
-  "No estoy seguro · asesorame",
+  "No estoy seguro, asesórame",
 ];

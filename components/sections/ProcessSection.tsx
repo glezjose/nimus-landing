@@ -14,10 +14,10 @@ import { ORIGEN_SECTION_ID } from "@/lib/data/hero";
 const STACK_GAP = 36;
 
 const STEP_MEDIA = [
-  undefined,
-  undefined,
-  "/assets/steps/printer.gif",
-  undefined,
+  "/assets/steps/1.png",
+  "/assets/steps/2.png",
+  "/assets/steps/3.png",
+  "/assets/steps/4.png",
 ] as const;
 
 type ProcessStep = {
@@ -49,18 +49,13 @@ function ProcessStepCardContent({
         </div>
       </div>
       <div className="process-stack-card__media">
-        {mediaSrc ? (
-          <Image
-            src={mediaSrc}
-            alt=""
-            fill
-            unoptimized
-            className="process-stack-card__media-image"
-            sizes="(max-width: 980px) 100vw, 320px"
-          />
-        ) : (
-          <span className="process-stack-card__media-label">GIF</span>
-        )}
+        <Image
+          src={mediaSrc}
+          alt=""
+          fill
+          className="process-stack-card__media-image"
+          sizes="(max-width: 980px) 100vw, 320px"
+        />
       </div>
     </div>
   );

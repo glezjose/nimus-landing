@@ -35,6 +35,7 @@ export function ProductsSection() {
                 options={tapboard.options}
                 defaultOptionId={DEFAULT_TAPBOARD_OPTION_ID}
                 currency={tapbar.currency}
+                priceNote={tapbar.priceNote}
                 view3dAria={tapbar.view3dAria}
                 models={tapboardOptionModels}
                 previewImages={tapboardOptionPreviewImages}
@@ -73,6 +74,7 @@ export function ProductsSection() {
                 options={tapbase.options}
                 defaultOptionId={DEFAULT_TAPBASE_OPTION_ID}
                 currency={tapbar.currency}
+                priceNote={tapbar.priceNote}
                 view3dAria={tapbar.view3dAria}
                 models={tapbaseOptionModels}
                 previewImages={tapbaseOptionPreviewImages}
@@ -109,12 +111,15 @@ export function ProductsSection() {
               <div className="lcard-body">
                 <h3 className="l-name">{product.name}</h3>
                 <p className="l-tag">{product.description}</p>
-                <p className="l-price-line">
-                  <span className="l-price-value">
-                    {product.priceLabel} {product.price}
-                  </span>
-                  <small>{products.currency}</small>
-                </p>
+                <div className="l-pricing">
+                  <p className="l-price-line">
+                    <span className="l-price-value">
+                      {product.priceLabel} {product.price}
+                    </span>
+                    <small>{products.currency}</small>
+                  </p>
+                  <p className="l-price-note">{products.priceNote}</p>
+                </div>
               </div>
             </Link>
           ))}

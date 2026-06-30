@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { SocialContacts } from "@/components/ui/SocialContacts";
 import { useDictionary } from "@/components/providers/DictionaryProvider";
-import { siteConfig } from "@/lib/site";
 
 export function Footer() {
   const { locale, t } = useDictionary();
@@ -52,29 +52,11 @@ export function Footer() {
           </div>
           <div className="fcol">
             <h4>{t.footer.contact}</h4>
-            <ul>
-              <li>
-                <a
-                  href={`https://wa.me/${siteConfig.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t.footer.links.whatsapp}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-              </li>
-              <li>
-                <a
-                  href={siteConfig.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {siteConfig.instagram}
-                </a>
-              </li>
-            </ul>
+            <SocialContacts
+              whatsappLabel={t.footer.links.whatsapp}
+              emailLabel={t.sections.cta.emailLabel}
+              instagramLabel={t.sections.cta.instagramLabel}
+            />
           </div>
         </Reveal>
         <div className="footer-bot">

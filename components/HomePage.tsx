@@ -13,11 +13,8 @@ import { SystemsSection } from "@/components/sections/SystemsSection";
 import { PacksSection } from "@/components/sections/PacksSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CtaSection } from "@/components/sections/CtaSection";
-import { useTranslations } from "@/components/providers/DictionaryProvider";
-import { formatMessage } from "@/lib/i18n/types";
 
 export function HomePage() {
-  const t = useTranslations();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastVisible, setToastVisible] = useState(false);
 
@@ -32,13 +29,6 @@ export function HomePage() {
     return () => clearTimeout(timer);
   }, [toastVisible, toastMessage]);
 
-  const handleCopy = useCallback(
-    (text: string) => {
-      showToast(formatMessage(t.ui.copiedWith, { text }));
-    },
-    [showToast, t.ui.copiedWith],
-  );
-
   return (
     <>
       <SiteChrome toastMessage={toastMessage} toastVisible={toastVisible} />
@@ -52,7 +42,7 @@ export function HomePage() {
         <SystemsSection />
         <PacksSection />
         <FaqSection />
-        <CtaSection onCopy={handleCopy} onToast={showToast} />
+        <CtaSection onToast={showToast} />
       </main>
       <Footer />
     </>

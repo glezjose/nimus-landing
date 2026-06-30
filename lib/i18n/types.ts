@@ -41,6 +41,7 @@ export type Dictionary = {
       titleEmphasis: string;
       sub: string;
       currency: string;
+      priceNote: string;
       view3dAria: string;
       tilesMarqueeAria: string;
       options: ReadonlyArray<{
@@ -83,6 +84,7 @@ export type Dictionary = {
         }>;
       };
       currency: string;
+      priceNote: string;
       scrollAria: string;
       items: ReadonlyArray<{
         id: string;
