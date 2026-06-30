@@ -8,11 +8,11 @@
   --color-bg: #fdf9ef;
   --color-ink: #000000;
   --color-accent: #b1b7bd;
-  --font-display: var(--font-archivo), sans-serif;
-  --font-body: var(--font-archivo), sans-serif;
-  --font-mono: var(--font-space-mono), monospace;
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
+  --font-display: var(--font-primary), sans-serif;
+  --font-body: var(--font-secondary), sans-serif;
+  --font-mono: var(--font-secondary), sans-serif;
+  --font-heading: var(--font-primary), sans-serif;
+  --font-sans: var(--font-secondary), sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -59,7 +59,7 @@
   background: rgba(255, 255, 255, 0.25);
   border: 1px dashed rgba(26, 24, 20, 0.25);
   border-radius: 16px;
-  font-family: var(--font-archivo), sans-serif;
+  font-family: var(--font-secondary), sans-serif;
   font-size: 12px;
   font-weight: 500;
   color: rgba(26, 24, 20, 0.55);
@@ -82,6 +82,8 @@
 }
 
 :root {
+  --font-primary: "Clash Display", sans-serif;
+  --font-secondary: "Archivo", sans-serif;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

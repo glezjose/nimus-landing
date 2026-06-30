@@ -199,13 +199,6 @@ export function NavMenu({
           <div className="nav-menu__divider" />
 
           <div className="nav-menu__group">
-            <p className="nav-menu__label">{t.nav.legal}</p>
-            <Link href="#preguntas" onClick={() => setMenuOpen(false)}>
-              {t.nav.faq}
-            </Link>
-          </div>
-
-          <div className="nav-menu__group">
             <p className="nav-menu__label">{t.nav.social}</p>
             <a
               href={siteConfig.instagramUrl}

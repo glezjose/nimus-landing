@@ -33,7 +33,7 @@ body.site-loading::before {
   top: clamp(20px, 4vw, 40px);
   left: clamp(20px, 4vw, 40px);
   z-index: 2;
-  font-family: var(--font-archivo), sans-serif;
+  font-family: var(--font-primary), sans-serif;
   font-size: clamp(42px, 8vw, 72px);
   font-weight: 600;
   line-height: 0.95;

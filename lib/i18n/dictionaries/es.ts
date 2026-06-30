@@ -8,7 +8,7 @@ import {
 } from "@/lib/data/content";
 import { faqs } from "@/lib/data/faqs";
 import { marqueeItems } from "@/lib/data/hero";
-import { navLinks } from "@/lib/data/nav";
+import { buildNavLinks } from "@/lib/data/nav";
 import { packs } from "@/lib/data/packs";
 import { products } from "@/lib/data/products";
 
@@ -19,7 +19,16 @@ export const es = {
       "Piezas 3D con chips NFC que conectan tu negocio con tus clientes en un toque. Menús digitales, llaveros y exhibidores, hechos a la medida de tu identidad.",
   },
   nav: {
-    links: navLinks,
+    links: buildNavLinks({
+      work: "Clientes",
+      tapbar: "Tap Bar",
+      catalog: "Productos",
+      process: "Proceso",
+      origin: "Colección Origen",
+      systems: "Sistemas",
+      packs: "Paquetes",
+      faq: "FAQ",
+    }),
     brandAria: "NIMUS",
     brandAlt: "NIMUS",
     cta: "Cotizar",
@@ -169,7 +178,7 @@ export const es = {
     process: {
       sk: "Proceso · 4 pasos",
       titleBefore: "En tu ",
-      titleRotatingTexts: ["mostrador", "mesa", "barra", "vitrina"],
+      titleRotatingTexts: ["mesa", "barra", "vitrina"],
       titleAfter: " en menos de una semana.",
       lede:
         "Operación corta, sin intermediarios y con producción local. Modelado, prueba e impresión bajo el mismo techo.",
@@ -257,23 +266,59 @@ export const es = {
   footer: {
     tagline:
       "Piezas 3D con chips NFC que conectan tu marca con tus clientes en un toque.",
-    products: "Productos",
-    business: "Negocio",
+    sections: "Secciones",
     contact: "Contacto",
     links: {
-      tapBar: "Tap Bar NFC",
-      smartLink: "Smart Link",
-      smartToys: "Smart Toys",
-      exhibitor: "Exhibidor Merch",
-      customLine: "Línea Personalizada",
-      packs: "Paquetes",
-      process: "Proceso",
-      faq: "FAQ",
-      quote: "Cotizar",
       whatsapp: "WhatsApp",
     },
-    copyright: "© 2026 NIMUS Make · Todos los derechos reservados",
-    version: "v 2.0 · Landing pública",
+    copyright: "© 2026 Nimus · Todos los derechos reservados",
+    legal: {
+      terms: "Términos",
+      privacy: "Privacidad",
+      cookies: "Cookies",
+    },
+  },
+  cookies: {
+    bannerAria: "Aviso de cookies",
+    bannerMessage:
+      "Usamos cookies esenciales para recordar tu preferencia de privacidad.",
+    accept: "Aceptar",
+    policyLink: "Más información",
+  },
+  legal: {
+    backHome: "Volver al inicio",
+    updatedLabel: "Última actualización:",
+    updatedDate: "29 de junio de 2026",
+    terms: {
+      title: "Términos de uso",
+      body: [
+        "Este sitio presenta los productos y servicios de Nimus. Al navegarlo aceptas estos términos.",
+        "La información, precios y plazos mostrados son referenciales y pueden cambiar sin previo aviso. Una cotización formal confirma alcance, precio y tiempos de entrega.",
+        "El contenido visual, textos, modelos 3D y marca son propiedad de Nimus o de sus respectivos titulares. No está permitida su reproducción sin autorización.",
+        "Los enlaces a servicios de terceros (por ejemplo WhatsApp o Instagram) se rigen por las políticas de esas plataformas.",
+        "Para dudas sobre estos términos escríbenos a hola@nimus.mx.",
+      ],
+    },
+    privacy: {
+      title: "Aviso de privacidad",
+      body: [
+        "En Nimus tratamos los datos que nos compartes para responder cotizaciones, dar seguimiento comercial y mejorar nuestros servicios.",
+        "Podemos recibir tu nombre, negocio, correo, teléfono y el detalle que envíes en formularios o por WhatsApp. No vendemos tus datos personales.",
+        "Usamos tu información para contactarte, preparar propuestas y dar soporte relacionado con pedidos o proyectos NFC.",
+        "Conservamos los datos el tiempo necesario para la relación comercial y obligaciones legales aplicables.",
+        "Puedes solicitar acceso, corrección o eliminación de tus datos escribiendo a hola@nimus.mx.",
+      ],
+    },
+    cookies: {
+      title: "Política de cookies",
+      body: [
+        "Este sitio usa almacenamiento local del navegador para recordar si aceptaste el aviso de cookies.",
+        "La clave utilizada es nimus-make-cookie-consent y solo guarda tu preferencia (por ejemplo, accepted). No rastrea tu actividad en otros sitios.",
+        "Si rechazas o borras esta preferencia, el aviso puede mostrarse de nuevo en tu próxima visita.",
+        "No usamos cookies de publicidad de terceros en esta landing. Si añadimos analítica en el futuro, actualizaremos esta página.",
+        "Para cualquier duda sobre privacidad o cookies, contáctanos en hola@nimus.mx.",
+      ],
+    },
   },
   loader: {
     synced: "Listo",

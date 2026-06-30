@@ -227,23 +227,40 @@ export type Dictionary = {
   };
   footer: {
     tagline: string;
-    products: string;
-    business: string;
+    sections: string;
     contact: string;
     links: {
-      tapBar: string;
-      smartLink: string;
-      smartToys: string;
-      exhibitor: string;
-      customLine: string;
-      packs: string;
-      process: string;
-      faq: string;
-      quote: string;
       whatsapp: string;
     };
     copyright: string;
-    version: string;
+    legal: {
+      terms: string;
+      privacy: string;
+      cookies: string;
+    };
+  };
+  cookies: {
+    bannerAria: string;
+    bannerMessage: string;
+    accept: string;
+    policyLink: string;
+  };
+  legal: {
+    backHome: string;
+    updatedLabel: string;
+    updatedDate: string;
+    terms: {
+      title: string;
+      body: readonly string[];
+    };
+    privacy: {
+      title: string;
+      body: readonly string[];
+    };
+    cookies: {
+      title: string;
+      body: readonly string[];
+    };
   };
   loader: {
     synced: string;

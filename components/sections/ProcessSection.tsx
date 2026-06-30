@@ -109,29 +109,33 @@ export function ProcessSection() {
       >
         <Reveal className="section-head process-stack-head">
           <div>
-            <h2>
-              {process.titleBefore}
-              <em className="process-title-rotate">
-                <RotatingText
-                  texts={[...process.titleRotatingTexts]}
-                  staggerFrom="last"
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "-120%" }}
-                  staggerDuration={0.025}
-                  splitLevelClassName="process-rotating-text__word"
-                  mainClassName="process-rotating-text"
-                  transition={{
-                    type: "spring",
-                    damping: 30,
-                    stiffness: 400,
-                    bounce: 0,
-                  }}
-                  rotationInterval={2400}
-                  animatePresenceInitial={false}
-                />
-              </em>
-              {process.titleAfter}
+            <h2 className="process-stack-title">
+              <span className="process-stack-title__lead">
+                {process.titleBefore}
+                <em className="process-title-rotate">
+                  <RotatingText
+                    texts={[...process.titleRotatingTexts]}
+                    staggerFrom="last"
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "-120%" }}
+                    staggerDuration={0.025}
+                    splitLevelClassName="process-rotating-text__word"
+                    mainClassName="process-rotating-text"
+                    transition={{
+                      type: "spring",
+                      damping: 30,
+                      stiffness: 400,
+                      bounce: 0,
+                    }}
+                    rotationInterval={2400}
+                    animatePresenceInitial={false}
+                  />
+                </em>
+              </span>
+              <span className="process-stack-title__tail">
+                {process.titleAfter.trimStart()}
+              </span>
             </h2>
           </div>
           <div className="lede">{process.lede}</div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,11 +24,26 @@ export function TopNav({
   const t = useTranslations();
   const navToolsRef = useRef<HTMLDivElement>(null);
 
+  const scrollToTop = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    window.history.replaceState(null, "", "#top");
+  }, []);
+
   return (
     <nav
       className={`topnav${dark ? " topnav--dark" : ""}${scrolled ? " is-scrolled" : ""}${onCream ? " topnav--on-cream" : ""}`}
+      data-at-cta={menuHiddenAtCta ? "true" : "false"}
     >
-      <Link href="#top" aria-label={t.nav.brandAria} className="topnav__brand">
+      <Link
+        href="#top"
+        aria-label={t.nav.brandAria}
+        className="topnav__brand"
+        onClick={scrollToTop}
+      >
         <Image
           src="/assets/nimus-logo-white.png"
           alt={t.nav.brandAlt}
@@ -46,11 +61,19 @@ export function TopNav({
             hiddenAtCta={menuHiddenAtCta}
             navToolsRef={navToolsRef}
           />
-          <LocaleToggleChip className="nav-locale-chip" />
+          <div
+            className="nav-hide-at-cta"
+            aria-hidden={menuHiddenAtCta ? true : undefined}
+          >
+            <LocaleToggleChip className="nav-locale-chip" />
+          </div>
         </div>
       </div>
 
-      <div className="topnav__actions">
+      <div
+        className="topnav__actions nav-hide-at-cta"
+        aria-hidden={menuHiddenAtCta ? true : undefined}
+      >
         <Link href="#cta" className="nav-icon-btn" aria-label={t.nav.contactAria}>
           <UserIcon width={18} height={18} aria-hidden="true" />
         </Link>

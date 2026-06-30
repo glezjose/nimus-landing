@@ -1,5 +1,6 @@
 import type { Dictionary } from "../types";
 import { clients } from "@/lib/data/clients";
+import { buildNavLinks } from "@/lib/data/nav";
 
 export const en = {
   meta: {
@@ -8,12 +9,16 @@ export const en = {
       "3D-printed pieces with NFC chips that connect your business to customers in one tap. Digital menus, keychains, and displays tailored to your brand identity.",
   },
   nav: {
-    links: [
-      { href: "#productos", label: "Products" },
-      { href: "#tapbar", label: "Tap Bar" },
-      { href: "#paquetes", label: "Packs" },
-      { href: "#preguntas", label: "FAQ" },
-    ],
+    links: buildNavLinks({
+      work: "Clients",
+      tapbar: "Tap Bar",
+      catalog: "Products",
+      process: "Process",
+      origin: "Origin Collection",
+      systems: "Systems",
+      packs: "Packs",
+      faq: "FAQ",
+    }),
     brandAria: "NIMUS",
     brandAlt: "NIMUS",
     cta: "Get a quote",
@@ -209,7 +214,7 @@ export const en = {
     process: {
       sk: "Process · 4 steps",
       titleBefore: "On your ",
-      titleRotatingTexts: ["counter", "table", "bar", "display"],
+      titleRotatingTexts: ["table", "bar", "display"],
       titleAfter: " in under a week.",
       lede:
         "Short operation, no middlemen, local production. Modeling, testing, and printing under one roof.",
@@ -472,23 +477,59 @@ export const en = {
   footer: {
     tagline:
       "3D-printed pieces with NFC chips that connect your brand to customers in one tap.",
-    products: "Products",
-    business: "Business",
+    sections: "Sections",
     contact: "Contact",
     links: {
-      tapBar: "Tap Bar NFC",
-      smartLink: "Smart Link",
-      smartToys: "Smart Toys",
-      exhibitor: "Merch Display",
-      customLine: "Custom Line",
-      packs: "Packs",
-      process: "Process",
-      faq: "FAQ",
-      quote: "Get a quote",
       whatsapp: "WhatsApp",
     },
-    copyright: "© 2026 NIMUS Make · All rights reserved",
-    version: "v 2.0 · Public landing",
+    copyright: "© 2026 Nimus · All rights reserved",
+    legal: {
+      terms: "Terms",
+      privacy: "Privacy",
+      cookies: "Cookies",
+    },
+  },
+  cookies: {
+    bannerAria: "Cookie notice",
+    bannerMessage:
+      "We use essential cookies to remember your privacy preference.",
+    accept: "Accept",
+    policyLink: "Learn more",
+  },
+  legal: {
+    backHome: "Back to home",
+    updatedLabel: "Last updated:",
+    updatedDate: "June 29, 2026",
+    terms: {
+      title: "Terms of use",
+      body: [
+        "This site presents Nimus products and services. By browsing it you agree to these terms.",
+        "Information, pricing, and timelines shown are indicative and may change without notice. A formal quote confirms scope, price, and delivery times.",
+        "Visual content, copy, 3D models, and brand assets belong to Nimus or their respective owners. Reproduction without permission is not allowed.",
+        "Links to third-party services (such as WhatsApp or Instagram) are governed by those platforms' policies.",
+        "For questions about these terms, email hola@nimus.mx.",
+      ],
+    },
+    privacy: {
+      title: "Privacy notice",
+      body: [
+        "At Nimus we process the data you share with us to respond to quotes, provide commercial follow-up, and improve our services.",
+        "We may receive your name, business, email, phone, and details you submit via forms or WhatsApp. We do not sell your personal data.",
+        "We use your information to contact you, prepare proposals, and support orders or NFC projects.",
+        "We retain data for as long as needed for the commercial relationship and applicable legal obligations.",
+        "You may request access, correction, or deletion of your data by emailing hola@nimus.mx.",
+      ],
+    },
+    cookies: {
+      title: "Cookie policy",
+      body: [
+        "This site uses browser local storage to remember whether you accepted the cookie notice.",
+        "The key used is nimus-make-cookie-consent and only stores your preference (for example, accepted). It does not track your activity on other sites.",
+        "If you clear this preference, the notice may appear again on your next visit.",
+        "We do not use third-party advertising cookies on this landing. If we add analytics in the future, we will update this page.",
+        "For privacy or cookie questions, contact hola@nimus.mx.",
+      ],
+    },
   },
   loader: {
     synced: "Ready",

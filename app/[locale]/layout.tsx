@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DictionaryProvider } from "@/components/providers/DictionaryProvider";
 import { SetHtmlLang } from "@/components/providers/SetHtmlLang";
+import { CookieConsent } from "@/components/layout/CookieConsent";
 import { SiteLoader } from "@/components/layout/SiteLoader";
 import {
   defaultLocale,
@@ -13,6 +14,7 @@ import {
 } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { siteConfig } from "@/lib/site";
+import { siteIcons } from "@/lib/site-icons";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -67,6 +69,34 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
     robots: {
       index: true,
       follow: true,
+    },
+    icons: {
+      icon: [
+        {
+          url: siteIcons.svg,
+          type: "image/svg+xml",
+        },
+        {
+          url: siteIcons.light,
+          media: "(prefers-color-scheme: light)",
+          sizes: "32x30",
+          type: "image/png",
+        },
+        {
+          url: siteIcons.dark,
+          media: "(prefers-color-scheme: dark)",
+          sizes: "32x30",
+          type: "image/png",
+        },
+      ],
+      apple: [
+        {
+          url: siteIcons.dark,
+          sizes: "180x180",
+          type: "image/png",
+        },
+      ],
+      shortcut: siteIcons.svg,
     },
   };
 }
@@ -124,6 +154,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       <SiteLoader />
       <JsonLd locale={locale} />
       {children}
+      <CookieConsent />
     </DictionaryProvider>
   );
 }
