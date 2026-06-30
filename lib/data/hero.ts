@@ -109,6 +109,10 @@ export const TRABAJOS_INTRO_ID = "trabajos-intro";
 
 export const TAPBAR_SECTION_ID = "tapbar";
 
+export const PROCESO_SECTION_ID = "proceso";
+export const ORIGEN_SECTION_ID = "origen";
+export const SISTEMAS_SECTION_ID = "sistemas";
+
 /** Clearance below the work outro cue when jumping to Tap Bar */
 export const TAPBAR_SCROLL_PAST_CUE_PADDING = 16;
 

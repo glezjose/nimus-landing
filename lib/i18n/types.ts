@@ -83,6 +83,7 @@ export type Dictionary = {
         }>;
       };
       currency: string;
+      scrollAria: string;
       items: ReadonlyArray<{
         id: string;
         name: string;
@@ -117,12 +118,21 @@ export type Dictionary = {
       titleRotatingTexts: readonly string[];
       titleAfter: string;
       lede: string;
+      scrollAria: string;
       steps: ReadonlyArray<{
         num: string;
         title: string;
         titleEmphasis: string;
         body: string;
       }>;
+    };
+    originCollection: {
+      titleBefore: string;
+      titleEmphasis: string;
+      titleAfter: string;
+      lede: string;
+      cta: string;
+      scrollAria: string;
     };
     systems: {
       sk: string;

@@ -11,25 +11,27 @@ export function SystemsSection() {
   return (
     <section className="systems-section" id="sistemas">
       <div className="systems-inner">
-        <Reveal className="section-head">
+        <Reveal className="section-head systems-section__head">
           <div>
-            <div className="sk">{systems.sk}</div>
-            <h2>
+            <h2 className="text-balance">
               {systems.titleBefore}
               <em>{systems.titleEmphasis}</em>
               {systems.titleAfter}
             </h2>
           </div>
-          <div className="lede">{systems.lede}</div>
+          <div className="lede text-pretty">{systems.lede}</div>
         </Reveal>
 
         <Reveal variant="stagger" className="systems-grid">
           {systems.items.map((sys) => (
-            <div key={sys.id} className="sys-card">
+            <div
+              key={sys.id}
+              className={`sys-card${sys.soon ? " sys-card--soon" : ""}`}
+            >
               <div className="sys-icon">
                 <SystemIcon type={sys.icon} />
               </div>
-              <h3 className="sys-name">
+              <h3 className="sys-name text-balance">
                 {sys.name}
                 <em>{sys.nameEmphasis}</em>
               </h3>

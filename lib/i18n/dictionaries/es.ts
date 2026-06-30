@@ -147,6 +147,7 @@ export const es = {
         ],
       },
       currency: "MXN",
+      scrollAria: "Ir a la sección de proceso",
       items: products,
     },
     work: {
@@ -164,7 +165,17 @@ export const es = {
       titleAfter: " en menos de una semana.",
       lede:
         "Operación corta, sin intermediarios y con producción local. Modelado, prueba e impresión bajo el mismo techo.",
+      scrollAria: "Ir a la colección Origen",
       steps: processSteps,
+    },
+    originCollection: {
+      titleBefore: "También hacemos ",
+      titleEmphasis: "lámparas",
+      titleAfter: ".",
+      lede:
+        "Objetos de luz impresos localmente, diseñados para dar ambiente a barras, mesas y rincones.",
+      cta: "Ver colección Origen",
+      scrollAria: "Ir a la sección de sistemas",
     },
     systems: {
       sk: "Sistemas digitales · complementan tu Tap Bar",
@@ -172,7 +183,7 @@ export const es = {
       titleEmphasis: "objeto físico",
       titleAfter: ".",
       lede:
-        "Si tu negocio aún no los tiene, los implementamos contigo. Tus piezas con NFC se conectan a sistemas de recompensas, reservas, propinas, reseñas y métricas — montados a la medida o integrados con lo que ya usas.",
+        "Tus piezas NFC pueden conectar reservas, reseñas y más. Los implementamos contigo, a la medida o integrados con lo que ya usas.",
       items: systems,
     },
     packs: {

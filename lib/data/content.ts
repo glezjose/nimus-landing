@@ -31,9 +31,9 @@ export const systems = [
     name: "Sistema de ",
     nameEmphasis: "recompensas",
     description:
-      "Cada toque suma puntos. El cliente acumula visitas y canjea por bebidas, descuentos o productos. Tú controlas la mecánica desde un panel simple.",
-    tag: "Disponible",
-    soon: false,
+      "Cada toque suma puntos. Tus clientes acumulan visitas y canjean bebidas, descuentos o productos desde un panel simple.",
+    tag: "Próximamente",
+    soon: true,
     icon: "star" as const,
   },
   {
@@ -41,7 +41,7 @@ export const systems = [
     name: "Reservas en ",
     nameEmphasis: "un toque",
     description:
-      "El chip lleva al cliente a tu calendario de reservas — mesa, cita o servicio. Se conecta con Calendly, Google Calendar o sistemas a la medida.",
+      "El chip abre tu calendario de mesas, citas o servicios. Compatible con Calendly, Google Calendar o desarrollo a medida.",
     tag: "Disponible",
     soon: false,
     icon: "calendar" as const,
@@ -51,7 +51,7 @@ export const systems = [
     name: "Reseñas ",
     nameEmphasis: "automáticas",
     description:
-      "El chip abre Google Reviews con la calificación pre-cargada. Una experiencia de tap → 5 estrellas en 8 segundos.",
+      "Abre Google Reviews con la calificación lista. De un toque a 5 estrellas en pocos segundos.",
     tag: "Disponible",
     soon: false,
     icon: "reviews" as const,
@@ -61,7 +61,7 @@ export const systems = [
     name: "Métricas ",
     nameEmphasis: "en vivo",
     description:
-      "Cuántos toques por chip, día, hora y destino. Saber qué funciona y dónde ajustar — toda la información sin formularios ni encuestas.",
+      "Toques por chip, día, hora y destino. Entiende qué funciona y dónde ajustar, sin formularios ni encuestas.",
     tag: "Próximamente",
     soon: true,
     icon: "chart" as const,

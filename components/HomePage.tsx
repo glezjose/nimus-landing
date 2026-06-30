@@ -8,6 +8,7 @@ import { TapBarSection } from "@/components/sections/TapBarSection";
 import { ProductsSection } from "@/components/sections/ProductsSection";
 import { WorkStripSection } from "@/components/sections/WorkStripSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
+import { OriginCollectionSection } from "@/components/sections/OriginCollectionSection";
 import { SystemsSection } from "@/components/sections/SystemsSection";
 import { PacksSection } from "@/components/sections/PacksSection";
 import { NumbersSection } from "@/components/sections/NumbersSection";
@@ -48,6 +49,7 @@ export function HomePage() {
         <TapBarSection />
         <ProductsSection />
         <ProcessSection />
+        <OriginCollectionSection />
         <SystemsSection />
         <PacksSection />
         <NumbersSection />

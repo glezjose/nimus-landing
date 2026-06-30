@@ -188,6 +188,7 @@ export const en = {
           placeholder: "Exclusive piece photo",
         },
       ],
+      scrollAria: "Go to process section",
     },
     work: {
       title: "For brands that care about their customers.",
@@ -204,6 +205,7 @@ export const en = {
       titleAfter: " in under a week.",
       lede:
         "Short operation, no middlemen, local production. Modeling, testing, and printing under one roof.",
+      scrollAria: "Go to Origin collection",
       steps: [
         {
           num: "1.",
@@ -231,22 +233,31 @@ export const en = {
         },
       ],
     },
+    originCollection: {
+      titleBefore: "We also make ",
+      titleEmphasis: "lamps",
+      titleAfter: ".",
+      lede:
+        "Locally printed light objects, designed to bring atmosphere to bars, tables, and corners.",
+      cta: "See Origin collection",
+      scrollAria: "Go to digital systems section",
+    },
     systems: {
       sk: "Digital systems · complement your Tap Bar",
       titleBefore: "Beyond the ",
       titleEmphasis: "physical object",
       titleAfter: ".",
       lede:
-        "If your business doesn't have them yet, we implement them with you. Your NFC pieces connect to rewards, bookings, tips, reviews, and metrics — custom-built or integrated with what you already use.",
+        "Your NFC pieces can connect bookings, reviews, and more. We implement them with you, custom-built or integrated with what you already use.",
       items: [
         {
           id: "rewards",
           name: "Rewards ",
           nameEmphasis: "system",
           description:
-            "Every tap earns points. Customers accumulate visits and redeem drinks, discounts, or products. You control the mechanics from a simple dashboard.",
-          tag: "Available",
-          soon: false,
+            "Every tap earns points. Customers collect visits and redeem drinks, discounts, or products from a simple dashboard.",
+          tag: "Coming soon",
+          soon: true,
           icon: "star" as const,
         },
         {
@@ -254,7 +265,7 @@ export const en = {
           name: "Bookings in ",
           nameEmphasis: "one tap",
           description:
-            "The chip takes customers to your booking calendar — table, appointment, or service. Connects with Calendly, Google Calendar, or custom systems.",
+            "The chip opens your table, appointment, or service calendar. Works with Calendly, Google Calendar, or custom builds.",
           tag: "Available",
           soon: false,
           icon: "calendar" as const,
@@ -264,7 +275,7 @@ export const en = {
           name: "Automatic ",
           nameEmphasis: "reviews",
           description:
-            "The chip opens Google Reviews with the rating pre-loaded. A tap → 5 stars in 8 seconds.",
+            "Opens Google Reviews with the rating ready. From one tap to 5 stars in seconds.",
           tag: "Available",
           soon: false,
           icon: "reviews" as const,
@@ -274,7 +285,7 @@ export const en = {
           name: "Live ",
           nameEmphasis: "metrics",
           description:
-            "Taps per chip, day, hour, and destination. See what works and where to adjust — all without forms or surveys.",
+            "Taps per chip, day, hour, and destination. See what works and where to adjust, without forms or surveys.",
           tag: "Coming soon",
           soon: true,
           icon: "chart" as const,

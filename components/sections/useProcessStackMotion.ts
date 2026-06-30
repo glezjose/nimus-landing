@@ -2,20 +2,31 @@
 
 import { useEffect, useState } from "react";
 
+const MOBILE_STACK_QUERY = "(max-width: 980px)";
+
 /**
- * Enables the scroll-stack animation unless the user prefers reduced motion.
- * Works on both desktop and mobile since the stack uses native window scroll
- * (no nested scroller, no Lenis) and therefore never traps the page scroll.
+ * Enables the scroll-stack animation on desktop only.
+ * Mobile uses the static card list — the stack effect is unreliable on small screens.
  */
 export function useProcessStackMotion() {
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setEnabled(!query.matches);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobile = window.matchMedia(MOBILE_STACK_QUERY);
+
+    const update = () => {
+      setEnabled(!reducedMotion.matches && !mobile.matches);
+    };
+
     update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
+    reducedMotion.addEventListener("change", update);
+    mobile.addEventListener("change", update);
+
+    return () => {
+      reducedMotion.removeEventListener("change", update);
+      mobile.removeEventListener("change", update);
+    };
   }, []);
 
   return enabled;

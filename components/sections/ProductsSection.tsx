@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FeaturePreviewCard } from "@/components/sections/FeaturePreviewCard";
+import { SectionScrollCue } from "@/components/sections/SectionScrollCue";
 import { Reveal } from "@/components/ui/Reveal";
 import { FeatureTitleEmphasis } from "@/components/ui/FeatureTitleEmphasis";
 import { PhotoPlaceholder } from "@/components/ui/Icons";
@@ -16,6 +17,7 @@ import {
   tapboardOptionModels,
   tapboardOptionPreviewImages,
 } from "@/lib/data/tapbar-options";
+import { PROCESO_SECTION_ID } from "@/lib/data/hero";
 
 export function ProductsSection() {
   const t = useTranslations();
@@ -81,7 +83,7 @@ export function ProductsSection() {
         </Reveal>
       </section>
 
-      <section className="section product-catalog-section" id="product-catalog">
+      <section className="section product-catalog-section section--has-scroll-cue" id="product-catalog">
         <Reveal className="product-catalog-intro">
           <h2 className="product-catalog-title">
             {products.titleBefore}
@@ -113,6 +115,13 @@ export function ProductsSection() {
             </Link>
           ))}
         </Reveal>
+
+        <div className="section-scroll-slot">
+          <SectionScrollCue
+            targetId={PROCESO_SECTION_ID}
+            ariaLabel={products.scrollAria}
+          />
+        </div>
       </section>
     </>
   );

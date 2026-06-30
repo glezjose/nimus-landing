@@ -7,7 +7,8 @@ import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslations } from "@/components/providers/DictionaryProvider";
 import { useProcessStackMotion } from "@/components/sections/useProcessStackMotion";
-import { useCoarsePointer } from "@/components/sections/useCoarsePointer";
+import { SectionScrollCue } from "@/components/sections/SectionScrollCue";
+import { ORIGEN_SECTION_ID } from "@/lib/data/hero";
 
 /** Breathing room between the pinned header and the locked card stack. */
 const STACK_GAP = 36;
@@ -69,7 +70,6 @@ export function ProcessSection() {
   const t = useTranslations();
   const { process } = t.sections;
   const stackMotion = useProcessStackMotion();
-  const isMobile = useCoarsePointer();
   const [stackTopPx, setStackTopPx] = useState<number | null>(null);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ export function ProcessSection() {
   }, [stackMotion]);
 
   return (
-    <section className="section dark section-process">
+    <section className="section dark section-process section--has-scroll-cue">
       <div
         id="proceso"
         className="section section-narrow section-process__shell"
@@ -141,16 +141,15 @@ export function ProcessSection() {
           <ScrollStack
             useWindowScroll
             useLenis={false}
-            snapToPixels={isMobile}
             className="process-scroll-stack"
             innerClassName="process-scroll-stack__inner"
-            itemDistance={isMobile ? 130 : 170}
-            itemStackDistance={isMobile ? 18 : 26}
+            itemDistance={170}
+            itemStackDistance={26}
             stackPosition={`${stackTopPx}px`}
-            scaleEndPosition={`${Math.max(stackTopPx - (isMobile ? 80 : 120), 48)}px`}
-            baseScale={isMobile ? 0.94 : 0.9}
-            itemScale={isMobile ? 0.02 : 0.035}
-            blurAmount={isMobile ? 0 : 2.5}
+            scaleEndPosition={`${Math.max(stackTopPx - 120, 48)}px`}
+            baseScale={0.9}
+            itemScale={0.035}
+            blurAmount={2.5}
           >
             {process.steps.map((step, index) => (
               <ScrollStackItem
@@ -170,6 +169,13 @@ export function ProcessSection() {
             ))}
           </div>
         )}
+      </div>
+
+      <div className="section-scroll-slot">
+        <SectionScrollCue
+          targetId={ORIGEN_SECTION_ID}
+          ariaLabel={process.scrollAria}
+        />
       </div>
     </section>
   );

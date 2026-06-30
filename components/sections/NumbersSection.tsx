@@ -11,7 +11,6 @@ export function NumbersSection() {
     <section className="section" id="numeros" style={{ paddingTop: 0 }}>
       <Reveal className="section-head">
         <div>
-          <div className="sk">{numbers.sk}</div>
           <h2>
             {numbers.titleBefore}
             <em>{numbers.titleEmphasis}</em>

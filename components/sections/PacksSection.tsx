@@ -12,7 +12,6 @@ export function PacksSection() {
     <section className="section" id="paquetes">
       <Reveal className="section-head">
         <div>
-          <div className="sk">{packs.sk}</div>
           <h2>
             {packs.titleBefore}
             <em>{packs.titleEmphasis}</em>
